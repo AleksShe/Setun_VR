@@ -12,18 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0af2b1e4317e2fa45ae6121df5380749, type: 3}
   m_Name: AosSDKSettings
   m_EditorClassIdentifier: 
-  launchMode: 1
+  launchMode: 0
   socketPort: 8080
   vrMovementType: 0
   locomotionMovementSpeed: 1
   vrHeadCollisionType: 0
-  desktopMovementType: 0
+  desktopMovementType: 2
   teleportArcOffset: {x: 0, y: -0.2, z: 0}
   walkSpeed: 4
   runSpeed: 8
   jumpSpeed: 8
   gravity: 20
-  mouseLookSpeed: 0.35
+  mouseLookSpeed: 0.1
   mouseLookXLimit: 80
   crossHairSizeMultiplier: 1
   vrInteractDistance: 0.6
