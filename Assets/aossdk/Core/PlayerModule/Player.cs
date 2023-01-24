@@ -62,14 +62,14 @@ namespace AosSdk.Core.PlayerModule
 
         private void OnSceneChanged(Scene scene, LoadSceneMode mode)
         {
-            var spawnPoint = FindObjectsOfType<PlayerSpawnPoint>();
-            if (spawnPoint.Length == 0)
-            {
-                Debug.LogError("AOS SDK: No spawn point found on scene!");
-                return;
-            }
+            //var spawnPoint = FindObjectsOfType<PlayerSpawnPoint>();
+            //if (spawnPoint.Length == 0)
+            //{
+            //    Debug.LogError("AOS SDK: No spawn point found on scene!");
+            //    return;
+            //}
 
-            TeleportTo(spawnPoint[0].transform);
+            //TeleportTo(spawnPoint[0].transform);
         }
 
         public CursorLockMode CursorLockMode { get; set; }
