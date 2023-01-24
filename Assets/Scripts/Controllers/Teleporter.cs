@@ -20,7 +20,7 @@ public class Teleporter : MonoBehaviour
     private string _previousLocation;
     private void Start()
     {
-        Teleport("machine_hall");
+        Teleport("dnc_hall");
     }
     public void Teleport(string locationName)
     {
