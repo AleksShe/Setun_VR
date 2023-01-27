@@ -18,7 +18,10 @@ public class Teleporter : MonoBehaviour
     public UnityAction<string> OnTeleportEnd;
 
     private string _previousLocation;
-
+    private void Start()
+    {
+        Teleport("shn_hall");
+    }
     public void Teleport(string locationName)
     {
         OnTeleportEnd?.Invoke(locationName);
