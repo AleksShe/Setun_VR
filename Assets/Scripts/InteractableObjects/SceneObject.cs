@@ -58,7 +58,8 @@ public class SceneObject : BaseObject
 
     protected void EnableOutlines(bool value)
     {
-        if (OutlineObjects != null)
+        if (OutlineObjects == null)
+            return;
             foreach (var outline in OutlineObjects)
             {
                 if (outline != null)
