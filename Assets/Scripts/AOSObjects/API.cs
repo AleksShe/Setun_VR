@@ -53,12 +53,14 @@ public class API : AosObjectBase
 
     public void Teleport([AosParameter("Задать локацию для перемещения")] string location)
     {
+        Debug.Log("in teleport");
         OnSetTeleportLocation?.Invoke(location);
         EndTween?.Invoke(location);
     }
     [AosAction(name: "Задать текст приветствия")]
     public void showWelcome(JObject info, JObject nav)
     {
+        Debug.Log("in show welcome");
         string headerText = info.SelectToken("name").ToString();
         string commentText = info.SelectToken("text").ToString();
         string buttonText = nav.SelectToken("ok").SelectToken("caption").ToString();
