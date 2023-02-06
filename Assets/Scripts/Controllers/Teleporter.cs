@@ -22,7 +22,6 @@ public class Teleporter : MonoBehaviour
 
     private Vector3 _currentPlayerPosition = new Vector3();
     private string _previousLocation;
-
     
     public void Teleport(string locationName)
     {
@@ -83,7 +82,6 @@ public class Teleporter : MonoBehaviour
 
     private void TeleportPlayer(Transform newPosition)
     {
-        _cameraFadeIn.FadeStart = true;
         _cameraFadeIn.StartFade();
         Player.Instance.TeleportTo(newPosition);
     }
@@ -91,9 +89,7 @@ public class Teleporter : MonoBehaviour
     {
         if (!CanTeleport)
             return;
-        _cameraFadeIn.FadeStart = true;
         _cameraFadeIn.StartFade();
         Player.Instance.TeleportTo(newPos);
     }
-
 }

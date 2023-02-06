@@ -130,6 +130,7 @@ public class APIEventsInvoker : MonoBehaviour
     private void OnActivaneBackButton(string actionName)
     {
         InstanceHandler.Instance.BackButtonsActivator.ActionToInvoke = actionName;
+        InstanceHandler.Instance.BackButtonsActivator.EnableCurrentBackButton(true);
     }
     private void OnAddButtonToMeasureButtonsList(string buttonName)
     {

@@ -53,9 +53,9 @@ public class API : AosObjectBase
 
     public void Teleport([AosParameter("Задать локацию для перемещения")] string location)
     {
-        Debug.Log("in teleport");
         OnSetTeleportLocation?.Invoke(location);
         EndTween?.Invoke(location);
+        Debug.Log(location + "From teleport");
     }
     [AosAction(name: "Задать текст приветствия")]
     public void showWelcome(JObject info, JObject nav)
@@ -99,6 +99,7 @@ public class API : AosObjectBase
             if (temp != null)
             {
                 OnActivateByName?.Invoke(temp.ToString(), item.SelectToken("name").ToString());
+                Debug.Log(temp.ToString() + " ТЭГ " + item.SelectToken("name").ToString() + "Имя");
             }
         }
         if (nav.SelectToken("back") != null && nav.SelectToken("back").SelectToken("action") != null && nav.SelectToken("back").SelectToken("action").ToString() != String.Empty)

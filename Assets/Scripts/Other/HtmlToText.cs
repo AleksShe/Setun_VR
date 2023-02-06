@@ -15,6 +15,8 @@ public class HtmlToText : MonoBehaviour
     }
     public string HTMLToTextReplace(string HTMLCode)
     {
+        if (HTMLCode == null)
+            return null;
         // Remove new lines since they are not visible in HTML
         HTMLCode = HTMLCode.Replace("\n", " ");
         // Remove tab spaces

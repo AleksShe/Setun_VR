@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class SceneObject : BaseObject
 {
-    public bool Button;
+    public bool NonAOS;
 
     [SerializeField] protected Transform HelperPos;
     [SerializeField] protected OutlineCore[] OutlineObjects;
@@ -14,11 +14,9 @@ public class SceneObject : BaseObject
     protected string HelperName;
     protected void Start()
     {
-        if (!Button)
+        if (!NonAOS)
         {
-            var collider = gameObject.GetComponent<Collider>();
-            if (collider != null)
-                collider.enabled = false;
+            EnableObject(false);
             InstanceHandler.Instance.AOSColliderActivator.AddSceneObject(this);
             SceneAOSObject = GetComponent<SceneAosObject>();
         }
@@ -30,7 +28,6 @@ public class SceneObject : BaseObject
             InstanceHandler.Instance.ObjectsInfoWindow.SetPosition(HelperPos);
             InstanceHandler.Instance.ObjectsInfoWindow.ShowWindowWithText(HelperName);
         }
-         
         EnableOutlines(true);
      }
     public override void OnHoverOut(InteractHand interactHand)
@@ -55,11 +52,9 @@ public class SceneObject : BaseObject
             return SceneAOSObject.ObjectId;
         else return null;
     }
-
     protected void EnableOutlines(bool value)
     {
-        if (OutlineObjects == null)
-            return;
+        if (OutlineObjects != null)
             foreach (var outline in OutlineObjects)
             {
                 if (outline != null)

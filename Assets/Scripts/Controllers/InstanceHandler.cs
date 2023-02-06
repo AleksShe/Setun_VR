@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro.EditorUtilities;
 using UnityEngine;
 
 public class InstanceHandler : MonoBehaviour
 {
     public static InstanceHandler Instance;
     public SceneAosObject SceneAosObject { get; set; }
+    public ObjectWithAnimation PlaceAnimationObject { get; set; }
 
     [SerializeField] private AOSColliderActivator _aosColliderActivator;
     [SerializeField] private BackButtonsActivator _backButtonsActivator;

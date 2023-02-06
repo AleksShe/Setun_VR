@@ -10,9 +10,7 @@ public class MovingButtonsController : MonoBehaviour
     [HideInInspector] public string ObjectName { get; set; }
 
     public SceneObject CurrentBaseObject { get; set; }
-
-    //private IScriptableAnimationObject _tempRepairableObject;
-    //private IScriptableAnimationObject _tempPushableObject;
+    public IHandObject HandObject { get; set; }
 
     [SerializeField] private GameObject _eyeButton;
     [SerializeField] private GameObject _toolButton;
@@ -20,7 +18,10 @@ public class MovingButtonsController : MonoBehaviour
     [SerializeField] private GameObject _handButton;
     [SerializeField] private GameObject _handButton_1;
     [SerializeField] private GameObject _handButton_2;
+    [SerializeField] private GameObject _handButton_3;
+    [SerializeField] private GameObject _handButton_4;
     [SerializeField] private GameObject _penButton;
+    [SerializeField] private GameObject _penButton_1;
 
     public void SetCurrentBaseObjectAndMovingButtonsPosition(Vector3 position, SceneObject obj)
     {
@@ -52,9 +53,21 @@ public class MovingButtonsController : MonoBehaviour
     {
         _handButton_2.SetActive(true);
     }
+    public void ShowHand3Button()
+    {
+        _handButton_3.SetActive(true);
+    }
+    public void ShowHand4Button()
+    {
+        _handButton_4.SetActive(true);
+    }
     public void ShowPenButton()
     {
         _penButton.SetActive(true);
+    }
+    public void ShowPen1Button()
+    {
+        _penButton_1.SetActive(true);
     }
     public void HideAllButtons()
     {
@@ -63,7 +76,10 @@ public class MovingButtonsController : MonoBehaviour
         _handButton.SetActive(false);
         _handButton_1.SetActive(false);
         _handButton_2.SetActive(false);
+        _handButton_3.SetActive(false);
+        _handButton_4.SetActive(false);
         _penButton.SetActive(false);
+        _penButton_1.SetActive(false);
         _toolButton_1.SetActive(false);
         ButtonsPositionChanged?.Invoke();
     }
@@ -97,10 +113,30 @@ public class MovingButtonsController : MonoBehaviour
         _handButton_2.TryGetComponent(out MovingButton movingButton);
         movingButton.SetActionText(HtmlToText.Instance.HTMLToTextReplace(text));
     }
+    public void SetHand3ButtonText(string text)
+    {
+        _handButton_3.TryGetComponent(out MovingButton movingButton);
+        movingButton.SetActionText(HtmlToText.Instance.HTMLToTextReplace(text));
+    }
+    public void SetHand4ButtonText(string text)
+    {
+        _handButton_4.TryGetComponent(out MovingButton movingButton);
+        movingButton.SetActionText(HtmlToText.Instance.HTMLToTextReplace(text));
+    }
     public void SetPenButtonText(string text)
     {
         _penButton.TryGetComponent(out MovingButton movingButton);
         movingButton.SetActionText(HtmlToText.Instance.HTMLToTextReplace(text));
+    }
+    public void SetPen1ButtonText(string text)
+    {
+        _penButton_1.TryGetComponent(out MovingButton movingButton);
+        movingButton.SetActionText(HtmlToText.Instance.HTMLToTextReplace(text));
+    }
+    public void StartHandAction()
+    {
+        if (HandObject != null)
+            HandObject.HandAction();
     }
     //public void SetToolObject(RepairableObject obj)
     //{

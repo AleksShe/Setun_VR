@@ -5,12 +5,12 @@ using TMPro;
 
 public class MovingTextWindow : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI _textMesh;
+    [SerializeField]private TextMeshProUGUI _textMesh;
     [SerializeField] private GameObject _canvasObject;
 
     private string _text;
     private Transform _helperPos;
-    private float _timer = 0.3f;
+    private float _timer = 0.2f;
 
     public void SetPosition(Transform newPos)
     {
@@ -18,7 +18,7 @@ public class MovingTextWindow : MonoBehaviour
     }
     public void ShowWindowWithText(string text)
     {
-        _text = HtmlToText.Instance.HTMLToTextReplace(text);
+       _text = HtmlToText.Instance.HTMLToTextReplace(text);
         StartCoroutine("GetHelpName");
     }
     public void HidetextHelper()
