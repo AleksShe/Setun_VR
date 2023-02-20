@@ -167,7 +167,20 @@ public class API : AosObjectBase
                 return;
             if (item.SelectToken("tool") != null && item.SelectToken("name") != null)
             {
+                Debug.Log(item.SelectToken("tool").ToString() + " API Show points");
                 if (item.SelectToken("tool").ToString() == "eye")
+                {
+                    string eye = item.SelectToken("tool").ToString();
+                    string text = item.SelectToken("name").ToString();
+                    OnEnableMovingButton?.Invoke(eye, text);
+                }
+                if (item.SelectToken("tool").ToString() == "eye_1")
+                {
+                    string eye = item.SelectToken("tool").ToString();
+                    string text = item.SelectToken("name").ToString();
+                    OnEnableMovingButton?.Invoke(eye, text);
+                }
+                if (item.SelectToken("tool").ToString() == "eye_2")
                 {
                     string eye = item.SelectToken("tool").ToString();
                     string text = item.SelectToken("name").ToString();
@@ -179,11 +192,53 @@ public class API : AosObjectBase
                     string text = item.SelectToken("name").ToString();
                     OnEnableMovingButton?.Invoke(hand, text);
                 }
+                if (item.SelectToken("tool").ToString() == "hand_1")
+                {
+                    string hand = item.SelectToken("tool").ToString();
+                    string text = item.SelectToken("name").ToString();
+                    OnEnableMovingButton?.Invoke(hand, text);
+                }
+                if (item.SelectToken("tool").ToString() == "hand_2")
+                {
+                    string hand = item.SelectToken("tool").ToString();
+                    string text = item.SelectToken("name").ToString();
+                    OnEnableMovingButton?.Invoke(hand, text);
+                }
+                if (item.SelectToken("tool").ToString() == "hand_3")
+                {
+                    string hand = item.SelectToken("tool").ToString();
+                    string text = item.SelectToken("name").ToString();
+                    OnEnableMovingButton?.Invoke(hand, text);
+                }
+                if (item.SelectToken("tool").ToString() == "hand_4")
+                {
+                    string hand = item.SelectToken("tool").ToString();
+                    string text = item.SelectToken("name").ToString();
+                    OnEnableMovingButton?.Invoke(hand, text);
+                }
                 if (item.SelectToken("tool").ToString() == "tool")
                 {
                     string tool = item.SelectToken("tool").ToString();
                     string text = item.SelectToken("name").ToString();
                     OnEnableMovingButton?.Invoke(tool, text);
+                }
+                if (item.SelectToken("tool").ToString() == "tool_1")
+                {
+                    string tool = item.SelectToken("tool").ToString();
+                    string text = item.SelectToken("name").ToString();
+                    OnEnableMovingButton?.Invoke(tool, text);
+                }
+                if (item.SelectToken("tool").ToString() == "pen")
+                {
+                    string pen = item.SelectToken("tool").ToString();
+                    string text = item.SelectToken("name").ToString();
+                    OnEnableMovingButton?.Invoke(pen, text);
+                }
+                if (item.SelectToken("tool").ToString() == "pen_1")
+                {
+                    string pen = item.SelectToken("tool").ToString();
+                    string text = item.SelectToken("name").ToString();
+                    OnEnableMovingButton?.Invoke(pen, text);
                 }
             }
 

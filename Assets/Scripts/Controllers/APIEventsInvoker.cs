@@ -94,6 +94,16 @@ public class APIEventsInvoker : MonoBehaviour
             InstanceHandler.Instance.MovingButtonsController.ShowWatchButton();
             InstanceHandler.Instance.MovingButtonsController.SetWatchButtonText(buttonText);
         }
+        else if (buttonType == "eye_1")
+        {
+            InstanceHandler.Instance.MovingButtonsController.ShowWatch1Button();
+            InstanceHandler.Instance.MovingButtonsController.SetWatch1ButtonText(buttonText);
+        }
+        else if (buttonType == "eye_2")
+        {
+            InstanceHandler.Instance.MovingButtonsController.ShowWatch2Button();
+            InstanceHandler.Instance.MovingButtonsController.SetWatch2ButtonText(buttonText);
+        }
         else if (buttonType == "hand")
         {
             InstanceHandler.Instance.MovingButtonsController.ShowHandButton();
@@ -109,6 +119,16 @@ public class APIEventsInvoker : MonoBehaviour
             InstanceHandler.Instance.MovingButtonsController.ShowHand2Button();
             InstanceHandler.Instance.MovingButtonsController.SetHand2ButtonText(buttonText);
         }
+        else if (buttonType == "hand_3")
+        {
+            InstanceHandler.Instance.MovingButtonsController.ShowHand3Button();
+            InstanceHandler.Instance.MovingButtonsController.SetHand3ButtonText(buttonText);
+        }
+        else if (buttonType == "hand_4")
+        {
+            InstanceHandler.Instance.MovingButtonsController.ShowHand4Button();
+            InstanceHandler.Instance.MovingButtonsController.SetHand4ButtonText(buttonText);
+        }
         else if (buttonType == "tool")
         {
             InstanceHandler.Instance.MovingButtonsController.ShowToolButton();
@@ -118,6 +138,16 @@ public class APIEventsInvoker : MonoBehaviour
         {
             InstanceHandler.Instance.MovingButtonsController.ShowTool1Button();
             InstanceHandler.Instance.MovingButtonsController.SetTool1ButtonText(buttonText);
+        }
+        else if (buttonType == "pen")
+        {
+            InstanceHandler.Instance.MovingButtonsController.ShowPenButton();
+            InstanceHandler.Instance.MovingButtonsController.SetPenButtonText(buttonText);
+        }
+        else if (buttonType == "pen_1")
+        {
+            InstanceHandler.Instance.MovingButtonsController.ShowPen1Button();
+            InstanceHandler.Instance.MovingButtonsController.SetPen1ButtonText(buttonText);
         }
 
         else if (buttonType == null)

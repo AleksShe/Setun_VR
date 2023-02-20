@@ -14,6 +14,8 @@ public class MovingButtonWithAction : MovingButton
         Hand_3,
         Hand_4,
         Eye,
+        Eye_1,
+        Eye_2,
         Tool,
         Tool_1,
         Pen,
@@ -52,6 +54,14 @@ public class MovingButtonWithAction : MovingButton
         else if (_currentAction == ButtonActionName.Eye)
         {
             InstanceHandler.Instance.SceneAosObject.ActionWithObject("eye");
+        }
+        else if (_currentAction == ButtonActionName.Eye_1)
+        {
+            InstanceHandler.Instance.SceneAosObject.ActionWithObject("eye_1");
+        }
+        else if (_currentAction == ButtonActionName.Eye_2)
+        {
+            InstanceHandler.Instance.SceneAosObject.ActionWithObject("eye_2");
         }
 
         else if (_currentAction == ButtonActionName.Tool)

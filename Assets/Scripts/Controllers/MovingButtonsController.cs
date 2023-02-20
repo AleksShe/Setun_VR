@@ -13,6 +13,8 @@ public class MovingButtonsController : MonoBehaviour
     public IHandObject HandObject { get; set; }
 
     [SerializeField] private GameObject _eyeButton;
+    [SerializeField] private GameObject _eyeButton_1;
+    [SerializeField] private GameObject _eyeButton_2;
     [SerializeField] private GameObject _toolButton;
     [SerializeField] private GameObject _toolButton_1;
     [SerializeField] private GameObject _handButton;
@@ -23,6 +25,7 @@ public class MovingButtonsController : MonoBehaviour
     [SerializeField] private GameObject _penButton;
     [SerializeField] private GameObject _penButton_1;
 
+
     public void SetCurrentBaseObjectAndMovingButtonsPosition(Vector3 position, SceneObject obj)
     {
         HideAllButtons();
@@ -32,6 +35,14 @@ public class MovingButtonsController : MonoBehaviour
     public void ShowWatchButton()
     {
         _eyeButton.SetActive(true);
+    }
+    public void ShowWatch1Button()
+    {
+        _eyeButton_1.SetActive(true);
+    }
+    public void ShowWatch2Button()
+    {
+        _eyeButton_2.SetActive(true);
     }
     public void ShowToolButton()
     {
@@ -72,6 +83,8 @@ public class MovingButtonsController : MonoBehaviour
     public void HideAllButtons()
     {
         _eyeButton.SetActive(false);
+        _eyeButton_1.SetActive(false);
+        _eyeButton_2.SetActive(false);
         _toolButton.SetActive(false);
         _handButton.SetActive(false);
         _handButton_1.SetActive(false);
@@ -86,6 +99,16 @@ public class MovingButtonsController : MonoBehaviour
     public void SetWatchButtonText(string text)
     {
         _eyeButton.TryGetComponent(out MovingButton movingButton);
+        movingButton.SetActionText(HtmlToText.Instance.HTMLToTextReplace(text));
+    }
+    public void SetWatch1ButtonText(string text)
+    {
+        _eyeButton_1.TryGetComponent(out MovingButton movingButton);
+        movingButton.SetActionText(HtmlToText.Instance.HTMLToTextReplace(text));
+    }
+    public void SetWatch2ButtonText(string text)
+    {
+        _eyeButton_2.TryGetComponent(out MovingButton movingButton);
         movingButton.SetActionText(HtmlToText.Instance.HTMLToTextReplace(text));
     }
     public void SetToolButtonText(string text)
