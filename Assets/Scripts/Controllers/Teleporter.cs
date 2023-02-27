@@ -82,6 +82,8 @@ public class Teleporter : MonoBehaviour
 
     private void TeleportPlayer(Transform newPosition)
     {
+        if (!CanTeleport)
+            return;
         _cameraFadeIn.StartFade();
         Player.Instance.TeleportTo(newPosition);
     }
