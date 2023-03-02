@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class DoorAnimationObject : ObjectWithAnimation
 {
-    private bool _isOpen = false;
-    public override void PlayScriptableAnimation()
+    public override void PlayScriptableAnimationOpen()
     {
-        StartCoroutine(RotateDoor());
+        StartCoroutine(RotateDoor(true));
     }
-    private IEnumerator RotateDoor()
+    public override void PlayScriptableAnimationClose()
     {
-        if(!_isOpen)
+        StartCoroutine(RotateDoor(false));
+    }
+    private IEnumerator RotateDoor(bool value)
+    {
+        GetComponent<Collider>().enabled = false;
+        if(value)
         {
             int y = 0;
             while (y > -90)
@@ -20,9 +24,8 @@ public class DoorAnimationObject : ObjectWithAnimation
                 y--;
                 yield return new WaitForSeconds(0.01f);
             }
-            _isOpen = true;
         }
-        else if(_isOpen)
+        else if(!value)
         {
             int y = -90;
             while (y < 0)
@@ -31,7 +34,6 @@ public class DoorAnimationObject : ObjectWithAnimation
                 y++;
                 yield return new WaitForSeconds(0.01f);
             }
-            _isOpen = false;
         }
     }
 }

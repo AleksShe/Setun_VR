@@ -7,7 +7,8 @@ public class ObjectWithButton : SceneObject
 {
     [SerializeField] protected Transform _buttonsPos;
 
-    protected DisabableObject DisabableObject;
+    private ObjectWithAnimation _objectWithAnimation;
+
 
     public override void OnClicked(InteractHand interactHand)
     {
@@ -20,8 +21,12 @@ public class ObjectWithButton : SceneObject
         InstanceHandler.Instance.ReactionInfoWindow.HidetextHelper();
         InstanceHandler.Instance.MovingButtonsController.HandObject = null;
         InstanceHandler.Instance.SceneAosObject = SceneAOSObject;
-        DisabableObject = GetComponent<DisabableObject>();
-        if (DisabableObject != null)
-            InstanceHandler.Instance.MovingButtonsController.HandObject = DisabableObject;
+        _objectWithAnimation = GetComponent<ObjectWithAnimation>();
+        if (_objectWithAnimation != null)
+        {
+            _objectWithAnimation.PlayScriptableAnimationOpen();
+            InstanceHandler.Instance.AddAnimationObjectToList(_objectWithAnimation);
+        }
     }
+
 }

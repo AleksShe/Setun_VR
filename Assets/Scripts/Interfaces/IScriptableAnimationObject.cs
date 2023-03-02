@@ -1,4 +1,5 @@
 public interface IScriptableAnimationObject 
 {
-    public void PlayScriptableAnimation();
+    public void PlayScriptableAnimationOpen();
+    public void PlayScriptableAnimationClose();
 }

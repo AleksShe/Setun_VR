@@ -5,9 +5,12 @@ using UnityEngine;
 
 public class ObjectWithAnimation : MonoBehaviour, IScriptableAnimationObject
 {
-    public virtual void PlayScriptableAnimation()
+    public virtual void PlayScriptableAnimationClose()
     {
-        PlayScriptableAnimation();
+    }
+
+    public virtual void PlayScriptableAnimationOpen()
+    {   
     }
 
 }

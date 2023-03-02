@@ -18,8 +18,8 @@ public class PlaceObject : SceneObject
         _objectWithAnimation = GetComponent<ObjectWithAnimation>();
         if (_objectWithAnimation != null)
         {
-            _objectWithAnimation.PlayScriptableAnimation();
-            InstanceHandler.Instance.PlaceAnimationObject = _objectWithAnimation;
+            _objectWithAnimation.PlayScriptableAnimationOpen();
+            InstanceHandler.Instance.AddAnimationObjectToList(_objectWithAnimation);
         }
     }
 }

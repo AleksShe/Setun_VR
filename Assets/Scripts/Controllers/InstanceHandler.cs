@@ -6,7 +6,7 @@ public class InstanceHandler : MonoBehaviour
 {
     public static InstanceHandler Instance;
     public SceneAosObject SceneAosObject { get; set; }
-    public ObjectWithAnimation PlaceAnimationObject { get; set; }
+    private List<ObjectWithAnimation> _animationObjectList = new List<ObjectWithAnimation>();
 
     [SerializeField] private AOSColliderActivator _aosColliderActivator;
     [SerializeField] private BackButtonsActivator _backButtonsActivator;
@@ -37,6 +37,18 @@ public class InstanceHandler : MonoBehaviour
     public Teleporter Teleporter => _teleporter;
     public BackButtonsActivator BackButtonsActivator => _backButtonsActivator;
     public ShupPositionChanger ShupPositionChanger => _shupPositionChanger;
+    public void AddAnimationObjectToList(ObjectWithAnimation obj)
+    {
+     _animationObjectList.Add(obj);
+    }
+    public void PlayCloseAnimationForAllObjects()
+    {
+        foreach (var item in _animationObjectList)
+        {
+            item.PlayScriptableAnimationClose();
+        }
+        _animationObjectList.Clear();
+    }
     private void Awake()
     {
         if(Instance==null)

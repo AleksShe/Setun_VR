@@ -55,7 +55,6 @@ public class API : AosObjectBase
     {
         OnSetTeleportLocation?.Invoke(location);
         EndTween?.Invoke(location);
-        Debug.Log(location + "From teleport");
     }
     [AosAction(name: "Задать текст приветствия")]
     public void showWelcome(JObject info, JObject nav)
