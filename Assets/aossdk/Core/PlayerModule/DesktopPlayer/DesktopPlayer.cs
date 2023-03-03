@@ -318,8 +318,8 @@ namespace AosSdk.Core.PlayerModule.DesktopPlayer
             }
             finally
             {
-                //if (Player.Instance.CursorLockMode != CursorLockMode.Locked)
-                //{
+                if (Player.Instance.CursorLockMode != CursorLockMode.Locked)
+                {
                     _rotationX += -_mouseInput.y * Launcher.Instance.SdkSettings.mouseLookSpeed;
 
                     _rotationX = Mathf.Clamp(_rotationX, -Launcher.Instance.SdkSettings.mouseLookXLimit, Launcher.Instance.SdkSettings.mouseLookXLimit);
@@ -328,7 +328,7 @@ namespace AosSdk.Core.PlayerModule.DesktopPlayer
                         new Vector3(0, characterController.center.y + characterController.height / 2, 0);
                     _playerCameraTransform.localRotation = Quaternion.Euler(_rotationX, 0, 0);
                     transform.rotation *= Quaternion.Euler(0, _mouseInput.x * Launcher.Instance.SdkSettings.mouseLookSpeed, 0);
-                //}
+                }
             }
         }
     }
