@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class DoorAnimationObject : ObjectWithAnimation
 {
+    [SerializeField] private bool _side;
     public override void PlayScriptableAnimationOpen()
     {
         StartCoroutine(RotateDoor(true));
@@ -17,23 +18,53 @@ public class DoorAnimationObject : ObjectWithAnimation
         GetComponent<Collider>().enabled = false;
         if(value)
         {
-            int y = 0;
-            while (y > -90)
+            if(!_side)
             {
-                transform.localRotation = Quaternion.Euler(0, y, 0);
-                y--;
-                yield return new WaitForSeconds(0.01f);
+                int y = -90;
+                while (y > -180)
+                {
+                    transform.localRotation = Quaternion.Euler(0, y, 0);
+                    y--;
+                    yield return new WaitForSeconds(0.01f);
+                }
+
             }
+            else
+            {
+                int y = 90;
+                while (y > 0)
+                {
+                    transform.localRotation = Quaternion.Euler(0, y, 0);
+                    y--;
+                    yield return new WaitForSeconds(0.01f);
+                }
+
+            }
+      
         }
         else if(!value)
         {
-            int y = -90;
-            while (y < 0)
+            if(!_side)
             {
-                transform.localRotation = Quaternion.Euler(0, y, 0);
-                y++;
-                yield return new WaitForSeconds(0.01f);
+                int y = -180;
+                while (y < -90)
+                {
+                    transform.localRotation = Quaternion.Euler(0, y, 0);
+                    y++;
+                    yield return new WaitForSeconds(0.01f);
+                }
             }
+            else
+            {
+                int y =0;
+                while (y < 90)
+                {
+                    transform.localRotation = Quaternion.Euler(0, y, 0);
+                    y++;
+                    yield return new WaitForSeconds(0.01f);
+                }
+            }
+     
         }
     }
 }
