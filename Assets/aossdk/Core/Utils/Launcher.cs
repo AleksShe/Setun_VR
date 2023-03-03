@@ -76,7 +76,6 @@ namespace AosSdk.Core.Utils
 
             Debug.Log($"Launched in {SdkSettings.launchMode.ToString()} mode");
 
-          //  _webSocketWrapper.Init(new IPEndPoint(IPAddress.Parse(_webSocketIpAddress), _webSocketPort));
             _webSocketWrapper.Init(new IPEndPoint(IPAddress.Any, _webSocketPort));
 
             player.LaunchMode = SdkSettings.launchMode;
