@@ -7,6 +7,7 @@ using System.Linq;
 
 public class MainMenuCanvas : BaseCanvas
 {
+    [SerializeField] private EscButton _escButton;
     [SerializeField] private GameObject[] _allMenuScreens;
     [SerializeField] private GameObject _mainMenuScreen;
     [Space]
@@ -24,6 +25,18 @@ public class MainMenuCanvas : BaseCanvas
         }
       var screenToshow = _allMenuScreens.FirstOrDefault(s => s.name == screenName);
         screenToshow.SetActive(true);
+    }
+    private void OnEnable()
+    {
+        _escButton.OnEscClick += OnShowMenu;
+    }
+    private void OnDisable()
+    {
+        _escButton.OnEscClick -= OnShowMenu;
+    }
+    private void OnShowMenu()
+    {
+        ShowCanvasByName("MainMenu");
     }
     public void SetMenuText(string headText, string commentText, string exitSureText)
     {
