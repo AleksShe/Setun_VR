@@ -5,7 +5,7 @@ using UnityEngine;
 public class WiresObject : ToolObject
 {
     [SerializeField] private GameObject _normalWires;
-    [SerializeField] private GameObject _brokenlWires;
+    [SerializeField] private GameObject _brokenWires;
     private bool _animated = false;
     public override void PlayToolAnimation()
     {
@@ -25,7 +25,7 @@ public class WiresObject : ToolObject
                 x++;
             }
             _normalWires.SetActive(true);
-            _brokenlWires.SetActive(false);
+            _brokenWires.SetActive(false);
             yield return new WaitForSeconds(0.03f);
             while (x >= 1)
             {
