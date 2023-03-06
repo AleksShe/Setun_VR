@@ -8,6 +8,7 @@ public class ObjectWithButton : SceneObject
     [SerializeField] protected Transform _buttonsPos;
 
     private ObjectWithAnimation _objectWithAnimation;
+    private ToolObject _toolObject;
 
 
     public override void OnClicked(InteractHand interactHand)
@@ -27,6 +28,11 @@ public class ObjectWithButton : SceneObject
             _objectWithAnimation.PlayScriptableAnimationOpen();
             InstanceHandler.Instance.AddAnimationObjectToList(_objectWithAnimation);
         }
+    _toolObject = GetComponent<ToolObject>();
+        if(_toolObject!=null)
+            InstanceHandler.Instance.MovingButtonsController.ToolObject= _toolObject;
+        else
+            InstanceHandler.Instance.MovingButtonsController.ToolObject = null;
     }
 
 }

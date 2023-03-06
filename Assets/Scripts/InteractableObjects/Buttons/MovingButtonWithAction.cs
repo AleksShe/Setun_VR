@@ -67,7 +67,7 @@ public class MovingButtonWithAction : MovingButton
         else if (_currentAction == ButtonActionName.Tool)
         {
             InstanceHandler.Instance.SceneAosObject.ActionWithObject("tool");
-            //InstanceHandler.Instance.MovingButtonsController.PlayToolAnimation();
+            InstanceHandler.Instance.MovingButtonsController.PlayToolAnimation();
         }
         else if (_currentAction == ButtonActionName.Tool_1)
         {
