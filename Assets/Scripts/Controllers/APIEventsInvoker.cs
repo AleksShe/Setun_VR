@@ -12,7 +12,6 @@ public class APIEventsInvoker : MonoBehaviour
         _connectionChecker.OnConnectionReady += OnSetLocationAfterConnection;
         _api.OnShowPlace += OnDeactivateColliders;
         _api.OnReaction += OnShowReactionWindow;
-        _api.OnPhoneReaction += OnShowPhoneReactionText;
         _api.OnResetMeasureButtons += OnResetMesaureButtons;
         _api.OnSetTeleportLocation += OnSetLoationToTeleport;
         _api.OnSetNewLocationText += OnSetLocationTextToLocationController;
@@ -37,7 +36,6 @@ public class APIEventsInvoker : MonoBehaviour
         _connectionChecker.OnConnectionReady -= OnSetLocationAfterConnection;
         _api.OnShowPlace -= OnDeactivateColliders;
         _api.OnReaction -= OnShowReactionWindow;
-        _api.OnPhoneReaction -= OnShowPhoneReactionText;
         _api.OnResetMeasureButtons -= OnResetMesaureButtons;
         _api.OnSetTeleportLocation -= OnSetLoationToTeleport;
         _api.OnSetNewLocationText -= OnSetLocationTextToLocationController;
@@ -63,7 +61,7 @@ public class APIEventsInvoker : MonoBehaviour
     }
     private void OnShowPhoneReactionText(string text)
     {
-        InstanceHandler.Instance.PhoneCanvas.ShowDialogCanvas(text);
+     
     }
     private void OnResetMesaureButtons()
     {
@@ -71,6 +69,10 @@ public class APIEventsInvoker : MonoBehaviour
     }
     private void OnShowReactionWindow(string reactionText)
     {
+        var locationName = InstanceHandler.Instance.LocationController.GetLocationName;
+        if (locationName=="phone")
+            InstanceHandler.Instance.PhoneCanvas.ShowDialogCanvas(reactionText);
+        else
         InstanceHandler.Instance.ReactionInfoWindow.ShowWindowWithText(reactionText);
     }
     private void OnSetLoationToTeleport(string location)
