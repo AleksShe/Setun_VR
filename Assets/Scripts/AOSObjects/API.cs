@@ -30,6 +30,7 @@ public class API : AosObjectBase
     public UnityAction<string> OnSetTimerText;
     public UnityAction<string> OnAddMeasureButton;
     public UnityAction<string> OnReaction;
+    public UnityAction<string> OnPhoneReaction;
     public UnityAction<string, string> OnEnableMovingButton;
     public UnityAction<string, string> OnActivateByName;
     public UnityAction<string, string> OnSetMessageText;
@@ -136,7 +137,12 @@ public class API : AosObjectBase
         if (info.SelectToken("text") != null)
         {
             var reactionText = info.SelectToken("text").ToString();
-            OnReaction?.Invoke(reactionText);
+            var tempPlaceName = InstanceHandler.Instance.LocationController.GetLocationName;
+            if (tempPlaceName == "phone"|| tempPlaceName == "t_phone_t_call_shn")          //Setun only
+                OnPhoneReaction?.Invoke(reactionText);
+            else
+                OnReaction?.Invoke(reactionText);
+            Debug.Log(tempPlaceName + " Current Place");
         }
     }
 

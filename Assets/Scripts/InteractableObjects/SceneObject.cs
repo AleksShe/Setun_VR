@@ -3,6 +3,7 @@ using AosSdk.Core.Interaction.Interfaces;
 using AosSdk.Core.Utils;
 using AosSdk.Core.PlayerModule.Pointer;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SceneObject : BaseObject
 {
@@ -41,8 +42,10 @@ public class SceneObject : BaseObject
             GetComponent<Collider>().enabled = value;
         if (GetComponent<SpriteRenderer>() != null)
             GetComponent<SpriteRenderer>().enabled = value;
+        if (GetComponent<Image>() != null) 
+            GetComponent<Image>().enabled = value;
     }
-    public void SetHelperName(string value)
+    public virtual void SetHelperName(string value)
     {
         HelperName = value;
     }
