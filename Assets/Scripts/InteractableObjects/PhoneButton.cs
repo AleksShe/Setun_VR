@@ -1,3 +1,4 @@
+using AosSdk.Core.PlayerModule.Pointer;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -8,6 +9,11 @@ public class PhoneButton : BaseButton
     [SerializeField] private TextMeshProUGUI _buttonText;
 
 
+    public override void OnClicked(InteractHand interactHand)
+    {
+        base.OnClicked(interactHand);
+        InstanceHandler.Instance.BackButtonsActivator.EnableCurrentBackButton(false);
+    }
     public override void SetHelperName(string value)
     {
         _buttonText.text = value;

@@ -6,7 +6,9 @@ using UnityEngine.UI;
 public class PhoneCanvasEnable : MonoBehaviour
 {
     [SerializeField] private BackButton _backButton;
+    [SerializeField] private BackButton _backFromPhoneButton;
     [SerializeField] private PhoneObjectWithButton _phoneObject;
+    [SerializeField] private PhoneObjectWithButton _phoneButtonObject;
     [SerializeField] private BackButton _prevousbackButton;
     private Canvas _canvas;
 
@@ -19,11 +21,21 @@ public class PhoneCanvasEnable : MonoBehaviour
     {
         _backButton.OnBackButtonClick += OnHideCanvas;
         _phoneObject.OnClickPhoneObject += OnShowCanvas;
+        _phoneButtonObject.OnClickPhoneObject += OnShowCanvas;
+        _backFromPhoneButton.OnBackButtonClick += OnHideCanvasInCanvas;
     }
     private void OnDisable()
     {
         _backButton.OnBackButtonClick -= OnHideCanvas;
         _phoneObject.OnClickPhoneObject -= OnShowCanvas;
+        _phoneButtonObject.OnClickPhoneObject -= OnShowCanvas;
+        _backFromPhoneButton.OnBackButtonClick -= OnHideCanvasInCanvas;
+    }
+    private void OnHideCanvasInCanvas()
+    {
+        InstanceHandler.Instance.BackButtonsActivator.EnableCurrentBackButton(false);
+        InstanceHandler.Instance.BackButtonsActivator.SetCurrentBackButton(_backButton);
+        InstanceHandler.Instance.BackButtonsActivator.EnableCurrentBackButton(true);
     }
 
     private void OnHideCanvas()

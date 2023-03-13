@@ -10,5 +10,6 @@ public class BackFromDialogButton : BaseButton
     public override void OnClicked(InteractHand interactHand)
     {
         OnCkickBackDialog?.Invoke();
+        InstanceHandler.Instance.BackButtonsActivator.EnableCurrentBackButton(true);
     }
 }

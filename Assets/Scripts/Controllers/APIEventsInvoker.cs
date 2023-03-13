@@ -70,10 +70,11 @@ public class APIEventsInvoker : MonoBehaviour
     private void OnShowReactionWindow(string reactionText)
     {
         var locationName = InstanceHandler.Instance.LocationController.GetLocationName;
-        if (locationName=="phone")
+        if (locationName=="phone"|| locationName == "call_shn")
             InstanceHandler.Instance.PhoneCanvas.ShowDialogCanvas(reactionText);
         else
         InstanceHandler.Instance.ReactionInfoWindow.ShowWindowWithText(reactionText);
+        
     }
     private void OnSetLoationToTeleport(string location)
     {

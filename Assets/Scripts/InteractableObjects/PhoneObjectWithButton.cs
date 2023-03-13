@@ -8,7 +8,6 @@ public class PhoneObjectWithButton : ObjectWithButton
 {
     public UnityAction OnClickPhoneObject;
     [SerializeField] private BackButton _backButton;
-    [SerializeField] private BackButton _previousBackButton;
     public override void OnClicked(InteractHand interactHand)
     {
         base.OnClicked(interactHand);
