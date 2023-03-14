@@ -29,4 +29,5 @@ public class AOSColliderActivator : MonoBehaviour
             sceneObject.EnableObject(false);
         }
     }
+
 }

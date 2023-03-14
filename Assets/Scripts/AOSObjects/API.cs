@@ -100,7 +100,21 @@ public class API : AosObjectBase
                 OnActivateByName?.Invoke(temp.ToString(), item.SelectToken("name").ToString());
                 Debug.Log(temp.ToString() + " ÒÝÃ " + item.SelectToken("name").ToString() + "Èìÿ");
             }
+            if (item.SelectToken("view") != null)
+            {
+                var aosObjectWithImage = item.SelectToken("view");
+                if (aosObjectWithImage != null)
+                {
+
+                    if (aosObjectWithImage.SelectToken("apiId") != null)
+                    {
+                        string name = aosObjectWithImage.SelectToken("apiId").ToString();
+                        OnActivateByName?.Invoke(name,"");
+                    }
+                }
+            }
         }
+
         if (nav.SelectToken("back") != null && nav.SelectToken("back").SelectToken("action") != null && nav.SelectToken("back").SelectToken("action").ToString() != String.Empty)
         {
             OnActivateBackButton?.Invoke(nav.SelectToken("back").SelectToken("action").ToString());
