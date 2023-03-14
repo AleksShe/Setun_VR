@@ -12,7 +12,8 @@ public class PhoneButton : BaseButton
     public override void OnClicked(InteractHand interactHand)
     {
         base.OnClicked(interactHand);
-        InstanceHandler.Instance.BackButtonsActivator.EnableCurrentBackButton(false);
+     
+
     }
     public override void SetHelperName(string value)
     {
