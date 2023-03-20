@@ -13,7 +13,7 @@ public class SceneObject : BaseObject
     [SerializeField] protected OutlineCore[] OutlineObjects;
 
     protected string HelperName;
-    protected void Start()
+    protected  void Start()
     {
         if (!NonAOS)
         {
