@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HandObjectWithAnimation : MonoBehaviour, IHandObject
 {
-    private Animator _anim;
+    [SerializeField]private Animator _anim;
     private void Start()
     {
         _anim = GetComponent<Animator>();
