@@ -11,10 +11,10 @@ public class HandObjectWithAnimation : MonoBehaviour, IHandObject
     }
     public void HandAction()
     {
-        _anim.SetTrigger("hand");
+        _anim.SetTrigger("Hand");
     }
     public void PlayBrokenAnimation()
     {
-        _anim.SetTrigger("broke");
+        _anim.SetTrigger("Broke");
     }
 }
