@@ -151,6 +151,7 @@ public class API : AosObjectBase
         {
             var reactionText = info.SelectToken("text").ToString();
                 OnReaction?.Invoke(reactionText);
+            Debug.Log(reactionText+ "Reaction");
         }
     }
 

@@ -14,6 +14,7 @@ public class MovingButton : BaseButton
         {
             InstanceHandler.Instance.ObjectsInfoWindow.SetPosition(HelperPos);
             InstanceHandler.Instance.ObjectsInfoWindow.ShowWindowWithText(actionText);
+           
         }
     }
     public override void OnHoverOut(InteractHand interactHand)

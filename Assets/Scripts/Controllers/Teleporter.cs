@@ -1,4 +1,5 @@
 using AosSdk.Core.PlayerModule;
+using AosSdk.Core.PlayerModule.VRPlayer;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,6 +20,11 @@ public class Teleporter : MonoBehaviour
     [Space]
     [SerializeField] private CameraFadeIn _cameraFadeIn;
     [SerializeField] private ModeController _modeController;
+   // [SerializeField] private API _api;  
+
+   // [SerializeField] private GameObject _descPlayer;  
+   // [SerializeField] private GameObject _vrPlayer;    
+   
 
     private Vector3 _currentPlayerPosition = new Vector3();
     private string _previousLocation;
@@ -94,4 +100,14 @@ public class Teleporter : MonoBehaviour
         _cameraFadeIn.StartFade();
         Player.Instance.TeleportTo(newPos);
     }
+    //public void TeleporterTimeResult()         
+    //{
+    //    _api.MenuTeleport = false;
+    //    _currentPlayerPosition = new Vector3(_modeController.GetPlayerTransform().position.x, 0.1500001f, _modeController.GetPlayerTransform().position.z);
+    //    Player.Instance.TeleportTo(_menuPosition);
+    //    _descPlayer.transform.rotation = _menuPosition.rotation;
+    //    _vrPlayer.transform.rotation = _menuPosition.rotation;
+    //    _cameraFadeIn.StartFade();
+
+    //}
 }

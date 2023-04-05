@@ -74,6 +74,7 @@ public class APIEventsInvoker : MonoBehaviour
             InstanceHandler.Instance.PhoneCanvas.ShowDialogCanvas(reactionText);
         else
         InstanceHandler.Instance.ReactionInfoWindow.ShowWindowWithText(reactionText);
+        Debug.Log(reactionText);
         
     }
     private void OnSetLoationToTeleport(string location)
