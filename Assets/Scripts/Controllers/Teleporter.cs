@@ -78,11 +78,14 @@ public class Teleporter : MonoBehaviour
             _currentPlayerPosition = new Vector3(_modeController.GetPlayerTransform().position.x, 0.1500001f, _modeController.GetPlayerTransform().position.z); ;
             TeleportPlayer(_menuPosition);
             OnTeleportEnd?.Invoke("menu");
+            Player.Instance.CanMove = false;
         }
         else
         {
             _menu = false;
             TeleportPlayer(_currentPlayerPosition);
+            Player.Instance.CanMove = true;
+
         }
     }
 

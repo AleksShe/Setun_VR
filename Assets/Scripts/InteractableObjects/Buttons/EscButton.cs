@@ -1,3 +1,4 @@
+using AosSdk.Core.PlayerModule;
 using AosSdk.Core.Utils;
 using UnityEngine;
 using UnityEngine.Events;
@@ -19,6 +20,7 @@ public class EscButton : MonoBehaviour
     {
         InstanceHandler.Instance.Teleporter.TeleportToMenu();
         OnEscClick?.Invoke();
+
     }
 
 }
