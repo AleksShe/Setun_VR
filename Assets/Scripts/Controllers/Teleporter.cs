@@ -20,10 +20,8 @@ public class Teleporter : MonoBehaviour
     [Space]
     [SerializeField] private CameraFadeIn _cameraFadeIn;
     [SerializeField] private ModeController _modeController;
-   // [SerializeField] private API _api;  
-
-   // [SerializeField] private GameObject _descPlayer;  
-   // [SerializeField] private GameObject _vrPlayer;    
+    [SerializeField] private API _api;
+  
    
 
     private Vector3 _currentPlayerPosition = new Vector3();
@@ -72,6 +70,8 @@ public class Teleporter : MonoBehaviour
     }
     public void TeleportToMenu()
     {
+        if (!CanTeleport)
+            return;
         if (!_menu)
         {
             _menu = true;
@@ -79,6 +79,7 @@ public class Teleporter : MonoBehaviour
             TeleportPlayer(_menuPosition);
             OnTeleportEnd?.Invoke("menu");
             Player.Instance.CanMove = false;
+            _api.OnMenuInvoke();
         }
         else
         {
@@ -103,14 +104,5 @@ public class Teleporter : MonoBehaviour
         _cameraFadeIn.StartFade();
         Player.Instance.TeleportTo(newPos);
     }
-    //public void TeleporterTimeResult()         
-    //{
-    //    _api.MenuTeleport = false;
-    //    _currentPlayerPosition = new Vector3(_modeController.GetPlayerTransform().position.x, 0.1500001f, _modeController.GetPlayerTransform().position.z);
-    //    Player.Instance.TeleportTo(_menuPosition);
-    //    _descPlayer.transform.rotation = _menuPosition.rotation;
-    //    _vrPlayer.transform.rotation = _menuPosition.rotation;
-    //    _cameraFadeIn.StartFade();
-
-    //}
+   
 }

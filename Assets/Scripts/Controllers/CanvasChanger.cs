@@ -38,7 +38,8 @@ public class CanvasChanger : MonoBehaviour
     {
         if (value != "menu")
             return;
-            _mainMenuCanvas.EnableCanvas(true);   
+            _mainMenuCanvas.EnableCanvas(true);
+        _mainMenuCanvas.ShowCanvasByName("MainMenu");
     }
     private void EnableCanvasByname(string value)
     {
