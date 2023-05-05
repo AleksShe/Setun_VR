@@ -1,3 +1,4 @@
+using AosSdk.Core.PlayerModule;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -187,9 +188,12 @@ public class APIEventsInvoker : MonoBehaviour
     }
     private void OnSetResultScreenText(string headertext, string commentText, string evalText)
     {
+        InstanceHandler.Instance.Teleporter.TeleportToMenu();
         InstanceHandler.Instance.MainMenuCanvas.ShowCanvasByName("LastWindow");
-        InstanceHandler.Instance.MainMenuCanvas.SetText(headertext, commentText, evalText);
-  
+        InstanceHandler.Instance.MainMenuCanvas.SetText(headertext, commentText, evalText); 
+        InstanceHandler.Instance.Teleporter.CanTeleport = false;
+   
+
     }
     private void OnSetExitText(string exitText, string warntext)
     {
