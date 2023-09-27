@@ -6,11 +6,9 @@ public class WiresObject : ToolObject
 {
     [SerializeField] private GameObject _normalWires;
     [SerializeField] private GameObject _brokenWires;
+
     private bool _animated = false;
-    public override void PlayToolAnimation()
-    {
-        StartCoroutine(ChangeWires());
-    }
+    public override void PlayToolAnimation() => StartCoroutine(ChangeWires());
     private IEnumerator ChangeWires()
     {
         if (!_animated)
@@ -35,6 +33,5 @@ public class WiresObject : ToolObject
             }
             _animated = false;
         }
-
     }
 }

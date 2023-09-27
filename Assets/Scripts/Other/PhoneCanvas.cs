@@ -12,13 +12,13 @@ public class PhoneCanvas : MonoBehaviour
     [SerializeField] private BackFromDialogButton _backDialogButton;
     private void OnEnable()
     {
-        _backDialogButton.OnCkickBackDialog += OnHideDialogCanvas;
-        _backButton.OnBackButtonClick += OnHideDialogCanvas;
+        _backDialogButton.ClickBackDialogEvent += OnHideDialogCanvas;
+        _backButton.BackButtonClickEvent += OnHideDialogCanvas;
     }
     private void OnDisable()
     {
-        _backDialogButton.OnCkickBackDialog -= OnHideDialogCanvas;
-        _backButton.OnBackButtonClick -= OnHideDialogCanvas;
+        _backDialogButton.ClickBackDialogEvent -= OnHideDialogCanvas;
+        _backButton.BackButtonClickEvent -= OnHideDialogCanvas;
     }
     public void ShowDialogCanvas(string text)
     {

@@ -8,17 +8,7 @@ public class PhoneButton : BaseButton
 {
     [SerializeField] private TextMeshProUGUI _buttonText;
 
-
-    public override void OnClicked(InteractHand interactHand)
-    {
-        base.OnClicked(interactHand);
-     
-
-    }
-    public override void SetHelperName(string value)
-    {
-        _buttonText.text = value;
-    }
+    public override void SetHelperName(string value) => _buttonText.text = value;
     public override void EnableObject(bool value)
     {
         base.EnableObject(value);

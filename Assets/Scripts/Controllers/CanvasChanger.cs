@@ -14,13 +14,13 @@ public class CanvasChanger : MonoBehaviour
 
     private void OnEnable()
     {
-        _nextButton.OnNextButtonPressed += OnHideStartScreen;
-        _teleporter.OnTeleportEnd += OnEnableMenuScreen;
+        _nextButton.NextButtonPressedEvent += OnHideStartScreen;
+        _teleporter.TeleportEndEvent += OnEnableMenuScreen;
     }
     private void OnDisable()
     {
-        _nextButton.OnNextButtonPressed -= OnHideStartScreen;
-        _teleporter.OnTeleportEnd -= OnEnableMenuScreen;
+        _nextButton.NextButtonPressedEvent -= OnHideStartScreen;
+        _teleporter.TeleportEndEvent -= OnEnableMenuScreen;
     }
     public void EnableStartScreen(string headerText, string commentText, string buttonText, NextButtonState state)
     {

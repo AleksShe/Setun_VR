@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class OtkazAosButton :BaseButton
 {
-
     public override void OnClicked(InteractHand interactHand)
     {
             API api = FindObjectOfType<API>();

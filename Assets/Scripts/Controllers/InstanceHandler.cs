@@ -10,8 +10,6 @@ public class InstanceHandler : MonoBehaviour
 
     [SerializeField] private AOSColliderActivator _aosColliderActivator;
     [SerializeField] private BackButtonsActivator _backButtonsActivator;
-    [SerializeField] private MeasureButtonsActivator _measureButtonsActivator;
-    [SerializeField] private RadioButtonsContainer _radioButtonsContainer;
     [SerializeField] private LocationController _locationController;
     [SerializeField] private Teleporter _teleporter;
     [SerializeField] private MovingButtonsController _movinButtonsController;
@@ -20,26 +18,18 @@ public class InstanceHandler : MonoBehaviour
     [SerializeField] private CanvasChanger _canvasChanger;
     [SerializeField] private TimerView _timerView;
     [SerializeField] private MainMenuCanvas _mainMenuCanvas;
-    [SerializeField] private Diet _diet;
-    [SerializeField] private ShupPositionChanger _shupPositionChanger;
     [SerializeField] private PhoneCanvas _phoneCanvas;
-
-
 
     public AOSColliderActivator AOSColliderActivator => _aosColliderActivator;
     public MovingButtonsController MovingButtonsController => _movinButtonsController;
     public MovingTextWindow ObjectsInfoWindow => _objectsInfoWindow;
     public MovingTextWindow ReactionInfoWindow => _reactionInfoWindow;
     public LocationController LocationController => _locationController;
-    public MeasureButtonsActivator MeasureButtonsActivator => _measureButtonsActivator;
     public CanvasChanger CanvasChanger => _canvasChanger;
     public TimerView TimerView => _timerView;
     public MainMenuCanvas MainMenuCanvas => _mainMenuCanvas;
-    public RadioButtonsContainer RadioButtonsContainer => _radioButtonsContainer;
-    public Diet Diet => _diet;
     public Teleporter Teleporter => _teleporter;
     public BackButtonsActivator BackButtonsActivator => _backButtonsActivator;
-    public ShupPositionChanger ShupPositionChanger => _shupPositionChanger;
     public PhoneCanvas PhoneCanvas => _phoneCanvas;
     public void AddAnimationObjectToList(ObjectWithAnimation obj)
     {

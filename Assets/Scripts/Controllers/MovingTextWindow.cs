@@ -12,10 +12,7 @@ public class MovingTextWindow : MonoBehaviour
     private Transform _helperPos;
     private float _timer = 0.2f;
 
-    public void SetPosition(Transform newPos)
-    {
-        _helperPos = newPos;
-    }
+    public void SetPosition(Transform newPos) => _helperPos = newPos;
     public void ShowWindowWithText(string text)
     {
        _text = HtmlToText.Instance.HTMLToTextReplace(text);

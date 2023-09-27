@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class MovingButtonsController : MonoBehaviour
 {
-    public UnityAction ButtonsPositionChanged;
+    public UnityAction ButtonsPositionChangedEvent;
     [HideInInspector] public string ObjectHelperName { get; set; }
     [HideInInspector] public string ObjectName { get; set; }
 
@@ -33,54 +33,30 @@ public class MovingButtonsController : MonoBehaviour
         transform.position = position;
         CurrentBaseObject = obj;
     }
-    public void ShowWatchButton()
-    {
-        _eyeButton.SetActive(true);
-    }
-    public void ShowWatch1Button()
-    {
-        _eyeButton_1.SetActive(true);
-    }
-    public void ShowWatch2Button()
-    {
-        _eyeButton_2.SetActive(true);
-    }
-    public void ShowToolButton()
-    {
-        _toolButton.SetActive(true);
-    }
-    public void ShowTool1Button()
-    {
-        _toolButton_1.SetActive(true);
-    }
-    public void ShowHandButton()
-    {
-        _handButton.SetActive(true);
-    }
-    public void ShowHand1Button()
-    {
-        _handButton_1.SetActive(true);
-    }
-    public void ShowHand2Button()
-    {
-        _handButton_2.SetActive(true);
-    }
-    public void ShowHand3Button()
-    {
-        _handButton_3.SetActive(true);
-    }
-    public void ShowHand4Button()
-    {
-        _handButton_4.SetActive(true);
-    }
-    public void ShowPenButton()
-    {
-        _penButton.SetActive(true);
-    }
-    public void ShowPen1Button()
-    {
-        _penButton_1.SetActive(true);
-    }
+    public void ShowWatchButton() => _eyeButton.SetActive(true);
+ 
+    public void ShowWatch1Button() => _eyeButton_1.SetActive(true);
+
+    public void ShowWatch2Button() => _eyeButton_2.SetActive(true);
+
+    public void ShowToolButton() => _toolButton.SetActive(true);
+
+    public void ShowTool1Button() => _toolButton_1.SetActive(true);
+
+    public void ShowHandButton() => _handButton.SetActive(true);
+
+    public void ShowHand1Button() =>  _handButton_1.SetActive(true);
+ 
+    public void ShowHand2Button() => _handButton_2.SetActive(true);
+
+    public void ShowHand3Button() => _handButton_3.SetActive(true);
+  
+    public void ShowHand4Button() => _handButton_4.SetActive(true);
+
+    public void ShowPenButton() => _penButton.SetActive(true);
+
+    public void ShowPen1Button() => _penButton_1.SetActive(true);
+
     public void HideAllButtons()
     {
         _eyeButton.SetActive(false);
@@ -95,7 +71,7 @@ public class MovingButtonsController : MonoBehaviour
         _penButton.SetActive(false);
         _penButton_1.SetActive(false);
         _toolButton_1.SetActive(false);
-        ButtonsPositionChanged?.Invoke();
+        ButtonsPositionChangedEvent?.Invoke();
     }
     public void SetWatchButtonText(string text)
     {
@@ -162,23 +138,10 @@ public class MovingButtonsController : MonoBehaviour
         if (HandObject != null)
             HandObject.HandAction();
     }
-    //public void SetToolObject(RepairableObject obj)
-    //{
-    //    _tempRepairableObject = obj;
-    //}
     public void PlayToolAnimation()
     {
         if(ToolObject != null)
             ToolObject.PlayToolAnimation();
     }
-    //public void SetPushObject(PushableObject obj)
-    //{
-    //    _tempPushableObject = obj;
-    //}
-    //public void PlayPushAnimation()
-    //{
-    //    if (_tempPushableObject != null)
-    //        _tempPushableObject.PlayScritableAnimtaion();
-    //}
 
 }

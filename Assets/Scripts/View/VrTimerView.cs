@@ -16,9 +16,5 @@ public class VrTimerView : MonoBehaviour
         else
              gameObject.SetActive(false);
     }
-    public void SetTextOnCanvas(string text)
-    {
-        _textMesh.text = text;
-    }
-
+    public void SetTextOnCanvas(string text) => _textMesh.text = text;
 }

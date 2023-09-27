@@ -6,10 +6,10 @@ using UnityEngine.Events;
 
 public class BackFromDialogButton : BaseButton
 {
-    public UnityAction OnCkickBackDialog;
+    public UnityAction ClickBackDialogEvent;
     public override void OnClicked(InteractHand interactHand)
     {
-        OnCkickBackDialog?.Invoke();
+        ClickBackDialogEvent?.Invoke();
         InstanceHandler.Instance.BackButtonsActivator.EnableCurrentBackButton(true);
     }
 }

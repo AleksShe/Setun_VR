@@ -6,12 +6,7 @@ public class HandObjectWithAnimation : MonoBehaviour, IHandObject
 {
     [SerializeField]private Animator _anim;
    
-    public void HandAction()
-    {
-        _anim.SetTrigger("Hand");
-    }
-    public void PlayBrokenAnimation()
-    {
-        _anim.SetTrigger("Broke");
-    }
+    public void HandAction() => _anim.SetTrigger("Hand");
+    public void PlayBrokenAnimation() => _anim.SetTrigger("Broke");
+
 }

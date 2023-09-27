@@ -5,13 +5,6 @@ using UnityEngine;
 
 public class BaseButton : SceneObject
 {
-    public override void OnHoverIn(InteractHand interactHand)
-    {
-        transform.localScale *= 1.2f;
-
-    }
-    public override void OnHoverOut(InteractHand interactHand)
-    {
-        transform.localScale /= 1.2f;
-    }
+    public override void OnHoverIn(InteractHand interactHand) => transform.localScale *= 1.2f;
+    public override void OnHoverOut(InteractHand interactHand) => transform.localScale /= 1.2f;
 }

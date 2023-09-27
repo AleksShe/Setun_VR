@@ -7,14 +7,8 @@ public class SplitDoorAnimationObject : ObjectWithAnimation
     [SerializeField] private GameObject _door1;
     [SerializeField] private GameObject _door2;
 
-    public override void PlayScriptableAnimationOpen()
-    {
-        StartCoroutine(RotateDoor(true));
-    }
-    public override void PlayScriptableAnimationClose()
-    {
-        StartCoroutine(RotateDoor(false));
-    }
+    public override void PlayScriptableAnimationOpen() => StartCoroutine(RotateDoor(true));
+    public override void PlayScriptableAnimationClose() => StartCoroutine(RotateDoor(false));
     private IEnumerator RotateDoor(bool value)
     {
         GetComponent<Collider>().enabled = false;

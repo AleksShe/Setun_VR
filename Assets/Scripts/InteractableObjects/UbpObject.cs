@@ -5,13 +5,9 @@ using UnityEngine;
 public class UbpObject : ToolObject
 {
     [SerializeField] private GameObject _ubp;
-
    
     private bool _animated = false;
-    public override void PlayToolAnimation()
-    {
-        StartCoroutine(ChangeUbp());
-    }
+    public override void PlayToolAnimation() => StartCoroutine(ChangeUbp());
     private IEnumerator ChangeUbp()
     {
         if (!_animated)
@@ -31,9 +27,6 @@ public class UbpObject : ToolObject
             MeshRenderer[] rs = GetComponentsInChildren<MeshRenderer>();
             foreach (MeshRenderer r in rs)
                 r.enabled = false;
-
-
-
             yield return new WaitForSeconds(0.5f);
             mesh.enabled = true;
             foreach (MeshRenderer r in rs)
@@ -41,13 +34,11 @@ public class UbpObject : ToolObject
 
             while (x >= 1)
             {
-                
                 transform.position -= new Vector3(0.03f, 0, 0);
                 yield return new WaitForSeconds(0.05f);
                 x--;
             }
             _animated = false;
         }
-
     }
 }

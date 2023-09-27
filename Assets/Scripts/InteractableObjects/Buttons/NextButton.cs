@@ -7,7 +7,7 @@ using UnityEngine.Events;
 
 public class NextButton : BaseButton
 {
-    public UnityAction<string> OnNextButtonPressed;
+    public UnityAction<string> NextButtonPressedEvent;
     [HideInInspector] public NextButtonState CurrentState;
     [SerializeField] private API _api;
     public override void OnClicked(InteractHand interactHand)
@@ -15,13 +15,13 @@ public class NextButton : BaseButton
         if (CurrentState == NextButtonState.Start)
         {
             _api.OnInvokeNavAction("next");
-            OnNextButtonPressed?.Invoke("next");
+            NextButtonPressedEvent?.Invoke("next");
             Player.Instance.CanMove = false;
         }
         else if (CurrentState == NextButtonState.Fault)
         {
             _api.OnInvokeNavAction("start");
-            OnNextButtonPressed?.Invoke("start");
+            NextButtonPressedEvent?.Invoke("start");
             Player.Instance.CanMove = true;
         }
     }

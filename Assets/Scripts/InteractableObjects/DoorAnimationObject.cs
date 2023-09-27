@@ -5,14 +5,8 @@ using UnityEngine;
 public class DoorAnimationObject : ObjectWithAnimation
 {
     [SerializeField] private bool _side;
-    public override void PlayScriptableAnimationOpen()
-    {
-        StartCoroutine(RotateDoor(true));
-    }
-    public override void PlayScriptableAnimationClose()
-    {
-        StartCoroutine(RotateDoor(false));
-    }
+    public override void PlayScriptableAnimationOpen() => StartCoroutine(RotateDoor(true));
+    public override void PlayScriptableAnimationClose() => StartCoroutine(RotateDoor(false));
     private IEnumerator RotateDoor(bool value)
     {
         GetComponent<Collider>().enabled = false;

@@ -10,10 +10,10 @@ public class SceneObject : BaseObject
     public bool NonAOS;
 
     [SerializeField] protected Transform HelperPos;
-    [SerializeField] protected OutlineCore[] OutlineObjects;
+    [SerializeField] protected MeshRenderer[] Meshes;
 
     protected string HelperName;
-    protected  void Start()
+    protected void Start()
     {
         if (!NonAOS)
         {
@@ -30,7 +30,7 @@ public class SceneObject : BaseObject
             InstanceHandler.Instance.ObjectsInfoWindow.ShowWindowWithText(HelperName);
         }
         EnableOutlines(true);
-     }
+    }
     public override void OnHoverOut(InteractHand interactHand)
     {
         InstanceHandler.Instance.ObjectsInfoWindow.HidetextHelper();
@@ -42,13 +42,10 @@ public class SceneObject : BaseObject
             GetComponent<Collider>().enabled = value;
         if (GetComponent<SpriteRenderer>() != null)
             GetComponent<SpriteRenderer>().enabled = value;
-        if (GetComponent<Image>() != null) 
+        if (GetComponent<Image>() != null)
             GetComponent<Image>().enabled = value;
     }
-    public virtual void SetHelperName(string value)
-    {
-        HelperName = value;
-    }
+    public virtual void SetHelperName(string value) => HelperName = value;
     public string GetAOSName()
     {
         if (SceneAOSObject != null)
@@ -57,13 +54,15 @@ public class SceneObject : BaseObject
     }
     protected void EnableOutlines(bool value)
     {
-        if (OutlineObjects != null)
-            foreach (var outline in OutlineObjects)
+        if (Meshes != null)
+            foreach (var mesh in Meshes)
             {
-                if (outline != null)
+                if (mesh != null)
                 {
-                    outline.enabled = value;
-                    outline.OutlineWidth = 3;
+                    if (value)
+                        mesh.material.color *= 2f;
+                    else
+                        mesh.material.color /= 2f;
                 }
             }
     }

@@ -5,7 +5,7 @@ using UnityEngine.Events;
 using UnityEngine.InputSystem;
 public class EscButton : MonoBehaviour
 {
-    public UnityAction OnEscClick;
+    public UnityAction EscClickEvent;
     [SerializeField] private InputActionProperty _menuAction;
     [SerializeField] private API _api;
     private void OnEnable()
@@ -19,8 +19,6 @@ public class EscButton : MonoBehaviour
     private void OnShowMenu(InputAction.CallbackContext c)
     {
         InstanceHandler.Instance.Teleporter.TeleportToMenu();
-        OnEscClick?.Invoke();
-
+        EscClickEvent?.Invoke();
     }
-
 }

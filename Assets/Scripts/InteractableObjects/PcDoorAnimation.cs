@@ -6,14 +6,8 @@ public class PcDoorAnimation : ObjectWithAnimation
 {
     [SerializeField] private GameObject _door;
     private bool _isOpen = false;
-    public override void PlayScriptableAnimationOpen()
-    {
-        StartCoroutine(RotateDoor(true));
-    }
-    public override void PlayScriptableAnimationClose()
-    {
-        StartCoroutine(RotateDoor(false));
-    }
+    public override void PlayScriptableAnimationOpen() => StartCoroutine(RotateDoor(true));
+    public override void PlayScriptableAnimationClose() => StartCoroutine(RotateDoor(false));
     private IEnumerator RotateDoor(bool value)
     {
         if (value)
@@ -33,7 +27,7 @@ public class PcDoorAnimation : ObjectWithAnimation
         }
         else if (!value)
         {
-            if(_isOpen)
+            if (_isOpen)
             {
                 int x = 90;
                 while (x > 0)
@@ -44,7 +38,7 @@ public class PcDoorAnimation : ObjectWithAnimation
                 }
                 _isOpen = false;
             }
-             }
+        }
     }
 }
 

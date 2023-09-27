@@ -10,7 +10,6 @@ public class ObjectWithButton : SceneObject
     private ObjectWithAnimation _objectWithAnimation;
     private ToolObject _toolObject;
 
-
     public override void OnClicked(InteractHand interactHand)
     {
         base.OnClicked(interactHand);
@@ -28,9 +27,9 @@ public class ObjectWithButton : SceneObject
             _objectWithAnimation.PlayScriptableAnimationOpen();
             InstanceHandler.Instance.AddAnimationObjectToList(_objectWithAnimation);
         }
-    _toolObject = GetComponent<ToolObject>();
-        if(_toolObject!=null)
-            InstanceHandler.Instance.MovingButtonsController.ToolObject= _toolObject;
+        _toolObject = GetComponent<ToolObject>();
+        if (_toolObject != null)
+            InstanceHandler.Instance.MovingButtonsController.ToolObject = _toolObject;
         else
             InstanceHandler.Instance.MovingButtonsController.ToolObject = null;
     }

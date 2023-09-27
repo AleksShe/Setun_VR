@@ -35,7 +35,6 @@ public class MainMenuCanvas : BaseCanvas
         _infoText.text = HtmlToText.Instance.HTMLToTextReplace(commentText);
         _exitText.text = exitSureText;
     }
-
     public void SetExitText(string exitText, string warntext)
     {
         Debug.Log($"Exit Text {exitText} WARN Text {warntext} FROM SETEXIT TEXT");
@@ -57,5 +56,4 @@ public class MainMenuCanvas : BaseCanvas
         InstanceHandler.Instance.Teleporter.CanTeleport = false;
         _exitButton.SetActive(true);
     }
-
 }

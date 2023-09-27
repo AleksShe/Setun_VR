@@ -293,7 +293,6 @@ namespace AosSdk.Core.Utils
             }
 
             message = Encoding.UTF8.GetString(decoded, 0, decoded.Length);
-
             return indexFirstMask + 4 + (int) dataLength;
         }
 

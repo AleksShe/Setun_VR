@@ -10,26 +10,23 @@ public class PhoneCanvasEnable : MonoBehaviour
     [SerializeField] private PhoneObjectWithButton _phoneObject;
     [SerializeField] private PhoneObjectWithButton _phoneButtonObject;
     [SerializeField] private BackButton _prevousbackButton;
+
     private Canvas _canvas;
 
-
-    private void Start()
-    {
-        _canvas= GetComponent<Canvas>();
-    }
+    private void Start() => _canvas = GetComponent<Canvas>();
     private void OnEnable()
     {
-        _backButton.OnBackButtonClick += OnHideCanvas;
-        _phoneObject.OnClickPhoneObject += OnShowCanvas;
-        _phoneButtonObject.OnClickPhoneObject += OnShowCanvas;
-        _backFromPhoneButton.OnBackButtonClick += OnHideCanvasInCanvas;
+        _backButton.BackButtonClickEvent += OnHideCanvas;
+        _phoneObject.ClickPhoneObjectEvent += OnShowCanvas;
+        _phoneButtonObject.ClickPhoneObjectEvent += OnShowCanvas;
+        _backFromPhoneButton.BackButtonClickEvent += OnHideCanvasInCanvas;
     }
     private void OnDisable()
     {
-        _backButton.OnBackButtonClick -= OnHideCanvas;
-        _phoneObject.OnClickPhoneObject -= OnShowCanvas;
-        _phoneButtonObject.OnClickPhoneObject -= OnShowCanvas;
-        _backFromPhoneButton.OnBackButtonClick -= OnHideCanvasInCanvas;
+        _backButton.BackButtonClickEvent -= OnHideCanvas;
+        _phoneObject.ClickPhoneObjectEvent -= OnShowCanvas;
+        _phoneButtonObject.ClickPhoneObjectEvent -= OnShowCanvas;
+        _backFromPhoneButton.BackButtonClickEvent -= OnHideCanvasInCanvas;
     }
     private void OnHideCanvasInCanvas()
     {
@@ -37,7 +34,6 @@ public class PhoneCanvasEnable : MonoBehaviour
         InstanceHandler.Instance.BackButtonsActivator.SetCurrentBackButton(_backButton);
         InstanceHandler.Instance.BackButtonsActivator.EnableCurrentBackButton(true);
     }
-
     private void OnHideCanvas()
     {
         _canvas.enabled=false;
@@ -45,8 +41,5 @@ public class PhoneCanvasEnable : MonoBehaviour
         InstanceHandler.Instance.BackButtonsActivator.SetCurrentBackButton(_prevousbackButton);
         InstanceHandler.Instance.BackButtonsActivator.EnableCurrentBackButton(true);
     }
-    private void OnShowCanvas()
-    {
-        _canvas.enabled = true;
-    }
+    private void OnShowCanvas() => _canvas.enabled = true;
 }

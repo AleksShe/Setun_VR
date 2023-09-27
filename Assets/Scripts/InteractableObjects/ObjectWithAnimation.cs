@@ -8,9 +8,7 @@ public class ObjectWithAnimation : MonoBehaviour, IScriptableAnimationObject
     public virtual void PlayScriptableAnimationClose()
     {
     }
-
     public virtual void PlayScriptableAnimationOpen()
     {   
     }
-
 }

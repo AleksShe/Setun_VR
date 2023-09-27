@@ -14,7 +14,6 @@ public class TimerView : MonoBehaviour
     public void ShowTimerText(string time)
     {
         _timer.TimeChanger(Convert.ToDouble(time));
-
         _timerText.text = _timer.ReturnTime();
         _vrTimerText.text = _timer.ReturnTime();
     }

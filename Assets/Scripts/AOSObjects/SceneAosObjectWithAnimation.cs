@@ -8,18 +8,8 @@ public class SceneAosObjectWithAnimation : SceneAosObject
 {
    [SerializeField] private HandObjectWithAnimation _handObject;
     [AosAction(name: "Проиграть сломанную анимацию")]
-    public void PlayBrokeAnimation()
-    {
-       
-        _handObject.PlayBrokenAnimation();
-       
-    }
+    public void PlayBrokeAnimation() => _handObject.PlayBrokenAnimation();
 
     [AosAction(name: "Проиграть  анимацию починки")]
-    public void PlayHandAnimation()
-    {
-       
-        _handObject.HandAction();
-        
-    }
+    public void PlayHandAnimation() => _handObject.HandAction();
 }

@@ -11,10 +11,7 @@ public class BackButtonsActivator : MonoBehaviour
         EnableCurrentBackButton(true);
     }
     public string ActionToInvoke { get; set; }
-    public void SetCurrentBackButton(BackButton backButtonObject)
-    {
-        _currentBackButton = backButtonObject;
-    }
+    public void SetCurrentBackButton(BackButton backButtonObject) => _currentBackButton = backButtonObject;
     public BackButton GetCurrentBackButton()
     {
         if(_currentBackButton!=null)

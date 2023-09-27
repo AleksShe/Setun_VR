@@ -11,8 +11,5 @@ public class GreenLamp : SceneAosObject
     public void EnableLamp(bool value)
     {
        _greenLamp.SetActive(value);
-
     }
-
-
 }

@@ -5,10 +5,7 @@ using UnityEngine;
 
 public class StopMove : MonoBehaviour
 {
-    private void Start()
-    {
-        StartCoroutine(StopMoving());
-    }
+    private void Start() => StartCoroutine(StopMoving());
     public IEnumerator StopMoving()
     {
         yield return new WaitForSeconds(0.03f);

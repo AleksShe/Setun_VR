@@ -8,12 +8,6 @@ public class SceneAosObject : AosObjectBase
 {
     [AosEvent(name: "OnClickObject")]
     public event AosEventHandlerWithAttribute OnClickObject;
-    public void InvokeOnClick()
-    {
-        OnClickObject?.Invoke(ObjectId);
-    }
-    public void ActionWithObject(string actionName)
-    {
-        OnClickObject?.Invoke(actionName);
-    }
+    public void InvokeOnClick() => OnClickObject?.Invoke(ObjectId);
+    public void ActionWithObject(string actionName) => OnClickObject?.Invoke(actionName);
 }

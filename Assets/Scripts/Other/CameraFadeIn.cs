@@ -1,8 +1,6 @@
 using AosSdk.Core.PlayerModule;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class CameraFadeIn : MonoBehaviour
 {

@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 public class PhoneObjectWithButton : ObjectWithButton
 {
-    public UnityAction OnClickPhoneObject;
+    public UnityAction ClickPhoneObjectEvent;
     [SerializeField] private BackButton _backButton;
     public override void OnClicked(InteractHand interactHand)
     {
@@ -14,6 +14,6 @@ public class PhoneObjectWithButton : ObjectWithButton
         InstanceHandler.Instance.BackButtonsActivator.EnableCurrentBackButton(false);
         InstanceHandler.Instance.BackButtonsActivator.SetCurrentBackButton(_backButton);
         InstanceHandler.Instance.BackButtonsActivator.EnableCurrentBackButton(true);
-        OnClickPhoneObject.Invoke();
+        ClickPhoneObjectEvent.Invoke();
     }
 }

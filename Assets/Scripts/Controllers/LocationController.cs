@@ -11,19 +11,7 @@ public class LocationController : MonoBehaviour
 
     private string _currentLocation = "field";
     public string GetLocationName => _currentLocation;
-
-    public void SetLocationtext(string text)
-    {
-        _locationText.SetLocationText(text);
-    }
-    public void ConnectionEstablished()
-    {
-        _api.ConnectionEstablished(_currentLocation);
-    }
-    public void SetLocation(string location)
-    {
-        _currentLocation = location;
-        //StreetCollidersActivator.Instance.ActivateColliders(location);
-    }
- 
+    public void SetLocationtext(string text) => _locationText.SetLocationText(text);
+    public void ConnectionEstablished() => _api.ConnectionEstablished(_currentLocation);
+    public void SetLocation(string location) => _currentLocation = location;
 }
