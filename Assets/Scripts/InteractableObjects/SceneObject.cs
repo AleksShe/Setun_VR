@@ -11,6 +11,7 @@ public class SceneObject : BaseObject
 
     [SerializeField] protected Transform HelperPos;
     [SerializeField] protected MeshRenderer[] Meshes;
+    protected Color BaseColor;
 
     protected string HelperName;
     protected void Start()
@@ -60,9 +61,13 @@ public class SceneObject : BaseObject
                 if (mesh != null)
                 {
                     if (value)
-                        mesh.material.color *= 2f;
+                    {
+                        mesh.material.color *=2;
+                    }
                     else
-                        mesh.material.color /= 2f;
+                    {
+                        mesh.material.color /=2;
+                    }
                 }
             }
     }
