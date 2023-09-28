@@ -60,14 +60,17 @@ public class SceneObject : BaseObject
             {
                 if (mesh != null)
                 {
+                    var materials = mesh.materials;
                     if (value)
-                    {
-                        mesh.material.color *=2;
-                    }
+                        foreach (var item in materials)
+                        {
+                            item.color *= 2;
+                        }
                     else
-                    {
-                        mesh.material.color /=2;
-                    }
+                        foreach (var item in materials)
+                        {
+                            item.color /= 2;
+                        }
                 }
             }
     }
