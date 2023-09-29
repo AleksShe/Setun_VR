@@ -1,37 +1,22 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class WiresObject : ToolObject
 {
-    [SerializeField] private GameObject _normalWires;
-    [SerializeField] private GameObject _brokenWires;
+    [SerializeField] private Animator _wires;
 
-    private bool _animated = false;
-    public override void PlayToolAnimation() => StartCoroutine(ChangeWires());
-    private IEnumerator ChangeWires()
+    private const string WIRE_1_ANIMATON = "Wire1";
+    private const string WIRE_2_ANIMATON = "Wire2";
+    public override void PlayToolAnimation()
     {
-        if (!_animated)
+        if (_wires == null)
         {
-            InstanceHandler.Instance.MovingButtonsController.HideAllButtons();
-            _animated = true;
-            int x = 0;
-            while (x < 8)
-            {
-                transform.position += new Vector3(0.03f, 0, 0);
-                yield return new WaitForSeconds(0.05f);
-                x++;
-            }
-            _normalWires.SetActive(true);
-            _brokenWires.SetActive(false);
-            yield return new WaitForSeconds(0.03f);
-            while (x >= 1)
-            {
-                transform.position -= new Vector3(0.03f, 0, 0);
-                yield return new WaitForSeconds(0.05f);
-                x--;
-            }
-            _animated = false;
+            Debug.Log("No Wires");
+            return;
         }
+        _wires.SetTrigger(WIRE_1_ANIMATON);
+        _wires.SetTrigger(WIRE_2_ANIMATON);
     }
 }
