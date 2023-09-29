@@ -10,7 +10,7 @@ public class SceneObject : BaseObject
     public bool NonAOS;
 
     [SerializeField] protected Transform HelperPos;
-    [SerializeField] protected MeshRenderer[] Meshes;
+    [SerializeField] protected Renderer[] Meshes;
     protected Color BaseColor;
 
     protected string HelperName;
