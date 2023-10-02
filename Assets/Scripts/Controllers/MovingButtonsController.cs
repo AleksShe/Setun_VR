@@ -141,7 +141,9 @@ public class MovingButtonsController : MonoBehaviour
     public void PlayToolAnimation()
     {
         if(ToolObject != null)
+        {
             ToolObject.PlayToolAnimation();
+            Debug.Log("In tools");
+        }
     }
-
 }

@@ -7,8 +7,7 @@ public class WiresObject : ToolObject
 {
     [SerializeField] private Animator _wires;
 
-    private const string WIRE_1_ANIMATON = "Wire1";
-    private const string WIRE_2_ANIMATON = "Wire2";
+    private const string WIRE_ANIMATON = "Tool";
     public override void PlayToolAnimation()
     {
         if (_wires == null)
@@ -16,7 +15,6 @@ public class WiresObject : ToolObject
             Debug.Log("No Wires");
             return;
         }
-        _wires.SetTrigger(WIRE_1_ANIMATON);
-        _wires.SetTrigger(WIRE_2_ANIMATON);
+        _wires.SetTrigger(WIRE_ANIMATON);
     }
 }
