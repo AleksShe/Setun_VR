@@ -14,7 +14,7 @@ public class PlaceObject : SceneObject
         if (_backButton != null)
             InstanceHandler.Instance.BackButtonsActivator.SetCurrentBackButton(_backButton);
         if(_reactionPos!=null)
-            InstanceHandler.Instance.ReactionInfoWindow.SetPosition(_reactionPos);
+            InstanceHandler.Instance.HelpTextController.SetReactionPosition(_reactionPos);
         _objectWithAnimation = GetComponent<ObjectWithAnimation>();
         if (_objectWithAnimation != null)
         {

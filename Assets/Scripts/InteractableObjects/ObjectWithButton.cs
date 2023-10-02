@@ -18,7 +18,7 @@ public class ObjectWithButton : SceneObject
             return;
         InstanceHandler.Instance.MovingButtonsController.SetCurrentBaseObjectAndMovingButtonsPosition(_buttonsPos.position, this);
         InstanceHandler.Instance.MovingButtonsController.ObjectHelperName = HelperName;
-        InstanceHandler.Instance.ReactionInfoWindow.HidetextHelper();
+        InstanceHandler.Instance.HelpTextController.HideReactionText();
         InstanceHandler.Instance.MovingButtonsController.HandObject = null;
         InstanceHandler.Instance.SceneAosObject = SceneAOSObject;
         _objectWithAnimation = GetComponent<ObjectWithAnimation>();

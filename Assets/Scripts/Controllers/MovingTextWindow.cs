@@ -5,7 +5,7 @@ using TMPro;
 
 public class MovingTextWindow : MonoBehaviour
 {
-    [SerializeField]private TextMeshProUGUI _textMesh;
+    [SerializeField] private TextMeshProUGUI _textMesh;
     [SerializeField] private GameObject _canvasObject;
 
     private string _text;

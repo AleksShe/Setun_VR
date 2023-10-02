@@ -13,8 +13,7 @@ public class InstanceHandler : MonoBehaviour
     [SerializeField] private LocationController _locationController;
     [SerializeField] private Teleporter _teleporter;
     [SerializeField] private MovingButtonsController _movinButtonsController;
-    [SerializeField] private MovingTextWindow _objectsInfoWindow;
-    [SerializeField] private MovingTextWindow _reactionInfoWindow;
+    [SerializeField] private HelpTextController _helpTextController;
     [SerializeField] private CanvasChanger _canvasChanger;
     [SerializeField] private TimerView _timerView;
     [SerializeField] private MainMenuCanvas _mainMenuCanvas;
@@ -22,8 +21,7 @@ public class InstanceHandler : MonoBehaviour
 
     public AOSColliderActivator AOSColliderActivator => _aosColliderActivator;
     public MovingButtonsController MovingButtonsController => _movinButtonsController;
-    public MovingTextWindow ObjectsInfoWindow => _objectsInfoWindow;
-    public MovingTextWindow ReactionInfoWindow => _reactionInfoWindow;
+    public HelpTextController HelpTextController => _helpTextController;
     public LocationController LocationController => _locationController;
     public CanvasChanger CanvasChanger => _canvasChanger;
     public TimerView TimerView => _timerView;
@@ -33,7 +31,7 @@ public class InstanceHandler : MonoBehaviour
     public PhoneCanvas PhoneCanvas => _phoneCanvas;
     public void AddAnimationObjectToList(ObjectWithAnimation obj)
     {
-     _animationObjectList.Add(obj);
+        _animationObjectList.Add(obj);
     }
     public void PlayCloseAnimationForAllObjects()
     {
@@ -45,7 +43,7 @@ public class InstanceHandler : MonoBehaviour
     }
     private void Awake()
     {
-        if(Instance==null)
+        if (Instance == null)
             Instance = this;
     }
 }

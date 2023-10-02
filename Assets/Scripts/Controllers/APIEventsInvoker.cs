@@ -58,7 +58,7 @@ public class APIEventsInvoker : MonoBehaviour
         if (locationName=="phone"|| locationName == "call_shn")
             InstanceHandler.Instance.PhoneCanvas.ShowDialogCanvas(reactionText);
         else
-        InstanceHandler.Instance.ReactionInfoWindow.ShowWindowWithText(reactionText);
+        InstanceHandler.Instance.HelpTextController.SetReactionText(reactionText);
         Debug.Log(reactionText);
         
     }

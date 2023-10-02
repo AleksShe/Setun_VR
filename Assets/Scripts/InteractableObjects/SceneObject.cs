@@ -26,16 +26,13 @@ public class SceneObject : BaseObject
     public override void OnHoverIn(InteractHand interactHand)
     {
         if (HelperPos != null)
-        {
-            InstanceHandler.Instance.ObjectsInfoWindow.SetPosition(HelperPos);
-            InstanceHandler.Instance.ObjectsInfoWindow.ShowWindowWithText(HelperName);
-        }
-        EnableOutlines(true);
+            InstanceHandler.Instance.HelpTextController.ShowHelperText(HelperPos, HelperName);
+        EnableMeshes(true);
     }
     public override void OnHoverOut(InteractHand interactHand)
     {
-        InstanceHandler.Instance.ObjectsInfoWindow.HidetextHelper();
-        EnableOutlines(false);
+        InstanceHandler.Instance.HelpTextController.HideHelperText();
+        EnableMeshes(false);
     }
     public override void EnableObject(bool value)
     {
@@ -53,7 +50,7 @@ public class SceneObject : BaseObject
             return SceneAOSObject.ObjectId;
         else return null;
     }
-    protected void EnableOutlines(bool value)
+    protected void EnableMeshes(bool value)
     {
         if (Meshes != null)
             foreach (var mesh in Meshes)

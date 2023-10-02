@@ -15,7 +15,7 @@ public class BackButton : BaseButton
         api.OnInvokeNavAction(InstanceHandler.Instance.BackButtonsActivator.ActionToInvoke);
         InstanceHandler.Instance.PlayCloseAnimationForAllObjects();
         InstanceHandler.Instance.BackButtonsActivator.SetCurrentBackButton(null);
-        InstanceHandler.Instance.ReactionInfoWindow.HidetextHelper();
+        InstanceHandler.Instance.HelpTextController.HideReactionText();
         BackButtonClickEvent?.Invoke();
     }
 }

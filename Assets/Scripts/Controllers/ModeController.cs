@@ -15,12 +15,5 @@ public class ModeController : MonoBehaviour
         }
         else return _desktopPlayer.transform;
     }
-    public bool VrMode()
-    {
-        if (!_desktopPlayer.activeSelf)
-        {
-            return true;
-        }
-        else return false;
-    }
+    public bool VrMode => !_desktopPlayer.activeSelf;
 }
