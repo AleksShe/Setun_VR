@@ -13,7 +13,7 @@ public class APIEventsInvoker : MonoBehaviour
         _connectionChecker.ConnectionReadyEvent += OnSetLocationAfterConnection;
         _api.ShowPlaceEvent += OnDeactivateColliders;
         _api.ReactionEvent += OnShowReactionWindow;
-        _api.SetTeleportLocationEvent += OnSetLoationToTeleport;
+        _api.SetTeleportLocationEvent += OnSetLocationToTeleport;
         _api.SetNewLocationTextEvent += OnSetLocationTextToLocationController;
         _api.SetLocationEvent += OnSetLocationToLocationController;
         _api.EnableMovingButtonEvent += OnEnableMovingButton;
@@ -31,7 +31,7 @@ public class APIEventsInvoker : MonoBehaviour
         _connectionChecker.ConnectionReadyEvent -= OnSetLocationAfterConnection;
         _api.ShowPlaceEvent -= OnDeactivateColliders;
         _api.ReactionEvent -= OnShowReactionWindow;
-        _api.SetTeleportLocationEvent -= OnSetLoationToTeleport;
+        _api.SetTeleportLocationEvent -= OnSetLocationToTeleport;
         _api.SetNewLocationTextEvent -= OnSetLocationTextToLocationController;
         _api.SetLocationEvent -= OnSetLocationToLocationController;
         _api.EnableMovingButtonEvent -= OnEnableMovingButton;
@@ -62,13 +62,13 @@ public class APIEventsInvoker : MonoBehaviour
         Debug.Log(reactionText);
         
     }
-    private void OnSetLoationToTeleport(string location)
+    private void OnSetLocationToTeleport(string location)
     {
        InstanceHandler.Instance.Teleporter.Teleport(location);
     }
     private void OnSetLocationTextToLocationController(string location)
     {
-        InstanceHandler.Instance.LocationController.SetLocationtext(location);
+        InstanceHandler.Instance.CanvasMode.SetLocationtext(location);
     }
     private void OnSetLocationToLocationController(string location)
     {
@@ -147,7 +147,7 @@ public class APIEventsInvoker : MonoBehaviour
     }
     private void OnSetTimerText(string timerText)
     {
-        InstanceHandler.Instance.TimerView.ShowTimerText(timerText);
+        InstanceHandler.Instance.CanvasMode.SetTimeText(timerText);
     }
     private void OnActivaneBackButton(string actionName)
     {
@@ -160,26 +160,22 @@ public class APIEventsInvoker : MonoBehaviour
     }
     private void OnSetLastScreenText(string headertext, string commentText)
     {
-        InstanceHandler.Instance.MainMenuCanvas.ShowCanvasByName("LastWindow");
-        InstanceHandler.Instance.MainMenuCanvas.SetText(headertext, commentText);
+        InstanceHandler.Instance.CanvasMode.SetLastScreenText(headertext, commentText);
     }
     private void OnSetResultScreenText(string headertext, string commentText, string evalText)
     {
-        InstanceHandler.Instance.Teleporter.TeleportToMenu();
-        InstanceHandler.Instance.MainMenuCanvas.ShowCanvasByName("LastWindow");
-        InstanceHandler.Instance.MainMenuCanvas.SetText(headertext, commentText, evalText); 
-        InstanceHandler.Instance.Teleporter.CanTeleport = false;
+        InstanceHandler.Instance.CanvasMode.SetResultScreenText(headertext, commentText, evalText);
     }
     private void OnSetExitText(string exitText, string warntext)
     {
-        InstanceHandler.Instance.MainMenuCanvas.SetExitText(exitText, warntext);
+        InstanceHandler.Instance.CanvasMode.SetExitText(exitText, warntext);
     }
     private void OnSetMenuText(string headText, string commentText, string exitSureText)
     {
-        InstanceHandler.Instance.MainMenuCanvas.SetMenuText(headText, commentText, exitSureText);
+        InstanceHandler.Instance.CanvasMode.SetMenuText(headText, commentText, exitSureText);
     }
     private void OnSetStartText(string headerText, string commentText, string buttonText, NextButtonState state)
     {
-       InstanceHandler.Instance.CanvasChanger.EnableStartScreen(headerText, commentText, buttonText, state);
+       InstanceHandler.Instance.CanvasMode.SetStartScreenText(headerText, commentText, buttonText, state);
     }
 }

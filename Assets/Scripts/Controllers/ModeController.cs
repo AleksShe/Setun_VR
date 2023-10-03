@@ -6,7 +6,15 @@ public class ModeController : MonoBehaviour
 {
     [SerializeField] private GameObject _desktopPlayer;
     [SerializeField] private GameObject _vrPlayer;
+    [SerializeField] private GameObject _desktopPlayerEventSystem;
+    [SerializeField] private GameObject _vrEventSystem;
 
+    private void Awake()
+    {
+        if(!_desktopPlayer.activeSelf)
+            _desktopPlayerEventSystem.SetActive(false);
+        else _vrEventSystem.SetActive(false);
+    }
     public Transform GetPlayerTransform()
     {
         if (!_desktopPlayer.activeSelf)

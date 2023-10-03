@@ -14,21 +14,25 @@ public class InstanceHandler : MonoBehaviour
     [SerializeField] private Teleporter _teleporter;
     [SerializeField] private MovingButtonsController _movinButtonsController;
     [SerializeField] private HelpTextController _helpTextController;
-    [SerializeField] private CanvasChanger _canvasChanger;
-    [SerializeField] private TimerView _timerView;
+    [SerializeField] private CanvasMode _canvasMode;
+    [SerializeField] private TimerTextHolder _timerView;
     [SerializeField] private MainMenuCanvas _mainMenuCanvas;
     [SerializeField] private PhoneCanvas _phoneCanvas;
+    [SerializeField] private ModeController _modeController;
+    [SerializeField] private API _api;
 
     public AOSColliderActivator AOSColliderActivator => _aosColliderActivator;
     public MovingButtonsController MovingButtonsController => _movinButtonsController;
     public HelpTextController HelpTextController => _helpTextController;
     public LocationController LocationController => _locationController;
-    public CanvasChanger CanvasChanger => _canvasChanger;
-    public TimerView TimerView => _timerView;
+    public CanvasMode CanvasMode => _canvasMode;
+    public TimerTextHolder TimerView => _timerView;
     public MainMenuCanvas MainMenuCanvas => _mainMenuCanvas;
     public Teleporter Teleporter => _teleporter;
     public BackButtonsActivator BackButtonsActivator => _backButtonsActivator;
     public PhoneCanvas PhoneCanvas => _phoneCanvas;
+    public ModeController ModeController => _modeController;
+    public API API => _api;
     public void AddAnimationObjectToList(ObjectWithAnimation obj)
     {
         _animationObjectList.Add(obj);

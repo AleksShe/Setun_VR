@@ -11,8 +11,6 @@ public class SceneObject : BaseObject
 
     [SerializeField] protected Transform HelperPos;
     [SerializeField] protected Renderer[] Meshes;
-    protected Color BaseColor;
-
     protected string HelperName;
     protected void Start()
     {

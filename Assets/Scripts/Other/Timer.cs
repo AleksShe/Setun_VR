@@ -1,9 +1,6 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
-public class Timer : MonoBehaviour
+public class Timer 
 {
     private TimeSpan _time;
 
@@ -13,5 +10,4 @@ public class Timer : MonoBehaviour
     {
         return string.Format("{0:00}:{1:00}", _time.Minutes, _time.Seconds);
     }
-
 }
