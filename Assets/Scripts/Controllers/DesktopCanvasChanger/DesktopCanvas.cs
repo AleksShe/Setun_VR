@@ -77,5 +77,6 @@ public class DesktopCanvas : GameCanvasBase
     {
         ShowCanvas(CanvasState.Last);
         _canSwitch = false;
+        CanvasText.ShowExitButton();
     }
 }

@@ -140,22 +140,6 @@ public class API : AosObjectBase
             Debug.Log(reactionText+ "Reaction");
         }
     }
-
-    [AosAction(name: "Показать сообщение")]
-    public void showMessage(JObject info, JObject nav)
-    {
-        string headText = info.SelectToken("name").ToString();
-        string commentText = info.SelectToken("text").ToString();
-        SetMessageTextEvent?.Invoke(headText, commentText);
-    }
-    [AosAction(name: "Показать сообщение")]
-    public void showResult(JObject info, JObject nav)
-    {
-        string headText = info.SelectToken("name").ToString();
-        string commentText = HtmlToText.Instance.HTMLToTextReplace(HtmlToText.Instance.HTMLToTextReplace(info.SelectToken("text").ToString()));
-        string evalText = HtmlToText.Instance.HTMLToTextReplace(info.SelectToken("eval").ToString());
-        SetResultTextEvent?.Invoke(headText, commentText, evalText);
-    }
     [AosAction(name: "Показать точки")]
     public void showPoints(string info, JArray data)
     {
@@ -262,12 +246,31 @@ public class API : AosObjectBase
         string commentText = faultInfo.SelectToken("text").ToString();
         string exitSureText = exitInfo.SelectToken("quest").ToString();
         ShowMenuTextEvent?.Invoke(headtext, commentText, exitSureText);
+        Debug.Log($"Show message text event headText: {headtext} comment text: {commentText} exutSureText: {exitSureText}");
         if (exitInfo.SelectToken("text") != null && exitInfo.SelectToken("warn") != null)
         {
             string exitText = HtmlToText.Instance.HTMLToTextReplace(exitInfo.SelectToken("text").ToString());
             string warntext = HtmlToText.Instance.HTMLToTextReplace(exitInfo.SelectToken("warn").ToString());
             ShowExitTextEvent?.Invoke(exitText, warntext);
+            Debug.Log($"Show exit text event exit text: {exitText} warn text: {warntext} ");
         }
+    }
+    [AosAction(name: "Показать сообщение")]
+    public void showMessage(JObject info, JObject nav)
+    {
+        string headText = info.SelectToken("name").ToString();
+        string commentText = info.SelectToken("text").ToString();
+        SetMessageTextEvent?.Invoke(headText, commentText);
+        Debug.Log($"Show message text event head text: {headText} comment text: {commentText} ");
+    }
+    [AosAction(name: "Показать сообщение")]
+    public void showResult(JObject info, JObject nav)
+    {
+        string headText = info.SelectToken("name").ToString();
+        string commentText = HtmlToText.Instance.HTMLToTextReplace(HtmlToText.Instance.HTMLToTextReplace(info.SelectToken("text").ToString()));
+        string evalText = HtmlToText.Instance.HTMLToTextReplace(info.SelectToken("eval").ToString());
+        SetResultTextEvent?.Invoke(headText, commentText, evalText);
+        Debug.Log($"Show result text event head text: {headText} comment text: {commentText} eval text: {evalText}");
     }
     public void OnReasonInvoke(string name)
     {

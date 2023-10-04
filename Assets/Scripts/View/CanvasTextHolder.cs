@@ -11,10 +11,13 @@ public class CanvasTextHolder : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _infoText;
     [SerializeField] private TextMeshProUGUI _headerExitText;
     [SerializeField] private TextMeshProUGUI _commentExitText;
-    [SerializeField] private TextMeshProUGUI _exitSureText;
+    [SerializeField] private TextMeshProUGUI _resultText;
     [SerializeField] private TextMeshProUGUI _evalText;
     [SerializeField] private TextMeshProUGUI _exitText;
     [SerializeField] private TextMeshProUGUI _warnText;
+    [Space]
+    [SerializeField] private GameObject _backToMenuButton;
+    [SerializeField] private GameObject _exitButton;
     public void SetStartScreenText(string headerText, string commentText, string buttonText)
     {
         _headerText.text = HtmlToText.Instance.HTMLToTextReplace(headerText);
@@ -41,7 +44,12 @@ public class CanvasTextHolder : MonoBehaviour
     public void SetText(string headText, string commentText, string evalText)
     {
         _headerExitText.text = HtmlToText.Instance.HTMLToTextReplace(headText);
-        _exitSureText.text = HtmlToText.Instance.HTMLToTextReplace(commentText);
+        _resultText.text = HtmlToText.Instance.HTMLToTextReplace(commentText);
         _evalText.text = HtmlToText.Instance.HTMLToTextReplace(evalText);
+    }
+    public void ShowExitButton()
+    {
+        _backToMenuButton.SetActive(false);
+        _exitButton.SetActive(true);
     }
 }
