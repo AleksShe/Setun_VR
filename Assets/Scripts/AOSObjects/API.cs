@@ -26,6 +26,7 @@ public class API : AosObjectBase
     public UnityAction<string> EnableDietButtonsEvent;
     public UnityAction<string> SetTimerTextEvent;
     public UnityAction<string> ReactionEvent;
+    public UnityAction<string> PointEvent;
     public UnityAction<string, string> EnableMovingButtonEvent;
     public UnityAction<string, string> ActivateByNameEvent;
     public UnityAction<string, string> SetMessageTextEvent;
@@ -100,7 +101,7 @@ public class API : AosObjectBase
                     if (aosObjectWithImage.SelectToken("apiId") != null)
                     {
                         string name = aosObjectWithImage.SelectToken("apiId").ToString();
-                        ActivateByNameEvent?.Invoke(name,"");
+                        ActivateByNameEvent?.Invoke(name, "");
                     }
                 }
             }
@@ -136,8 +137,8 @@ public class API : AosObjectBase
         if (info.SelectToken("text") != null)
         {
             var reactionText = info.SelectToken("text").ToString();
-                ReactionEvent?.Invoke(reactionText);
-            Debug.Log(reactionText+ "Reaction");
+            ReactionEvent?.Invoke(reactionText);
+            Debug.Log(reactionText + "Reaction");
         }
     }
     [AosAction(name: "Показать точки")]
@@ -225,10 +226,10 @@ public class API : AosObjectBase
                 }
             }
 
-            else if (item.SelectToken("apiId") != null)
+            if (item.SelectToken("apiId") != null)
             {
-                string buttonName = item.SelectToken("apiId").ToString();
-                EnableDietButtonsEvent?.Invoke(buttonName);
+                var point = item.SelectToken("apiId").ToString();
+                PointEvent?.Invoke(point);
             }
         }
     }

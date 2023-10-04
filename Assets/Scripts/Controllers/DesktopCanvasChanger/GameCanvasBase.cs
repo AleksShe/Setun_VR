@@ -28,6 +28,7 @@ public abstract class GameCanvasBase : MonoBehaviour
     {
         LastScreenShowEvent += OnShowLastScreen;
         ResultScreenShowEvent += OnShowResultLastScreen;
+        CanvasEnableObject.CanvasEnableEvent += ShowCanvas;
     }
     public virtual void SetStartScreenText(string headerText, string commentText, string buttonText, NextButtonState state)
     {

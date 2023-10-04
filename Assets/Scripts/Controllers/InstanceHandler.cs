@@ -8,7 +8,7 @@ public class InstanceHandler : MonoBehaviour
     public SceneAosObject SceneAosObject { get; set; }
     private List<ObjectWithAnimation> _animationObjectList = new List<ObjectWithAnimation>();
 
-    [SerializeField] private AOSColliderActivator _aosColliderActivator;
+    [SerializeField] private AOSObjectsActivator _aosColliderActivator;
     [SerializeField] private BackButtonsActivator _backButtonsActivator;
     [SerializeField] private LocationController _locationController;
     [SerializeField] private Teleporter _teleporter;
@@ -17,11 +17,10 @@ public class InstanceHandler : MonoBehaviour
     [SerializeField] private CanvasMode _canvasMode;
     [SerializeField] private TimerTextHolder _timerView;
     [SerializeField] private MainMenuCanvas _mainMenuCanvas;
-    [SerializeField] private PhoneCanvas _phoneCanvas;
     [SerializeField] private ModeController _modeController;
     [SerializeField] private API _api;
 
-    public AOSColliderActivator AOSColliderActivator => _aosColliderActivator;
+    public AOSObjectsActivator AOSColliderActivator => _aosColliderActivator;
     public MovingButtonsController MovingButtonsController => _movinButtonsController;
     public HelpTextController HelpTextController => _helpTextController;
     public LocationController LocationController => _locationController;
@@ -30,7 +29,6 @@ public class InstanceHandler : MonoBehaviour
     public MainMenuCanvas MainMenuCanvas => _mainMenuCanvas;
     public Teleporter Teleporter => _teleporter;
     public BackButtonsActivator BackButtonsActivator => _backButtonsActivator;
-    public PhoneCanvas PhoneCanvas => _phoneCanvas;
     public ModeController ModeController => _modeController;
     public API API => _api;
     public void AddAnimationObjectToList(ObjectWithAnimation obj)

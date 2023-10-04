@@ -54,13 +54,7 @@ public class APIEventsInvoker : MonoBehaviour
     }
     private void OnShowReactionWindow(string reactionText)
     {
-        var locationName = InstanceHandler.Instance.LocationController.GetLocationName;
-        if (locationName=="phone"|| locationName == "call_shn")
-            InstanceHandler.Instance.PhoneCanvas.ShowDialogCanvas(reactionText);
-        else
         InstanceHandler.Instance.HelpTextController.SetReactionText(reactionText);
-        Debug.Log(reactionText);
-        
     }
     private void OnSetLocationToTeleport(string location)
     {

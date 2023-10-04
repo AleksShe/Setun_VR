@@ -18,7 +18,6 @@ public class SceneObject : BaseObject
         {
             EnableObject(false);
             InstanceHandler.Instance.AOSColliderActivator.AddSceneObject(this);
-            SceneAOSObject = GetComponent<SceneAosObject>();
         }
     }
     public override void OnHoverIn(InteractHand interactHand)
