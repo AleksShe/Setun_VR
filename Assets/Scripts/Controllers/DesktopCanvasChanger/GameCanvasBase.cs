@@ -14,7 +14,7 @@ public enum CanvasState
 }
 public abstract class GameCanvasBase : MonoBehaviour
 {
-    [SerializeField] protected CanvasTextHolder CanvasText;
+    [SerializeField] protected CanvasView CanvasText;
     [SerializeField] protected NextButton NextButton;
     [SerializeField] protected TimerTextHolder TimerTextHolder;
     [SerializeField] protected LocationTextHolder LocationText;
