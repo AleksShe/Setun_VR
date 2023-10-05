@@ -14,9 +14,17 @@ public abstract class BaseObject : MonoBehaviour, IClickAble, IHoverAble
 
     public virtual void OnClicked(InteractHand interactHand)
     {
+        InvokeAosEvent();
+    }
+    public void InvokeAosEvent()
+    {
         if (SceneAOSObject == null)
             return;
         SceneAOSObject.InvokeOnClick();
+    }
+    public string GetAOSName()
+    {
+        return SceneAOSObject == null ? null : SceneAOSObject.ObjectId;
     }
     public virtual void OnHoverIn(InteractHand interactHand)
     {

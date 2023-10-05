@@ -28,7 +28,7 @@ public class DesktopCanvas : GameCanvasBase
     }
     private void OnEscClick()
     {
-        if (CurrentState != CanvasState.Start && CurrentState != CanvasState.Menu)
+        if (CurrentState != CanvasState.Start && CurrentState != CanvasState.Menu && CurrentState != CanvasState.Phone && CurrentState != CanvasState.Arm)
         {
             ShowCanvas(CanvasState.Menu);
             InstanceHandler.Instance.API.OnMenuInvoke();

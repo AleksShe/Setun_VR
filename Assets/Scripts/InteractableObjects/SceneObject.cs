@@ -41,12 +41,6 @@ public class SceneObject : BaseObject
             GetComponent<Image>().enabled = value;
     }
     public virtual void SetHelperName(string value) => HelperName = value;
-    public string GetAOSName()
-    {
-        if (SceneAOSObject != null)
-            return SceneAOSObject.ObjectId;
-        else return null;
-    }
     protected void EnableMeshes(bool value)
     {
         if (Meshes != null)

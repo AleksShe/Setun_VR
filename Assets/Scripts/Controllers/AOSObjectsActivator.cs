@@ -21,6 +21,17 @@ public class AOSObjectsActivator : MonoBehaviour
             }
         }
     }
+    public void ActivatePoints(string pointName, string text)
+    {
+        foreach (var pointObj in _aosPointObjects)
+        {
+            if (pointObj.GetAOSName() == pointName)
+            {
+                pointObj.EnableObject(true);
+                pointObj.SetPointText(text);
+            }
+        }
+    }
     public void DeactivateAllColliders()
     {
         foreach (var sceneObject in _aosSceneObjects)

@@ -26,7 +26,7 @@ public class API : AosObjectBase
     public UnityAction<string> EnableDietButtonsEvent;
     public UnityAction<string> SetTimerTextEvent;
     public UnityAction<string> ReactionEvent;
-    public UnityAction<string> PointEvent;
+    public UnityAction<string, string> PointEvent;
     public UnityAction<string, string> EnableMovingButtonEvent;
     public UnityAction<string, string> ActivateByNameEvent;
     public UnityAction<string, string> SetMessageTextEvent;
@@ -65,6 +65,23 @@ public class API : AosObjectBase
         string commentText = info.SelectToken("text").ToString();
         string buttonText = nav.SelectToken("ok").SelectToken("caption").ToString();
         SetStartTextEvent?.Invoke(headerText, commentText, buttonText, NextButtonState.Fault);
+    }
+
+    public void showFaultInfo(JObject info, JArray points, JObject nav)
+    {
+        var outMsg = info.SelectToken("out_msg");
+        if(outMsg!=null)
+        {
+            foreach (var item in outMsg)
+            {
+                if (item.SelectToken("msg")!=null)
+                {
+                    var msg = item.SelectToken("msg").ToString();
+                    Debug.Log("ITEM " + msg);
+                }
+            }
+        }
+        Debug.Log(points.ToString());
     }
     public void OnInvokeNavAction(string value)
     {
@@ -229,7 +246,8 @@ public class API : AosObjectBase
             if (item.SelectToken("apiId") != null)
             {
                 var point = item.SelectToken("apiId").ToString();
-                PointEvent?.Invoke(point);
+                var name = item.SelectToken("name").ToString();
+                PointEvent?.Invoke(point, name);
             }
         }
     }

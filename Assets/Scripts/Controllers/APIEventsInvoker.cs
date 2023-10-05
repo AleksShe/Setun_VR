@@ -25,6 +25,7 @@ public class APIEventsInvoker : MonoBehaviour
         _api.ShowMenuTextEvent += OnSetMenuText;
         _api.SetStartTextEvent += OnSetStartText;
         _api.ActivateBackButtonEvent += OnActivaneBackButton;
+        _api.PointEvent += OnActivatePointObjectByName;
     }
     private void OnDisable()
     {
@@ -43,6 +44,7 @@ public class APIEventsInvoker : MonoBehaviour
         _api.ShowMenuTextEvent -= OnSetMenuText;
         _api.SetStartTextEvent -= OnSetStartText;
         _api.ActivateBackButtonEvent -= OnActivaneBackButton;
+        _api.PointEvent -= OnActivatePointObjectByName;
     }
     private void OnDeactivateColliders()
     {
@@ -151,6 +153,10 @@ public class APIEventsInvoker : MonoBehaviour
     private void OnActivateSceneObjectByName(string id, string name)
     {
         InstanceHandler.Instance.AOSColliderActivator.ActivateColliders(id, name);
+    }
+    private void OnActivatePointObjectByName(string id, string name)
+    {
+        InstanceHandler.Instance.AOSColliderActivator.ActivatePoints(id, name);
     }
     private void OnSetLastScreenText(string headertext, string commentText)
     {
