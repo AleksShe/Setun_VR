@@ -9,6 +9,8 @@ using Newtonsoft.Json.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using static UnityEditor.Progress;
+
 public enum NextButtonState
 {
     Start,
@@ -19,6 +21,8 @@ public enum NextButtonState
 public class API : AosObjectBase
 {
     public UnityAction ShowPlaceEvent;
+    public UnityAction<string> DialogEvent;
+    public UnityAction<string> DialogHeaderEvent;
     public UnityAction<string> SetTeleportLocationEvent;
     public UnityAction<string> SetNewLocationTextEvent;
     public UnityAction<string> SetLocationEvent;
@@ -26,6 +30,8 @@ public class API : AosObjectBase
     public UnityAction<string> EnableDietButtonsEvent;
     public UnityAction<string> SetTimerTextEvent;
     public UnityAction<string> ReactionEvent;
+    public UnityAction<string> AddTextObjectUiEvent;
+    public UnityAction<string, string> AddTextObjectUiButtonEvent;
     public UnityAction<string, string> PointEvent;
     public UnityAction<string, string> EnableMovingButtonEvent;
     public UnityAction<string, string> ActivateByNameEvent;
@@ -69,19 +75,37 @@ public class API : AosObjectBase
 
     public void showFaultInfo(JObject info, JArray points, JObject nav)
     {
+        var dude = info.SelectToken("name");
+        if(dude!=null)
+        {
+            var header = dude.ToString();
+            DialogHeaderEvent?.Invoke(header);
+        }
+        foreach (var item in points)
+        {
+            var action = item.SelectToken("action").ToString();
+            if (action != null)
+                DialogEvent?.Invoke(action);
+            var id = item.SelectToken("apiId").ToString();
+            var name = item.SelectToken("name").ToString();
+            if (id != null && name != null)
+                AddTextObjectUiButtonEvent?.Invoke(id, name);
+        }
         var outMsg = info.SelectToken("out_msg");
-        if(outMsg!=null)
+        if (outMsg != null)
         {
             foreach (var item in outMsg)
             {
-                if (item.SelectToken("msg")!=null)
+                if (item.SelectToken("msg") != null)
                 {
                     var msg = item.SelectToken("msg").ToString();
-                    Debug.Log("ITEM " + msg);
+                    AddTextObjectUiEvent?.Invoke(msg);
                 }
             }
         }
-        Debug.Log(points.ToString());
+      //  Debug.Log("Points: " + points.ToString());
+      //  Debug.Log("Info: " + info.ToString());
+      //  Debug.Log("Nav: " + nav.ToString());
     }
     public void OnInvokeNavAction(string value)
     {

@@ -15,9 +15,14 @@ public class CanvasView : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _evalText;
     [SerializeField] private TextMeshProUGUI _exitText;
     [SerializeField] private TextMeshProUGUI _warnText;
+    [SerializeField] private TextMeshProUGUI _dialogHeaderText;
     [Space]
     [SerializeField] private GameObject _backToMenuButton;
     [SerializeField] private GameObject _exitButton;
+    [SerializeField] private GameObject _mainMenuDialogCanvas;
+    [SerializeField] private GameObject _dialogBoxCanvas;
+
+
     public void SetStartScreenText(string headerText, string commentText, string buttonText)
     {
         _headerText.text = HtmlToText.Instance.HTMLToTextReplace(headerText);
@@ -51,5 +56,17 @@ public class CanvasView : MonoBehaviour
     {
         _backToMenuButton.SetActive(false);
         _exitButton.SetActive(true);
+    }
+    public void SetDialogHeadertext(string text)
+    {
+        _dialogHeaderText.text = text;
+    }
+    public void EnableMainMenuDialogCanvas(bool value)
+    {
+        _mainMenuDialogCanvas.SetActive(value);
+    }
+    public void EnableDialogBoxCanvas(bool value)
+    {
+        _dialogBoxCanvas.SetActive(value);
     }
 }

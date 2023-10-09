@@ -1,4 +1,5 @@
 using AosSdk.Core.PlayerModule;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -26,7 +27,12 @@ public class APIEventsInvoker : MonoBehaviour
         _api.SetStartTextEvent += OnSetStartText;
         _api.ActivateBackButtonEvent += OnActivaneBackButton;
         _api.PointEvent += OnActivatePointObjectByName;
+        _api.DialogHeaderEvent += OnEnableDialogHeader;
+        _api.DialogEvent += OnEnableDialog;
+        _api.AddTextObjectUiButtonEvent += OnAddTextObjectUiButton;
+        _api.AddTextObjectUiEvent += OnAddTextObjectUi;
     }
+
     private void OnDisable()
     {
         _connectionChecker.ConnectionReadyEvent -= OnSetLocationAfterConnection;
@@ -45,6 +51,10 @@ public class APIEventsInvoker : MonoBehaviour
         _api.SetStartTextEvent -= OnSetStartText;
         _api.ActivateBackButtonEvent -= OnActivaneBackButton;
         _api.PointEvent -= OnActivatePointObjectByName;
+        _api.DialogHeaderEvent -= OnEnableDialogHeader;
+        _api.DialogEvent -= OnEnableDialog;
+        _api.AddTextObjectUiButtonEvent -= OnAddTextObjectUiButton;
+        _api.AddTextObjectUiEvent -= OnAddTextObjectUi;
     }
     private void OnDeactivateColliders()
     {
@@ -53,6 +63,23 @@ public class APIEventsInvoker : MonoBehaviour
     private void OnShowPhoneReactionText(string text)
     {
      
+    }
+    private void OnEnableDialog(string text)
+    {
+        InstanceHandler.Instance.CanvasMode.EnableDialogCanvas(text);
+    }
+    private void OnAddTextObjectUiButton(string id,string name)
+    {
+        InstanceHandler.Instance.CanvasMode.AddTextObjectUiButton(id, name);
+    }
+    private void OnAddTextObjectUi(string text)
+    {
+        InstanceHandler.Instance.CanvasMode.AddTextObjectUi(text);
+    }
+    private void OnEnableDialogHeader(string text)
+    {
+        InstanceHandler.Instance.CanvasMode.SetDialogHeaderText(text);
+        Debug.Log("header is "+ text);
     }
     private void OnShowReactionWindow(string reactionText)
     {

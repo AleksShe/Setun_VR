@@ -8,6 +8,8 @@ public class DesktopCanvas : GameCanvasBase
     [SerializeField] private PlayerCameraDisabler _playerCameraDisabler;
     [SerializeField] private DesktopCanvasObject[] _desktopCanvases;
     [SerializeField] private EscButton _escButton;
+    [SerializeField] private DesktopCanvasObjectsHolder _textHolder;
+    [SerializeField] private DesktopCanvasObjectsHolder _buttonsHolder;
 
     private bool _canSwitch = true;
 
@@ -78,5 +80,13 @@ public class DesktopCanvas : GameCanvasBase
         ShowCanvas(CanvasState.Last);
         _canSwitch = false;
         CanvasText.ShowExitButton();
+    }
+    public override void AddTextObjectUi(string name)
+    {
+        _textHolder.AddItem(name);
+    }
+    public override void AddTextObjectUiButton(string id, string name)
+    {
+        _buttonsHolder.AddItem(id, name);
     }
 }

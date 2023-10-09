@@ -43,4 +43,20 @@ public class CanvasMode : MonoBehaviour
     {
         _currentCanvas.SetLocationText(location);
     }
+    public void AddTextObjectUiButton(string id, string name)
+    {
+        _currentCanvas.AddTextObjectUiButton(id, name);
+    }
+    public  void AddTextObjectUi(string name)
+    {
+        _currentCanvas.AddTextObjectUi(name);
+    }
+    public void SetDialogHeaderText(string text)
+    {
+        _currentCanvas.SetDialogHeaderText(text);
+    }
+    public void EnableDialogCanvas(string text)
+    {
+        _currentCanvas.EnableDialogCanvas(text);
+    }
 }

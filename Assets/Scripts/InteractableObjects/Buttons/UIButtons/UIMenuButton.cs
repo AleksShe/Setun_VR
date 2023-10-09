@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 public class UIMenuButton : BaseUIButton
 {
+    public delegate void UIMenuButtonClicked();
+    public event UIMenuButtonClicked ButtonClickedEvent;
     [SerializeField] private GameObject _showScreen;
     [SerializeField] private GameObject _hideScreen;
 
@@ -14,5 +16,6 @@ public class UIMenuButton : BaseUIButton
     {
         _showScreen.SetActive(true);
         _hideScreen.SetActive(false);
+        ButtonClickedEvent?.Invoke();
     }
 }

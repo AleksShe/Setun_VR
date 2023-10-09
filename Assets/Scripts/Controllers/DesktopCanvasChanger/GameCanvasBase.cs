@@ -24,6 +24,7 @@ public abstract class GameCanvasBase : MonoBehaviour
     public event ScreenShow ResultScreenShowEvent;
 
     protected CanvasState CurrentState;
+    protected const string DIALOG_POINT = "OnDialogPoint";
     private void Awake()
     {
         LastScreenShowEvent += OnShowLastScreen;
@@ -52,6 +53,18 @@ public abstract class GameCanvasBase : MonoBehaviour
     {
         LocationText.SetLocationText(location);
     }
+    public void SetDialogHeaderText(string text)
+    {
+        CanvasText.SetDialogHeadertext(text);
+    }
+    public void EnableDialogCanvas(string text)
+    {
+        if (text == DIALOG_POINT)
+        {
+            CanvasText.EnableMainMenuDialogCanvas(false);
+            CanvasText.EnableDialogBoxCanvas(true);
+        }
+    }
     public virtual void SetLastScreenText(string headertext, string commentText)
     {
         LastScreenShowEvent?.Invoke();
@@ -70,4 +83,12 @@ public abstract class GameCanvasBase : MonoBehaviour
     {
         CanvasText.SetMenuText(headText, commentText, exitSureText);
     }
+
+    public virtual void AddTextObjectUiButton(string id, string name)
+    {
+    }
+    public virtual void AddTextObjectUi(string name)
+    {
+    }
+
 }
