@@ -17,24 +17,27 @@ public class DesktopCanvasObjectsHolder : MonoBehaviour
     {
         _button.ButtonClickedEvent += OnClearItemsList;
     }
-    public void AddItem(string text, TextAlignmentOptions options = TextAlignmentOptions.Center)
-    {
-        var exist = _textObjectUis.FirstOrDefault(o => o.Text == text);
-            if (exist != null)
-            return;
-        var prefub = Instantiate(_prefub, _parent);
-        prefub.SetText(text, options);
-        _textObjectUis.Add(prefub);
-        _sideScroll.value = 1;
-    }
-    public void AddItem(string id, string text, TextAlignmentOptions options = TextAlignmentOptions.Center)
+    public void AddItem(string text,DialogRole role)
     {
         var exist = _textObjectUis.FirstOrDefault(o => o.Text == text);
         if (exist != null)
             return;
         var prefub = Instantiate(_prefub, _parent);
-        prefub.SetText(text, options);
-        var aosId = prefub.GetComponent<OtkazAOSUIButton>();
+        if(role==DialogRole.User)
+        prefub.SetText(text, TextAlignmentOptions.Right);
+        else
+            prefub.SetText(text, TextAlignmentOptions.Left);
+        _textObjectUis.Add(prefub);
+        _sideScroll.value = 1;
+    }
+    public void AddItem(string id, string text)
+    {
+        var exist = _textObjectUis.FirstOrDefault(o => o.Text == text);
+        if (exist != null)
+            return;
+        var prefub = Instantiate(_prefub, _parent);
+        prefub.SetText(text,TextAlignmentOptions.Center);
+        var aosId = prefub.GetComponent<PointUiButton>();
         aosId.SetButtonId(id);
         _textObjectUis.Add(prefub);
         _sideScroll.value = 1;
@@ -43,7 +46,6 @@ public class DesktopCanvasObjectsHolder : MonoBehaviour
     {
         foreach (var item in _textObjectUis)
         {
-            Debug.Log("IN OnClearItemsList");
             Destroy(item.gameObject);
         }
         _textObjectUis = new List<TextObjectUi>();

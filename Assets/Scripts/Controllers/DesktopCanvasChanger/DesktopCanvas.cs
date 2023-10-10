@@ -81,9 +81,9 @@ public class DesktopCanvas : GameCanvasBase
         _canSwitch = false;
         CanvasText.ShowExitButton();
     }
-    public override void AddTextObjectUi(string name)
+    public override void AddTextObjectUi(string name, DialogRole role)
     {
-        _textHolder.AddItem(name);
+        _textHolder.AddItem(name,role);
     }
     public override void AddTextObjectUiButton(string id, string name)
     {

@@ -87,7 +87,7 @@ public abstract class GameCanvasBase : MonoBehaviour
     public virtual void AddTextObjectUiButton(string id, string name)
     {
     }
-    public virtual void AddTextObjectUi(string name)
+    public virtual void AddTextObjectUi(string name,DialogRole role)
     {
     }
 

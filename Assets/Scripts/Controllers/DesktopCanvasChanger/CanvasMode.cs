@@ -47,9 +47,9 @@ public class CanvasMode : MonoBehaviour
     {
         _currentCanvas.AddTextObjectUiButton(id, name);
     }
-    public  void AddTextObjectUi(string name)
+    public  void AddTextObjectUi(string name,DialogRole role)
     {
-        _currentCanvas.AddTextObjectUi(name);
+        _currentCanvas.AddTextObjectUi(name,role);
     }
     public void SetDialogHeaderText(string text)
     {

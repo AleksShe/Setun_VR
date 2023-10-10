@@ -9,12 +9,16 @@ using Newtonsoft.Json.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
-using static UnityEditor.Progress;
 
 public enum NextButtonState
 {
     Start,
     Fault
+}
+public enum DialogRole
+{
+    User,
+    Dude
 }
 
 [AosSdk.Core.Utils.AosObject(name: "АПИ")]
@@ -30,7 +34,7 @@ public class API : AosObjectBase
     public UnityAction<string> EnableDietButtonsEvent;
     public UnityAction<string> SetTimerTextEvent;
     public UnityAction<string> ReactionEvent;
-    public UnityAction<string> AddTextObjectUiEvent;
+    public UnityAction<string, DialogRole> AddTextObjectUiEvent;
     public UnityAction<string, string> AddTextObjectUiButtonEvent;
     public UnityAction<string, string> PointEvent;
     public UnityAction<string, string> EnableMovingButtonEvent;
@@ -49,6 +53,8 @@ public class API : AosObjectBase
     public event AosEventHandlerWithAttribute OnReason;
     [AosEvent(name: "Открыть меню")]
     public event AosEventHandler OnMenu;
+    [AosEvent(name: "Кнопка нажата")]
+    public event AosEventHandlerWithAttribute OnDialogPoint;
     public bool MenuTeleport { get; set; } = true;
     public void Teleport([AosParameter("Задать локацию для перемещения")] string location)
     {
@@ -73,10 +79,10 @@ public class API : AosObjectBase
         SetStartTextEvent?.Invoke(headerText, commentText, buttonText, NextButtonState.Fault);
     }
 
-    public void showFaultInfo(JObject info, JArray points, JObject nav)
+    public void showDialog(JObject info, JArray points, JObject nav)
     {
         var dude = info.SelectToken("name");
-        if(dude!=null)
+        if (dude != null)
         {
             var header = dude.ToString();
             DialogHeaderEvent?.Invoke(header);
@@ -84,6 +90,7 @@ public class API : AosObjectBase
         foreach (var item in points)
         {
             var action = item.SelectToken("action").ToString();
+            Debug.Log("Action " + action);
             if (action != null)
                 DialogEvent?.Invoke(action);
             var id = item.SelectToken("apiId").ToString();
@@ -99,14 +106,37 @@ public class API : AosObjectBase
                 if (item.SelectToken("msg") != null)
                 {
                     var msg = item.SelectToken("msg").ToString();
-                    AddTextObjectUiEvent?.Invoke(msg);
+                    AddTextObjectUiEvent?.Invoke(msg, DialogRole.Dude);
                 }
             }
         }
-      //  Debug.Log("Points: " + points.ToString());
-      //  Debug.Log("Info: " + info.ToString());
-      //  Debug.Log("Nav: " + nav.ToString());
     }
+    public void addDialogMessage(JArray message)
+    {
+        string msgText = "";
+        foreach (var item in message)
+        {
+            var msg = item.SelectToken("msg");
+            var roles = item.SelectTokens("character");
+            if (msg != null)
+                msgText = msg.ToString();
+            if (roles != null)
+            {
+                foreach (var role in roles)
+                {
+                    if (role.SelectToken("opt_type") != null)
+                    {
+                        var roleText = role.SelectToken("opt_type").ToString();
+                        if (roleText == "dude")
+                            AddTextObjectUiEvent?.Invoke(msgText, DialogRole.Dude);
+                        else if (roleText == "user")
+                            AddTextObjectUiEvent?.Invoke(msgText, DialogRole.User);
+                    }
+                }
+            }
+        }
+    }
+
     public void OnInvokeNavAction(string value)
     {
         navAction.Invoke(value);
@@ -322,5 +352,9 @@ public class API : AosObjectBase
     public void OnMenuInvoke()
     {
         OnMenu?.Invoke();
+    }
+    public void OnDialogInvoke(string name)
+    {
+        OnDialogPoint?.Invoke(name);
     }
 }

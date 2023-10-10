@@ -72,14 +72,13 @@ public class APIEventsInvoker : MonoBehaviour
     {
         InstanceHandler.Instance.CanvasMode.AddTextObjectUiButton(id, name);
     }
-    private void OnAddTextObjectUi(string text)
+    private void OnAddTextObjectUi(string text,DialogRole role)
     {
-        InstanceHandler.Instance.CanvasMode.AddTextObjectUi(text);
+        InstanceHandler.Instance.CanvasMode.AddTextObjectUi(text, role);
     }
     private void OnEnableDialogHeader(string text)
     {
         InstanceHandler.Instance.CanvasMode.SetDialogHeaderText(text);
-        Debug.Log("header is "+ text);
     }
     private void OnShowReactionWindow(string reactionText)
     {
