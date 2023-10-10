@@ -61,15 +61,19 @@ public class DesktopCanvas : GameCanvasBase
         if (state == CanvasState.None)
         {
             Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
             _menuDesktopCamera.SetActive(false);
             Player.Instance.CanMove = true;
             _playerCameraDisabler.EnableDesktopCamera(true);
-            return;
         }
-        Cursor.lockState = CursorLockMode.None;
-        _menuDesktopCamera.SetActive(true);
-        _playerCameraDisabler.EnableDesktopCamera(false);
-        Player.Instance.CanMove = false;
+        else
+        {
+            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.visible = true;
+            _menuDesktopCamera.SetActive(true);
+            Player.Instance.CanMove = false;
+            _playerCameraDisabler.EnableDesktopCamera(false);
+        }
     }
     protected override void OnShowLastScreen()
     {
@@ -83,7 +87,7 @@ public class DesktopCanvas : GameCanvasBase
     }
     public override void AddTextObjectUi(string name, DialogRole role)
     {
-        _textHolder.AddItem(name,role);
+        _textHolder.AddItem(name, role);
     }
     public override void AddTextObjectUiButton(string id, string name)
     {
