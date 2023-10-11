@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DesktopCanvas : GameCanvasBase
 {
-    [SerializeField] private GameObject _menuDesktopCamera;
+ 
     [SerializeField] private PlayerCameraDisabler _playerCameraDisabler;
     [SerializeField] private DesktopCanvasObject[] _desktopCanvases;
     [SerializeField] private EscButton _escButton;
@@ -59,21 +59,9 @@ public class DesktopCanvas : GameCanvasBase
     public void SwitchCamera(CanvasState state)
     {
         if (state == CanvasState.None)
-        {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-            _menuDesktopCamera.SetActive(false);
-            Player.Instance.CanMove = true;
             _playerCameraDisabler.EnableDesktopCamera(true);
-        }
         else
-        {
-            Cursor.lockState = CursorLockMode.Confined;
-            Cursor.visible = true;
-            _menuDesktopCamera.SetActive(true);
-            Player.Instance.CanMove = false;
             _playerCameraDisabler.EnableDesktopCamera(false);
-        }
     }
     protected override void OnShowLastScreen()
     {
