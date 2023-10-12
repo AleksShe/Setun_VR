@@ -35,5 +35,4 @@ public abstract class BaseObject : MonoBehaviour, IClickAble, IHoverAble
     public virtual void EnableObject(bool value)
     {
     }
-
 }

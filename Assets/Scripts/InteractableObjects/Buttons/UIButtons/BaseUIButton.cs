@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BaseUIButton : MonoBehaviour
+public abstract class BaseUIButton : MonoBehaviour
 {
     protected Button Button;
     protected virtual void Awake()
@@ -14,5 +14,9 @@ public class BaseUIButton : MonoBehaviour
 
     protected virtual void Click()
     {
+    }
+    public virtual void EnableUIButton(bool value)
+    {
+        Button.enabled = value;
     }
 }
