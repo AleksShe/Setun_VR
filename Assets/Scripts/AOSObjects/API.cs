@@ -181,21 +181,35 @@ public class API : AosObjectBase
             ActivateBackButtonEvent?.Invoke(nav.SelectToken("back").SelectToken("action").ToString());
     }
     [AosAction(name: "Обновить место")]
-    public void updatePlace(JArray data)
+    public void updatePlace(JArray data, string snd)
     {
-        Debug.Log("Enter UpdatePlace");
         foreach (JObject item in data)
         {
-            var temp = item.SelectToken("points");
-            if (temp != null)
+            if (item != null)
             {
-                EnableDietButtonsEvent(null);
-                if (temp is JArray)
+                var childs = item.SelectTokens("childs");
+                if(childs!=null)
                 {
-                    foreach (var temp2 in temp)
+                    foreach (var apiId in childs)
                     {
-                        string buttonName = temp2.SelectToken("apiId").ToString();
-                        EnableDietButtonsEvent(buttonName);
+                        if(apiId!=null)
+                        {
+                            JArray tempArr = (JArray)apiId;
+                            foreach (var temp in tempArr)
+                            {
+                                var pointOpbject = temp.SelectToken("apiId");
+                                if(pointOpbject!=null)
+                                    Debug.Log("point id "+ pointOpbject.ToString());
+                                if(temp.SelectTokens("hands")!=null)
+                                {
+                                    var points = temp.SelectTokens("hands");
+                                    foreach (var point in points)
+                                    {
+                                        Debug.Log("points " + point);
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }

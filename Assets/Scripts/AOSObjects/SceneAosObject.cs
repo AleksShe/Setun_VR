@@ -11,9 +11,11 @@ public class SceneAosObject : AosObjectBase
     [AosEvent(name: "OnClickObject")]
     public event AosEventHandlerWithAttribute OnClickDialogObject;
     [AosEvent(name: "OnClickObject")]
-    public event AosEventHandlerWithAttribute pointAction;
+    public event AosEventHandlerWithAttribute OnPointAction;
+    private string _pointActionText;
     public void InvokeOnClick() => OnClickObject?.Invoke(ObjectId);
     public void InvokeOnClickDialog() => OnClickDialogObject?.Invoke(ObjectId);
     public void ActionWithObject(string actionName) => OnClickObject?.Invoke(actionName);
-    public void InvokePointAction() => pointAction?.Invoke("OnClick");
+    public void InvokePointAction() => OnPointAction?.Invoke("OnDblClick");
+    public void SetPointActionText(string text) => _pointActionText = text;
 }
