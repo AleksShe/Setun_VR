@@ -17,6 +17,7 @@ public class ArmUIButton : ArmButtonWithImage
     {
         if(_closeButton!=null)
         _closeButton.CloseUiButtonClickEvent += EnableUIButton;
+        InstanceHandler.Instance.AOSColliderActivator.AddArmIUObject(this);
     }
     public override void EnableUIButton(bool value)
     {
@@ -33,5 +34,9 @@ public class ArmUIButton : ArmButtonWithImage
     public string GetAOSName()
     {
         return _sceneObject == null ? null : _sceneObject.ObjectId;
+    }
+    public void SetSceneAosEventText(string actionText)
+    {
+        _sceneObject.SetPointActionText(actionText);
     }
 }

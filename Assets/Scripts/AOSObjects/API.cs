@@ -9,6 +9,7 @@ using Newtonsoft.Json.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UIElements;
 
 public enum NextButtonState
 {
@@ -39,6 +40,7 @@ public class API : AosObjectBase
     public UnityAction<string, string> PointEvent;
     public UnityAction<string, string> EnableMovingButtonEvent;
     public UnityAction<string, string> ActivateByNameEvent;
+    public UnityAction<string, string> ActivatePointByNameEvent;
     public UnityAction<string, string> SetMessageTextEvent;
     public UnityAction<string, string, string> SetResultTextEvent;
     public UnityAction<string, string> ShowExitTextEvent;
@@ -148,6 +150,7 @@ public class API : AosObjectBase
     [AosAction(name: "Показать место")]
     public void showPlace(JObject place, JArray data, JObject nav)
     {
+
         string location = place.SelectToken("apiId").ToString();
         SetLocationEvent?.Invoke(location);
         if (place.SelectToken("name") != null)
@@ -176,6 +179,7 @@ public class API : AosObjectBase
                     }
                 }
             }
+            updatePlace(data, "");
         }
         if (nav.SelectToken("back") != null && nav.SelectToken("back").SelectToken("action") != null && nav.SelectToken("back").SelectToken("action").ToString() != String.Empty)
             ActivateBackButtonEvent?.Invoke(nav.SelectToken("back").SelectToken("action").ToString());
@@ -185,27 +189,39 @@ public class API : AosObjectBase
     {
         foreach (JObject item in data)
         {
+            string pointId = "";
+            string pointActionName = "";
             if (item != null)
             {
                 var childs = item.SelectTokens("childs");
-                if(childs!=null)
+                if (childs != null)
                 {
                     foreach (var apiId in childs)
                     {
-                        if(apiId!=null)
+                        if (apiId != null)
                         {
                             JArray tempArr = (JArray)apiId;
                             foreach (var temp in tempArr)
                             {
                                 var pointOpbject = temp.SelectToken("apiId");
-                                if(pointOpbject!=null)
-                                    Debug.Log("point id "+ pointOpbject.ToString());
-                                if(temp.SelectTokens("hands")!=null)
+                                if (pointOpbject != null)
+                                    pointId = pointOpbject.ToString();
+                                if (temp.SelectTokens("hands") != null)
                                 {
                                     var points = temp.SelectTokens("hands");
                                     foreach (var point in points)
                                     {
-                                        Debug.Log("points " + point);
+                                        var pointName = (JArray)point;
+                                        if (pointName != null)
+                                            foreach (var pnt in pointName)
+                                            {
+                                                var ptnObject = pnt.SelectToken("action");
+                                                if (ptnObject != null)
+                                                {
+                                                    pointActionName = ptnObject.ToString();
+                                                    ActivatePointByNameEvent?.Invoke(pointId, pointActionName);
+                                                }
+                                            }
                                     }
                                 }
                             }
