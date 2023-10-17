@@ -14,6 +14,7 @@ public class ArmButtonWithImage : BaseUIButton
     public override void EnableUIButton(bool value)
     {
         base.EnableUIButton(value);
+        if(Image!=null)
         Image.enabled = value;
     }
 }

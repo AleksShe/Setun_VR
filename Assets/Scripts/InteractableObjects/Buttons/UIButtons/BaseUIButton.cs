@@ -9,7 +9,8 @@ public abstract class BaseUIButton : MonoBehaviour
     protected virtual void Awake()
     {
         Button = GetComponent<Button>();
-        Button.onClick.AddListener(() => Click());
+        if (Button != null)
+            Button.onClick.AddListener(() => Click());
     }
 
     protected virtual void Click()
@@ -17,6 +18,7 @@ public abstract class BaseUIButton : MonoBehaviour
     }
     public virtual void EnableUIButton(bool value)
     {
+        if(Button!=null)
         Button.enabled = value;
     }
 }

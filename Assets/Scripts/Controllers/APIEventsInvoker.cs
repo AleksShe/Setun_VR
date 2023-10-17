@@ -21,6 +21,7 @@ public class APIEventsInvoker : MonoBehaviour
         _api.SetTimerTextEvent += OnSetTimerText;
         _api.ActivateByNameEvent += OnActivateSceneObjectByName;
         _api.ActivatePointByNameEvent += OnActivateSceneArmPointByName;
+        _api.StartUpdatePlaceEvent += OnDeactivateUiButtons;
         _api.SetMessageTextEvent += OnSetLastScreenText;
         _api.SetResultTextEvent += OnSetResultScreenText;
         _api.ShowExitTextEvent += OnSetExitText;
@@ -46,6 +47,7 @@ public class APIEventsInvoker : MonoBehaviour
         _api.SetTimerTextEvent -= OnSetTimerText;
         _api.ActivateByNameEvent -= OnActivateSceneObjectByName;
         _api.ActivatePointByNameEvent -= OnActivateSceneArmPointByName;
+        _api.StartUpdatePlaceEvent -= OnDeactivateUiButtons;
         _api.SetMessageTextEvent -= OnSetLastScreenText;
         _api.SetResultTextEvent -= OnSetResultScreenText;
         _api.ShowExitTextEvent -= OnSetExitText;
@@ -57,6 +59,10 @@ public class APIEventsInvoker : MonoBehaviour
         _api.DialogEvent -= OnEnableDialog;
         _api.AddTextObjectUiButtonEvent -= OnAddTextObjectUiButton;
         _api.AddTextObjectUiEvent -= OnAddTextObjectUi;
+    }
+    private void OnDeactivateUiButtons()
+    {
+        InstanceHandler.Instance.AOSColliderActivator.DeactivateAllArmUIPoints();
     }
     private void OnDeactivateColliders()
     {
@@ -180,6 +186,7 @@ public class APIEventsInvoker : MonoBehaviour
     }
     private void OnActivateSceneArmPointByName(string id, string name)
     {
+   
         InstanceHandler.Instance.AOSColliderActivator.ActivateArmUIpoints(id, name);
         Debug.Log("FROM arm point " + id + "  " + name);
     }

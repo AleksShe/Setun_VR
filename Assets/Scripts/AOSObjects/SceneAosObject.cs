@@ -16,6 +16,6 @@ public class SceneAosObject : AosObjectBase
     public void InvokeOnClick() => OnClickObject?.Invoke(ObjectId);
     public void InvokeOnClickDialog() => OnClickDialogObject?.Invoke(ObjectId);
     public void ActionWithObject(string actionName) => OnClickObject?.Invoke(actionName);
-    public void InvokePointAction() => OnPointAction?.Invoke("OnDblClick");
+    public void InvokePointAction() => OnPointAction?.Invoke(_pointActionText);
     public void SetPointActionText(string text) => _pointActionText = text;
 }

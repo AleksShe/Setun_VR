@@ -26,6 +26,7 @@ public enum DialogRole
 public class API : AosObjectBase
 {
     public UnityAction ShowPlaceEvent;
+    public UnityAction StartUpdatePlaceEvent;
     public UnityAction<string> DialogEvent;
     public UnityAction<string> DialogHeaderEvent;
     public UnityAction<string> SetTeleportLocationEvent;
@@ -187,12 +188,21 @@ public class API : AosObjectBase
     [AosAction(name: "Обновить место")]
     public void updatePlace(JArray data, string snd)
     {
+        StartUpdatePlaceEvent?.Invoke();
         foreach (JObject item in data)
         {
             string pointId = "";
             string pointActionName = "";
             if (item != null)
             {
+                var apiIdParent = item.SelectToken("apiId");
+                if(apiIdParent!=null)
+                {
+                    var apiIdParentText = apiIdParent.ToString();
+                    ActivatePointByNameEvent?.Invoke(apiIdParentText, "OnClick");
+                    Debug.Log("PARENT: "+apiIdParentText);
+                }
+
                 var childs = item.SelectTokens("childs");
                 if (childs != null)
                 {
