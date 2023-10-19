@@ -5,6 +5,7 @@ using UnityEngine;
 public class DoorAnimationObject : ObjectWithAnimation
 {
     [SerializeField] private bool _side;
+    [SerializeField] private GameObject _door;
     public override void PlayScriptableAnimationOpen() => StartCoroutine(RotateDoor(true));
     public override void PlayScriptableAnimationClose() => StartCoroutine(RotateDoor(false));
     private IEnumerator RotateDoor(bool value)
@@ -14,10 +15,10 @@ public class DoorAnimationObject : ObjectWithAnimation
         {
             if(!_side)
             {
-                int y = -90;
-                while (y > -180)
+                int y = 0;
+                while (y > -90)
                 {
-                    transform.localRotation = Quaternion.Euler(0, y, 0);
+                    _door.transform.localRotation = Quaternion.Euler(0, y, 0);
                     y--;
                     yield return new WaitForSeconds(0.01f);
                 }
@@ -25,10 +26,10 @@ public class DoorAnimationObject : ObjectWithAnimation
             }
             else
             {
-                int y = 90;
-                while (y > 0)
+                int y = 0;
+                while (y > -90)
                 {
-                    transform.localRotation = Quaternion.Euler(0, y, 0);
+                    _door.transform.localRotation = Quaternion.Euler(0, y, 0);
                     y--;
                     yield return new WaitForSeconds(0.01f);
                 }
@@ -40,20 +41,20 @@ public class DoorAnimationObject : ObjectWithAnimation
         {
             if(!_side)
             {
-                int y = -180;
-                while (y < -90)
+                int y = -90;
+                while (y < 0)
                 {
-                    transform.localRotation = Quaternion.Euler(0, y, 0);
+                    _door.transform.localRotation = Quaternion.Euler(0, y, 0);
                     y++;
                     yield return new WaitForSeconds(0.01f);
                 }
             }
             else
             {
-                int y =0;
-                while (y < 90)
+                int y =-90;
+                while (y < 0)
                 {
-                    transform.localRotation = Quaternion.Euler(0, y, 0);
+                    _door.transform.localRotation = Quaternion.Euler(0, y, 0);
                     y++;
                     yield return new WaitForSeconds(0.01f);
                 }

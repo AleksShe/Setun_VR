@@ -38,9 +38,7 @@ namespace AosSdk.Core.PlayerModule.Pointer
             CanvasRectTransform = (RectTransform) Canvas.gameObject.transform;
             RectTransform = (RectTransform) transform;
             _image = GetComponent<Image>();
-    
             _screenWidth = Screen.width;
-            RectTransform.sizeDelta = new Vector2(12, 12);
             UpdateCrossHairSize();
         }
 

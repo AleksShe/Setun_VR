@@ -10,7 +10,7 @@ public class SceneObject : BaseObject
     public bool NonAOS;
 
     [SerializeField] protected Transform HelperPos;
-    [SerializeField] protected Renderer[] Meshes;
+    [SerializeField] private GameObject[] _highlights;
     protected string HelperName;
     protected void Start()
     {
@@ -24,12 +24,12 @@ public class SceneObject : BaseObject
     {
         if (HelperPos != null)
             InstanceHandler.Instance.HelpTextController.ShowHelperText(HelperPos, HelperName);
-        EnableMeshes(true);
+        EnableHighlight(true);
     }
     public override void OnHoverOut(InteractHand interactHand)
     {
         InstanceHandler.Instance.HelpTextController.HideHelperText();
-        EnableMeshes(false);
+        EnableHighlight(false);
     }
     public override void EnableObject(bool value)
     {
@@ -41,25 +41,11 @@ public class SceneObject : BaseObject
             GetComponent<Image>().enabled = value;
     }
     public virtual void SetHelperName(string value) => HelperName = value;
-    protected void EnableMeshes(bool value)
+    protected void EnableHighlight(bool value)
     {
-        if (Meshes != null)
-            foreach (var mesh in Meshes)
-            {
-                if (mesh != null)
-                {
-                    var materials = mesh.materials;
-                    if (value)
-                        foreach (var item in materials)
-                        {
-                            item.color *= 2;
-                        }
-                    else
-                        foreach (var item in materials)
-                        {
-                            item.color /= 2;
-                        }
-                }
-            }
+        if (_highlights == null )
+            return;
+        foreach (var hl in _highlights)
+            hl.SetActive(value);
     }
 }
