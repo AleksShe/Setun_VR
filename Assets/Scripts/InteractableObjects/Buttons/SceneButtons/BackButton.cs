@@ -11,8 +11,7 @@ public class BackButton : BaseButton
     public override void OnClicked(InteractHand interactHand)
     {
         InstanceHandler.Instance.MovingButtonsController.HideAllButtons();
-        API api = FindObjectOfType<API>();
-        api.OnInvokeNavAction(InstanceHandler.Instance.BackButtonsActivator.ActionToInvoke);
+        InstanceHandler.Instance.API.OnInvokeNavAction(InstanceHandler.Instance.BackButtonsActivator.ActionToInvoke);
         InstanceHandler.Instance.PlayCloseAnimationForAllObjects();
         InstanceHandler.Instance.BackButtonsActivator.SetCurrentBackButton(null);
         InstanceHandler.Instance.HelpTextController.HideReactionText();

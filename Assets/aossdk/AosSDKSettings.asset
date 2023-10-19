@@ -25,7 +25,7 @@ MonoBehaviour:
   gravity: 20
   mouseLookSpeed: 0.1
   mouseLookXLimit: 80
-  crossHairSizeMultiplier: 1
+  crossHairSizeMultiplier: 0.6
   vrInteractDistance: 0.6
   desktopInteractDistance: 2
   desktopGrabMinZoomDistance: 0.5

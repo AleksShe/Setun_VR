@@ -18,7 +18,7 @@ public class DesktopCanvas : GameCanvasBase
     {
         NextButton.NextButtonPressedEvent += OnStartGame;
         _escButton.EscClickEvent += OnEscClick;
-        BackFromMenuUIButton.BackButtonClickEvent += OnEscClick;
+        BackFromMenuUIButton.BackButtonClickEvent += OnExitFromCanvas;
     }
     private void OnStartGame(string name)
     {
@@ -30,7 +30,7 @@ public class DesktopCanvas : GameCanvasBase
     }
     private void OnEscClick()
     {
-        if (CurrentState == CanvasState.Phone || CurrentState == CanvasState.Arm)
+        if (CurrentState == CanvasState.Arm || CurrentState == CanvasState.Phone)
             return;
         if (CurrentState != CanvasState.Start && CurrentState != CanvasState.Menu)
         {
@@ -38,6 +38,10 @@ public class DesktopCanvas : GameCanvasBase
             InstanceHandler.Instance.API.OnMenuInvoke();
         }
         else ShowCanvas(CanvasState.None);
+    }
+    private void OnExitFromCanvas()
+    {
+        ShowCanvas(CanvasState.None);
     }
 
     public override void ShowCanvas(CanvasState state)
