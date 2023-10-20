@@ -2243,7 +2243,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1406409532326396015}
   m_Layer: 0
-  m_Name: Office2Fixed1
+  m_Name: PrefubOffice2Fixed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
