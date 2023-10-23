@@ -18,7 +18,7 @@ public class Teleporter : MonoBehaviour
     [SerializeField] private Transform _hallFromDncPosition;
     [SerializeField] private Transform _hallFromShnPosition;
     [Space]
-    [SerializeField] private CameraFadeIn _cameraFadeIn;
+    [SerializeField] private CameraFlash _cameraFlash;
     [SerializeField] private ModeController _modeController;
     [SerializeField] private API _api;
 
@@ -76,14 +76,14 @@ public class Teleporter : MonoBehaviour
     {
         if (!CanTeleport)
             return;
-        _cameraFadeIn.StartFade();
+        _cameraFlash.CameraFlashStart();
         Player.Instance.TeleportTo(newPosition);
     }
     private void TeleportPlayer(Vector3 newPos)
     {
         if (!CanTeleport)
             return;
-        _cameraFadeIn.StartFade();
+        _cameraFlash.CameraFlashStart();
         Player.Instance.TeleportTo(newPos);
     }
 }

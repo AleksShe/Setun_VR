@@ -10,6 +10,7 @@ public class DesktopCanvas : GameCanvasBase
     [SerializeField] private EscButton _escButton;
     [SerializeField] private DesktopCanvasObjectsHolder _textHolder;
     [SerializeField] private DesktopCanvasObjectsHolder _buttonsHolder;
+    [SerializeField] private CameraFlash _cameraFlash;
 
     private bool _canSwitch = true;
 
@@ -38,10 +39,12 @@ public class DesktopCanvas : GameCanvasBase
             InstanceHandler.Instance.API.OnMenuInvoke();
         }
         else ShowCanvas(CanvasState.None);
+        _cameraFlash.CameraFlashStart();
     }
     private void OnExitFromCanvas()
     {
         ShowCanvas(CanvasState.None);
+        _cameraFlash.CameraFlashStart();
     }
 
     public override void ShowCanvas(CanvasState state)
