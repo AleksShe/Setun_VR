@@ -38,7 +38,7 @@ public class VRCanvas : GameCanvasBase
     public override void SetResultScreenText(string headertext, string commentText, string evalText)
     {
         InstanceHandler.Instance.Teleporter.CanTeleport = false;
-        InstanceHandler.Instance.Teleporter.TeleportToMenu();
+        //InstanceHandler.Instance.Teleporter.TeleportToMenu();
         InstanceHandler.Instance.MainMenuCanvas.ShowCanvasByName("LastWindow");
         InstanceHandler.Instance.MainMenuCanvas.SetText(headertext, commentText, evalText);
     }

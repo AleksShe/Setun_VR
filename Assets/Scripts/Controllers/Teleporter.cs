@@ -69,7 +69,6 @@ public class Teleporter : MonoBehaviour
             _menu = false;
             TeleportPlayer(_currentPlayerPosition);
             Player.Instance.CanMove = true;
-
         }
     }
     private void TeleportPlayer(Transform newPosition)

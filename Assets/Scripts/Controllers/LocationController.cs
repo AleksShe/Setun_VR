@@ -8,7 +8,7 @@ public class LocationController : MonoBehaviour
 {
     [SerializeField] private API _api;
 
-    private string _currentLocation = "field";
+    private string _currentLocation = "hall";
     public string GetLocationName => _currentLocation;
     public void ConnectionEstablished() => _api.ConnectionEstablished(_currentLocation);
     public void SetLocation(string location) => _currentLocation = location;

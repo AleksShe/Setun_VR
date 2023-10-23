@@ -27,6 +27,7 @@ public class DesktopCanvas : GameCanvasBase
         {
             DisableAllCanvases();
             ShowCanvas(CanvasState.None);
+            _cameraFlash.CameraFlashStart();
         }
     }
     private void OnEscClick()
