@@ -13,7 +13,8 @@ public class DoorAnimationObject : ObjectWithAnimation
         GetComponent<Collider>().enabled = false;
         if(value)
         {
-            if(!_side)
+            InstanceHandler.Instance.DoorSoundPlayer.PlayOpenMetalDoorSound();
+            if (!_side)
             {
                 int y = 0;
                 while (y > -90)
@@ -33,13 +34,12 @@ public class DoorAnimationObject : ObjectWithAnimation
                     y--;
                     yield return new WaitForSeconds(0.01f);
                 }
-
             }
-      
         }
         else if(!value)
         {
-            if(!_side)
+            
+            if (!_side)
             {
                 int y = -90;
                 while (y < 0)
@@ -59,7 +59,7 @@ public class DoorAnimationObject : ObjectWithAnimation
                     yield return new WaitForSeconds(0.01f);
                 }
             }
-     
+            InstanceHandler.Instance.DoorSoundPlayer.PlayCloseMetalDoorSound();
         }
     }
 }

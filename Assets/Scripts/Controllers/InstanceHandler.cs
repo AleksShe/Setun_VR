@@ -18,6 +18,7 @@ public class InstanceHandler : MonoBehaviour
     [SerializeField] private TimerTextHolder _timerView;
     [SerializeField] private MainMenuCanvas _mainMenuCanvas;
     [SerializeField] private ModeController _modeController;
+    [SerializeField] private DoorSoundPlayer _doorSoundPlayer;
     [SerializeField] private API _api;
 
     public AOSObjectsActivator AOSColliderActivator => _aosColliderActivator;
@@ -30,6 +31,7 @@ public class InstanceHandler : MonoBehaviour
     public Teleporter Teleporter => _teleporter;
     public BackButtonsActivator BackButtonsActivator => _backButtonsActivator;
     public ModeController ModeController => _modeController;
+    public DoorSoundPlayer DoorSoundPlayer => _doorSoundPlayer;
     public API API => _api;
     public void AddAnimationObjectToList(ObjectWithAnimation obj)
     {
