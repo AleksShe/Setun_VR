@@ -19,6 +19,7 @@ public class InstanceHandler : MonoBehaviour
     [SerializeField] private MainMenuCanvas _mainMenuCanvas;
     [SerializeField] private ModeController _modeController;
     [SerializeField] private DoorSoundPlayer _doorSoundPlayer;
+    [SerializeField] private BackTriggersHolder _backTriggersHolder;
     [SerializeField] private API _api;
 
     public AOSObjectsActivator AOSColliderActivator => _aosColliderActivator;
@@ -32,6 +33,7 @@ public class InstanceHandler : MonoBehaviour
     public BackButtonsActivator BackButtonsActivator => _backButtonsActivator;
     public ModeController ModeController => _modeController;
     public DoorSoundPlayer DoorSoundPlayer => _doorSoundPlayer;
+    public BackTriggersHolder BackTriggersHolder => _backTriggersHolder;
     public API API => _api;
     public void AddAnimationObjectToList(ObjectWithAnimation obj)
     {

@@ -21,5 +21,6 @@ public class PlaceObject : SceneObject
             _objectWithAnimation.PlayScriptableAnimationOpen();
             InstanceHandler.Instance.AddAnimationObjectToList(_objectWithAnimation);
         }
+        InstanceHandler.Instance.BackTriggersHolder.EnableCurrentTrigger(true);
     }
 }

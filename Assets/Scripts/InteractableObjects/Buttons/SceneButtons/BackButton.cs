@@ -4,6 +4,8 @@ using AosSdk.Core.Utils;
 using AosSdk.Core.PlayerModule.Pointer;
 using UnityEngine;
 using UnityEngine.Events;
+using static UnityEngine.Rendering.DebugUI;
+
 public class BackButton : BaseButton
 {
     public UnityAction BackButtonClickEvent;
@@ -15,6 +17,7 @@ public class BackButton : BaseButton
         InstanceHandler.Instance.PlayCloseAnimationForAllObjects();
         InstanceHandler.Instance.BackButtonsActivator.SetCurrentBackButton(null);
         InstanceHandler.Instance.HelpTextController.HideReactionText();
+        InstanceHandler.Instance.BackTriggersHolder.EnableCurrentTrigger(false);
         BackButtonClickEvent?.Invoke();
     }
 }

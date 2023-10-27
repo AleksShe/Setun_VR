@@ -74,7 +74,6 @@ namespace AosSdk.Core.Utils
 
         private void ClientMessageReceived(string message)
         {
-            Debug.Log("MESSAGE:" + message);
             AosCommand aosCommandToQueue = null;
             try
             {

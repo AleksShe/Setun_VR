@@ -165,7 +165,6 @@ public class API : AosObjectBase
             if (temp != null)
             {
                 ActivateByNameEvent?.Invoke(temp.ToString(), item.SelectToken("name").ToString());
-                Debug.Log(temp.ToString() + " ÒÝÃ " + item.SelectToken("name").ToString() + "Èìÿ");
             }
             if (item.SelectToken("view") != null)
             {
@@ -200,7 +199,6 @@ public class API : AosObjectBase
                 {
                     var apiIdParentText = apiIdParent.ToString();
                     ActivatePointByNameEvent?.Invoke(apiIdParentText, "OnClick");
-                    Debug.Log("PARENT: "+apiIdParentText);
                 }
 
                 var childs = item.SelectTokens("childs");

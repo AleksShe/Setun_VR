@@ -98,6 +98,7 @@ public class APIEventsInvoker : MonoBehaviour
     }
     private void OnSetLocationToLocationController(string location)
     {
+        InstanceHandler.Instance.BackTriggersHolder.SetTrigger(location);
         InstanceHandler.Instance.LocationController.SetLocation(location);
     }
     private void OnSetLocationAfterConnection()
@@ -186,9 +187,7 @@ public class APIEventsInvoker : MonoBehaviour
     }
     private void OnActivateSceneArmPointByName(string id, string name)
     {
-   
         InstanceHandler.Instance.AOSColliderActivator.ActivateArmUIpoints(id, name);
-        Debug.Log("FROM arm point " + id + "  " + name);
     }
     private void OnActivatePointObjectByName(string id, string name)
     {
