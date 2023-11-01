@@ -41,7 +41,7 @@ public class SceneObject : BaseObject
             GetComponent<Image>().enabled = value;
     }
     public virtual void SetHelperName(string value) => HelperName = value;
-    protected void EnableHighlight(bool value)
+    protected virtual void EnableHighlight(bool value)
     {
         if (_highlights == null )
             return;
