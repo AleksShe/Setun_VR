@@ -43,9 +43,22 @@ public class SceneObject : BaseObject
     public virtual void SetHelperName(string value) => HelperName = value;
     protected virtual void EnableHighlight(bool value)
     {
-        if (_highlights == null )
+        if (_highlights == null)
             return;
         foreach (var hl in _highlights)
             hl.SetActive(value);
+        //Renderer[] renderers = GetComponentsInChildren<Renderer>();
+        //if (renderers == null)
+        //    return;
+        //foreach (var renderer in renderers)
+        //{
+        //    foreach (var mat in renderer.materials)
+        //    {
+        //        if (value)
+        //            mat.color *= 2;
+        //        else
+        //            mat.color /= 2;
+        //    }
+        //}
     }
 }
