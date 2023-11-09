@@ -26,6 +26,9 @@ public class MovingButtonsController : MonoBehaviour
     [SerializeField] private GameObject _penButton;
     [SerializeField] private GameObject _penButton_1;
 
+    private const float Y = 0f;
+    private float _step = 3.06f;
+    private float _y;
 
     public void SetCurrentBaseObjectAndMovingButtonsPosition(Vector3 position, SceneObject obj)
     {
@@ -71,67 +74,80 @@ public class MovingButtonsController : MonoBehaviour
         _penButton.SetActive(false);
         _penButton_1.SetActive(false);
         _toolButton_1.SetActive(false);
+        _y = Y;
         ButtonsPositionChangedEvent?.Invoke();
     }
     public void SetWatchButtonText(string text)
     {
         _eyeButton.TryGetComponent(out MovingButton movingButton);
         movingButton.SetActionText(HtmlToText.Instance.HTMLToTextReplace(text));
+        ChangeYValue(movingButton);
     }
     public void SetWatch1ButtonText(string text)
     {
         _eyeButton_1.TryGetComponent(out MovingButton movingButton);
         movingButton.SetActionText(HtmlToText.Instance.HTMLToTextReplace(text));
+        ChangeYValue(movingButton);
     }
     public void SetWatch2ButtonText(string text)
     {
         _eyeButton_2.TryGetComponent(out MovingButton movingButton);
         movingButton.SetActionText(HtmlToText.Instance.HTMLToTextReplace(text));
+        ChangeYValue(movingButton);
     }
     public void SetToolButtonText(string text)
     {
         _toolButton.TryGetComponent(out MovingButton movingButton);
         movingButton.SetActionText(HtmlToText.Instance.HTMLToTextReplace(text));
+        ChangeYValue(movingButton);
     }
     public void SetTool1ButtonText(string text)
     {
         _toolButton_1.TryGetComponent(out MovingButton movingButton);
         movingButton.SetActionText(HtmlToText.Instance.HTMLToTextReplace(text));
+        ChangeYValue(movingButton);
     }
     public void SetHandButtonText(string text)
     {
         _handButton.TryGetComponent(out MovingButton movingButton);
         movingButton.SetActionText(HtmlToText.Instance.HTMLToTextReplace(text));
+        ChangeYValue(movingButton);
     }
     public void SetHand1ButtonText(string text)
     {
         _handButton_1.TryGetComponent(out MovingButton movingButton);
         movingButton.SetActionText(HtmlToText.Instance.HTMLToTextReplace(text));
+        ChangeYValue(movingButton);
     }
     public void SetHand2ButtonText(string text)
     {
         _handButton_2.TryGetComponent(out MovingButton movingButton);
         movingButton.SetActionText(HtmlToText.Instance.HTMLToTextReplace(text));
+        ChangeYValue(movingButton);
     }
     public void SetHand3ButtonText(string text)
     {
         _handButton_3.TryGetComponent(out MovingButton movingButton);
         movingButton.SetActionText(HtmlToText.Instance.HTMLToTextReplace(text));
+        ChangeYValue(movingButton);
     }
     public void SetHand4ButtonText(string text)
     {
         _handButton_4.TryGetComponent(out MovingButton movingButton);
         movingButton.SetActionText(HtmlToText.Instance.HTMLToTextReplace(text));
+        ChangeYValue(movingButton);
     }
     public void SetPenButtonText(string text)
     {
         _penButton.TryGetComponent(out MovingButton movingButton);
         movingButton.SetActionText(HtmlToText.Instance.HTMLToTextReplace(text));
+        ChangeYValue(movingButton);
     }
     public void SetPen1ButtonText(string text)
     {
         _penButton_1.TryGetComponent(out MovingButton movingButton);
         movingButton.SetActionText(HtmlToText.Instance.HTMLToTextReplace(text));
+        ChangeYValue(movingButton);
     }
     public void StartHandAction()
     {
@@ -145,5 +161,10 @@ public class MovingButtonsController : MonoBehaviour
             ToolObject.PlayToolAnimation();
             Debug.Log("In tools");
         }
+    }
+    private void ChangeYValue(MovingButton btn)
+    {
+        btn.ChangeButtonPosistion(_y);
+        _y += _step;
     }
 }
