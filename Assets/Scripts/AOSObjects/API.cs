@@ -228,6 +228,7 @@ public class API : AosObjectBase
                                                 {
                                                     pointActionName = ptnObject.ToString();
                                                     ActivatePointByNameEvent?.Invoke(pointId, pointActionName);
+                                                    Debug.Log($"{pointId} point Id  {pointActionName} pointActionName");
                                                 }
                                             }
                                     }

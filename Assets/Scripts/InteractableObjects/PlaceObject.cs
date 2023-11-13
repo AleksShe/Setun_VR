@@ -7,6 +7,8 @@ public class PlaceObject : SceneObject
 {
     [SerializeField] private BackButton _backButton;
     [SerializeField] private Transform _reactionPos;
+    [SerializeField] private Renderer[] _renderers;
+    [SerializeField] private Color _color;
     private ObjectWithAnimation _objectWithAnimation;
     public override void OnClicked(InteractHand interactHand)
     {
@@ -22,5 +24,36 @@ public class PlaceObject : SceneObject
             InstanceHandler.Instance.AddAnimationObjectToList(_objectWithAnimation);
         }
         InstanceHandler.Instance.BackTriggersHolder.EnableCurrentTrigger(true);
+    }
+    public override void OnHoverIn(InteractHand interactHand)
+    {
+        if (_renderers == null || _renderers.Length < 1)
+            base.OnHoverIn(interactHand);
+        else
+            HighlightMaterials(true);
+    }
+    public override void OnHoverOut(InteractHand interactHand)
+    {
+        if (_renderers == null || _renderers.Length < 1)
+            base.OnHoverOut(interactHand);
+        else
+            HighlightMaterials(false);
+    }
+
+    private void HighlightMaterials(bool value)
+    {
+        foreach (var renderer in _renderers)
+        {
+            if (value)
+            {
+                renderer.material.color *= 2.5f;
+                renderer.material.color = Color.white;
+            }
+            else
+            {
+                renderer.material.color /= 2.5f;
+                renderer.material.color = _color;
+            }
+        }
     }
 }
