@@ -16,12 +16,13 @@ public class WiresWithButton : ObjectWithButton
         {
             if (value)
             {
-                renderer.material.color *= 2.5f;
+                renderer.material.EnableKeyword("_EMISSION");
+                renderer.material.SetColor("_EmissionColor", Color.white);
                 renderer.material.color = Color.white;
             }
             else
             {
-                renderer.material.color /= 2.5f;
+                renderer.material.SetColor("_EmissionColor", Color.black);
                 renderer.material.color = _color;
             }
         }

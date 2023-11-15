@@ -1,5 +1,3 @@
-using System.Collections;
-using AosSdk.Core.Interaction.Interfaces;
 using AosSdk.Core.Utils;
 using UnityEngine;
 [AosSdk.Core.Utils.AosObject(name: "Анимация")]
