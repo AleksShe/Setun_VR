@@ -2,9 +2,8 @@ using AosSdk.Core.Utils;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI;
 
-[AosSdk.Core.Utils.AosObject(name: "Lamp")]
+[AosSdk.Core.Utils.AosObject(name: "Object enabler")]
 
 public class AosObjectEnabler : SceneAosObject
 {
