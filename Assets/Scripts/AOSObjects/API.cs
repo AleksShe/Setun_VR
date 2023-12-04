@@ -187,14 +187,8 @@ public class API : AosObjectBase
     public void updatePlace(JArray data, string snd)
     {
         StartUpdatePlaceEvent?.Invoke();
-        List<AosObjectModel> jsonArray = JsonConvert.DeserializeObject<List<AosObjectModel>>(data.ToString());
-        foreach (var item in jsonArray)
-        {
-            Debug.Log($"ID {item.Id}  NAME {item.Name}");
-        }
         foreach (JObject item in data)
         {
-     
             string pointId = "";
             string pointActionName = "";
             if (item != null)
