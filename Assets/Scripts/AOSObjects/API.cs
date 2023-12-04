@@ -194,7 +194,7 @@ public class API : AosObjectBase
             if (item != null)
             {
                 var apiIdParent = item.SelectToken("apiId");
-                if(apiIdParent!=null)
+                if (apiIdParent != null)
                 {
                     var apiIdParentText = apiIdParent.ToString();
                     ActivatePointByNameEvent?.Invoke(apiIdParentText, "OnClick");
