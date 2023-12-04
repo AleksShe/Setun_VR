@@ -5,10 +5,12 @@ using System.Linq;
 using AosSdk.Core.Interaction.Interfaces;
 using AosSdk.Core.PlayerModule;
 using AosSdk.Core.Utils;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem.HID;
 using UnityEngine.UIElements;
 
 public enum NextButtonState
@@ -67,19 +69,19 @@ public class API : AosObjectBase
     [AosAction(name: "Задать текст приветствия")]
     public void showWelcome(JObject info, JObject nav)
     {
-        string headerText = info.SelectToken("name").ToString();
-        string commentText = info.SelectToken("text").ToString();
+        JsonConverter<AosTextModel> aosWelcomeText = new JsonConverter<AosTextModel>(info);
         string buttonText = nav.SelectToken("ok").SelectToken("caption").ToString();
-        SetStartTextEvent?.Invoke(headerText, commentText, buttonText, NextButtonState.Start);
+        var welcomeObj = aosWelcomeText.JsonObject;
+        SetStartTextEvent?.Invoke(welcomeObj.Header, welcomeObj.Text, buttonText, NextButtonState.Start);
         SetTeleportLocationEvent?.Invoke("start");
     }
     [AosAction(name: "Показать информацию отказа")]
     public void showFaultInfo(JObject info, JObject nav)
     {
-        string headerText = info.SelectToken("name").ToString();
-        string commentText = info.SelectToken("text").ToString();
+        JsonConverter<AosTextModel> aosWelcomeText = new JsonConverter<AosTextModel>(info);
         string buttonText = nav.SelectToken("ok").SelectToken("caption").ToString();
-        SetStartTextEvent?.Invoke(headerText, commentText, buttonText, NextButtonState.Fault);
+        var welcomeObj = aosWelcomeText.JsonObject;
+        SetStartTextEvent?.Invoke(welcomeObj.Header, welcomeObj.Text, buttonText, NextButtonState.Fault);
     }
 
     public void showDialog(JObject info, JArray points, JObject nav)
@@ -151,7 +153,6 @@ public class API : AosObjectBase
     [AosAction(name: "Показать место")]
     public void showPlace(JObject place, JArray data, JObject nav)
     {
-
         string location = place.SelectToken("apiId").ToString();
         SetLocationEvent?.Invoke(location);
         if (place.SelectToken("name") != null)
@@ -159,13 +160,11 @@ public class API : AosObjectBase
             SetNewLocationTextEvent?.Invoke(place.SelectToken("name").ToString());
         }
         ShowPlaceEvent?.Invoke();
+        JsonConverter<AosObjectModel> converter = new JsonConverter<AosObjectModel>(data);
+        foreach (var jItem in converter.JsonArray)
+            ActivateByNameEvent?.Invoke(jItem.Id, jItem.Name);
         foreach (JObject item in data)
         {
-            var temp = item.SelectToken("apiId");
-            if (temp != null)
-            {
-                ActivateByNameEvent?.Invoke(temp.ToString(), item.SelectToken("name").ToString());
-            }
             if (item.SelectToken("view") != null)
             {
                 var aosObjectWithImage = item.SelectToken("view");
@@ -188,8 +187,14 @@ public class API : AosObjectBase
     public void updatePlace(JArray data, string snd)
     {
         StartUpdatePlaceEvent?.Invoke();
+        List<AosObjectModel> jsonArray = JsonConvert.DeserializeObject<List<AosObjectModel>>(data.ToString());
+        foreach (var item in jsonArray)
+        {
+            Debug.Log($"ID {item.Id}  NAME {item.Name}");
+        }
         foreach (JObject item in data)
         {
+     
             string pointId = "";
             string pointActionName = "";
             if (item != null)
@@ -358,22 +363,19 @@ public class API : AosObjectBase
         string commentText = faultInfo.SelectToken("text").ToString();
         string exitSureText = exitInfo.SelectToken("quest").ToString();
         ShowMenuTextEvent?.Invoke(headtext, commentText, exitSureText);
-        Debug.Log($"Show message text event headText: {headtext} comment text: {commentText} exutSureText: {exitSureText}");
         if (exitInfo.SelectToken("text") != null && exitInfo.SelectToken("warn") != null)
         {
             string exitText = HtmlToText.Instance.HTMLToTextReplace(exitInfo.SelectToken("text").ToString());
             string warntext = HtmlToText.Instance.HTMLToTextReplace(exitInfo.SelectToken("warn").ToString());
             ShowExitTextEvent?.Invoke(exitText, warntext);
-            Debug.Log($"Show exit text event exit text: {exitText} warn text: {warntext} ");
         }
     }
     [AosAction(name: "Показать сообщение")]
     public void showMessage(JObject info, JObject nav)
     {
-        string headText = info.SelectToken("name").ToString();
-        string commentText = info.SelectToken("text").ToString();
-        SetMessageTextEvent?.Invoke(headText, commentText);
-        Debug.Log($"Show message text event head text: {headText} comment text: {commentText} ");
+        JsonConverter<AosTextModel> aosWelcomeText = new JsonConverter<AosTextModel>(info);
+        var welcomeObj = aosWelcomeText.JsonObject;
+        SetMessageTextEvent?.Invoke(welcomeObj.Header, welcomeObj.Text);
     }
     [AosAction(name: "Показать сообщение")]
     public void showResult(JObject info, JObject nav)
