@@ -187,6 +187,8 @@ public class API : AosObjectBase
     public void updatePlace(JArray data, string snd)
     {
         StartUpdatePlaceEvent?.Invoke();
+        List<string> tokens = new List<string>();
+        GetIds(data, "apiId", ref tokens);
         foreach (JObject item in data)
         {
             string pointId = "";
@@ -262,7 +264,11 @@ public class API : AosObjectBase
             if (value == null)
                 return null;
             else
+            {
                 result.Add(value);
+                Debug.Log(value + " from get ids");
+            }
+    
         }
         else
         {
@@ -273,163 +279,164 @@ public class API : AosObjectBase
     }
 
 
-private bool isArray(JArray jObject, string apiId)
-{
-    if (jObject.SelectTokens(apiId) != null)
-        return true;
-    return false;
-}
-
-[AosAction(name: "Показать реакцию")]
-public void showReaction(JObject info, JObject nav)
-{
-    if (info.SelectToken("text") != null)
+    private bool isArray(JArray jObject, string apiId)
     {
-        var reactionText = info.SelectToken("text").ToString();
-        ReactionEvent?.Invoke(reactionText);
-        Debug.Log(reactionText + "Reaction");
+        var array = jObject.SelectTokens(apiId);
+        if (array.ToList().Count > 0)
+            return true;
+        return false;
     }
-}
-[AosAction(name: "Показать точки")]
-public void showPoints(string info, JArray data)
-{
-    EnableMovingButtonEvent?.Invoke(null, null);
-    foreach (JObject item in data)
-    {
-        if (item == null)
-            return;
-        if (item.SelectToken("tool") != null && item.SelectToken("name") != null)
-        {
-            Debug.Log(item.SelectToken("tool").ToString() + " API Show points");
-            if (item.SelectToken("tool").ToString() == "eye")
-            {
-                string eye = item.SelectToken("tool").ToString();
-                string text = item.SelectToken("name").ToString();
-                EnableMovingButtonEvent?.Invoke(eye, text);
-            }
-            if (item.SelectToken("tool").ToString() == "eye_1")
-            {
-                string eye = item.SelectToken("tool").ToString();
-                string text = item.SelectToken("name").ToString();
-                EnableMovingButtonEvent?.Invoke(eye, text);
-            }
-            if (item.SelectToken("tool").ToString() == "eye_2")
-            {
-                string eye = item.SelectToken("tool").ToString();
-                string text = item.SelectToken("name").ToString();
-                EnableMovingButtonEvent?.Invoke(eye, text);
-            }
-            if (item.SelectToken("tool").ToString() == "hand")
-            {
-                string hand = item.SelectToken("tool").ToString();
-                string text = item.SelectToken("name").ToString();
-                EnableMovingButtonEvent?.Invoke(hand, text);
-            }
-            if (item.SelectToken("tool").ToString() == "hand_1")
-            {
-                string hand = item.SelectToken("tool").ToString();
-                string text = item.SelectToken("name").ToString();
-                EnableMovingButtonEvent?.Invoke(hand, text);
-            }
-            if (item.SelectToken("tool").ToString() == "hand_2")
-            {
-                string hand = item.SelectToken("tool").ToString();
-                string text = item.SelectToken("name").ToString();
-                EnableMovingButtonEvent?.Invoke(hand, text);
-            }
-            if (item.SelectToken("tool").ToString() == "hand_3")
-            {
-                string hand = item.SelectToken("tool").ToString();
-                string text = item.SelectToken("name").ToString();
-                EnableMovingButtonEvent?.Invoke(hand, text);
-            }
-            if (item.SelectToken("tool").ToString() == "hand_4")
-            {
-                string hand = item.SelectToken("tool").ToString();
-                string text = item.SelectToken("name").ToString();
-                EnableMovingButtonEvent?.Invoke(hand, text);
-            }
-            if (item.SelectToken("tool").ToString() == "tool")
-            {
-                string tool = item.SelectToken("tool").ToString();
-                string text = item.SelectToken("name").ToString();
-                EnableMovingButtonEvent?.Invoke(tool, text);
-            }
-            if (item.SelectToken("tool").ToString() == "tool_1")
-            {
-                string tool = item.SelectToken("tool").ToString();
-                string text = item.SelectToken("name").ToString();
-                EnableMovingButtonEvent?.Invoke(tool, text);
-            }
-            if (item.SelectToken("tool").ToString() == "pen")
-            {
-                string pen = item.SelectToken("tool").ToString();
-                string text = item.SelectToken("name").ToString();
-                EnableMovingButtonEvent?.Invoke(pen, text);
-            }
-            if (item.SelectToken("tool").ToString() == "pen_1")
-            {
-                string pen = item.SelectToken("tool").ToString();
-                string text = item.SelectToken("name").ToString();
-                EnableMovingButtonEvent?.Invoke(pen, text);
-            }
-        }
 
-        if (item.SelectToken("apiId") != null)
+    [AosAction(name: "Показать реакцию")]
+    public void showReaction(JObject info, JObject nav)
+    {
+        if (info.SelectToken("text") != null)
         {
-            var point = item.SelectToken("apiId").ToString();
-            var name = item.SelectToken("name").ToString();
-            PointEvent?.Invoke(point, name);
+            var reactionText = info.SelectToken("text").ToString();
+            ReactionEvent?.Invoke(reactionText);
+            Debug.Log(reactionText + "Reaction");
         }
     }
-}
-
-[AosAction(name: "Показать реакцию")]
-public void showTime(string time)
-{
-    SetTimerTextEvent?.Invoke(time);
-}
-
-[AosAction(name: "Показать меню")]
-public void showMenu(JObject faultInfo, JObject exitInfo, JObject resons)
-{
-    string headtext = faultInfo.SelectToken("name").ToString();
-    string commentText = faultInfo.SelectToken("text").ToString();
-    string exitSureText = exitInfo.SelectToken("quest").ToString();
-    ShowMenuTextEvent?.Invoke(headtext, commentText, exitSureText);
-    if (exitInfo.SelectToken("text") != null && exitInfo.SelectToken("warn") != null)
+    [AosAction(name: "Показать точки")]
+    public void showPoints(string info, JArray data)
     {
-        string exitText = HtmlToText.Instance.HTMLToTextReplace(exitInfo.SelectToken("text").ToString());
-        string warntext = HtmlToText.Instance.HTMLToTextReplace(exitInfo.SelectToken("warn").ToString());
-        ShowExitTextEvent?.Invoke(exitText, warntext);
+        EnableMovingButtonEvent?.Invoke(null, null);
+        foreach (JObject item in data)
+        {
+            if (item == null)
+                return;
+            if (item.SelectToken("tool") != null && item.SelectToken("name") != null)
+            {
+                Debug.Log(item.SelectToken("tool").ToString() + " API Show points");
+                if (item.SelectToken("tool").ToString() == "eye")
+                {
+                    string eye = item.SelectToken("tool").ToString();
+                    string text = item.SelectToken("name").ToString();
+                    EnableMovingButtonEvent?.Invoke(eye, text);
+                }
+                if (item.SelectToken("tool").ToString() == "eye_1")
+                {
+                    string eye = item.SelectToken("tool").ToString();
+                    string text = item.SelectToken("name").ToString();
+                    EnableMovingButtonEvent?.Invoke(eye, text);
+                }
+                if (item.SelectToken("tool").ToString() == "eye_2")
+                {
+                    string eye = item.SelectToken("tool").ToString();
+                    string text = item.SelectToken("name").ToString();
+                    EnableMovingButtonEvent?.Invoke(eye, text);
+                }
+                if (item.SelectToken("tool").ToString() == "hand")
+                {
+                    string hand = item.SelectToken("tool").ToString();
+                    string text = item.SelectToken("name").ToString();
+                    EnableMovingButtonEvent?.Invoke(hand, text);
+                }
+                if (item.SelectToken("tool").ToString() == "hand_1")
+                {
+                    string hand = item.SelectToken("tool").ToString();
+                    string text = item.SelectToken("name").ToString();
+                    EnableMovingButtonEvent?.Invoke(hand, text);
+                }
+                if (item.SelectToken("tool").ToString() == "hand_2")
+                {
+                    string hand = item.SelectToken("tool").ToString();
+                    string text = item.SelectToken("name").ToString();
+                    EnableMovingButtonEvent?.Invoke(hand, text);
+                }
+                if (item.SelectToken("tool").ToString() == "hand_3")
+                {
+                    string hand = item.SelectToken("tool").ToString();
+                    string text = item.SelectToken("name").ToString();
+                    EnableMovingButtonEvent?.Invoke(hand, text);
+                }
+                if (item.SelectToken("tool").ToString() == "hand_4")
+                {
+                    string hand = item.SelectToken("tool").ToString();
+                    string text = item.SelectToken("name").ToString();
+                    EnableMovingButtonEvent?.Invoke(hand, text);
+                }
+                if (item.SelectToken("tool").ToString() == "tool")
+                {
+                    string tool = item.SelectToken("tool").ToString();
+                    string text = item.SelectToken("name").ToString();
+                    EnableMovingButtonEvent?.Invoke(tool, text);
+                }
+                if (item.SelectToken("tool").ToString() == "tool_1")
+                {
+                    string tool = item.SelectToken("tool").ToString();
+                    string text = item.SelectToken("name").ToString();
+                    EnableMovingButtonEvent?.Invoke(tool, text);
+                }
+                if (item.SelectToken("tool").ToString() == "pen")
+                {
+                    string pen = item.SelectToken("tool").ToString();
+                    string text = item.SelectToken("name").ToString();
+                    EnableMovingButtonEvent?.Invoke(pen, text);
+                }
+                if (item.SelectToken("tool").ToString() == "pen_1")
+                {
+                    string pen = item.SelectToken("tool").ToString();
+                    string text = item.SelectToken("name").ToString();
+                    EnableMovingButtonEvent?.Invoke(pen, text);
+                }
+            }
+
+            if (item.SelectToken("apiId") != null)
+            {
+                var point = item.SelectToken("apiId").ToString();
+                var name = item.SelectToken("name").ToString();
+                PointEvent?.Invoke(point, name);
+            }
+        }
     }
-}
-[AosAction(name: "Показать сообщение")]
-public void showMessage(JObject info, JObject nav)
-{
-    JsonConverter<AosTextModel> aosWelcomeText = new JsonConverter<AosTextModel>(info);
-    var welcomeObj = aosWelcomeText.JsonObject;
-    SetMessageTextEvent?.Invoke(welcomeObj.Header, welcomeObj.Text);
-}
-[AosAction(name: "Показать сообщение")]
-public void showResult(JObject info, JObject nav)
-{
-    string headText = info.SelectToken("name").ToString();
-    string commentText = HtmlToText.Instance.HTMLToTextReplace(HtmlToText.Instance.HTMLToTextReplace(info.SelectToken("text").ToString()));
-    string evalText = HtmlToText.Instance.HTMLToTextReplace(info.SelectToken("eval").ToString());
-    SetResultTextEvent?.Invoke(headText, commentText, evalText);
-    Debug.Log($"Show result text event head text: {headText} comment text: {commentText} eval text: {evalText}");
-}
-public void OnReasonInvoke(string name)
-{
-    OnReason?.Invoke(name);
-}
-public void OnMenuInvoke()
-{
-    OnMenu?.Invoke();
-}
-public void OnDialogInvoke(string name)
-{
-    OnDialogPoint?.Invoke(name);
-}
+
+    [AosAction(name: "Показать реакцию")]
+    public void showTime(string time)
+    {
+        SetTimerTextEvent?.Invoke(time);
+    }
+
+    [AosAction(name: "Показать меню")]
+    public void showMenu(JObject faultInfo, JObject exitInfo, JObject resons)
+    {
+        string headtext = faultInfo.SelectToken("name").ToString();
+        string commentText = faultInfo.SelectToken("text").ToString();
+        string exitSureText = exitInfo.SelectToken("quest").ToString();
+        ShowMenuTextEvent?.Invoke(headtext, commentText, exitSureText);
+        if (exitInfo.SelectToken("text") != null && exitInfo.SelectToken("warn") != null)
+        {
+            string exitText = HtmlToText.Instance.HTMLToTextReplace(exitInfo.SelectToken("text").ToString());
+            string warntext = HtmlToText.Instance.HTMLToTextReplace(exitInfo.SelectToken("warn").ToString());
+            ShowExitTextEvent?.Invoke(exitText, warntext);
+        }
+    }
+    [AosAction(name: "Показать сообщение")]
+    public void showMessage(JObject info, JObject nav)
+    {
+        JsonConverter<AosTextModel> aosWelcomeText = new JsonConverter<AosTextModel>(info);
+        var welcomeObj = aosWelcomeText.JsonObject;
+        SetMessageTextEvent?.Invoke(welcomeObj.Header, welcomeObj.Text);
+    }
+    [AosAction(name: "Показать сообщение")]
+    public void showResult(JObject info, JObject nav)
+    {
+        string headText = info.SelectToken("name").ToString();
+        string commentText = HtmlToText.Instance.HTMLToTextReplace(HtmlToText.Instance.HTMLToTextReplace(info.SelectToken("text").ToString()));
+        string evalText = HtmlToText.Instance.HTMLToTextReplace(info.SelectToken("eval").ToString());
+        SetResultTextEvent?.Invoke(headText, commentText, evalText);
+        Debug.Log($"Show result text event head text: {headText} comment text: {commentText} eval text: {evalText}");
+    }
+    public void OnReasonInvoke(string name)
+    {
+        OnReason?.Invoke(name);
+    }
+    public void OnMenuInvoke()
+    {
+        OnMenu?.Invoke();
+    }
+    public void OnDialogInvoke(string name)
+    {
+        OnDialogPoint?.Invoke(name);
+    }
 }
