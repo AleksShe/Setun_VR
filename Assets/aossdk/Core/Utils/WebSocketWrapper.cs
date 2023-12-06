@@ -74,6 +74,7 @@ namespace AosSdk.Core.Utils
 
         private void ClientMessageReceived(string message)
         {
+            Debug.Log("Message from wrapper " + message);
             AosCommand aosCommandToQueue = null;
             try
             {

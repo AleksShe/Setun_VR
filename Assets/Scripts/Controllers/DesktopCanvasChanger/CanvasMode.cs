@@ -16,6 +16,7 @@ public class CanvasMode : MonoBehaviour
     }
     public void SetStartScreenText(string headerText, string commentText, string buttonText, NextButtonState state)
     {
+        _currentCanvas.EnableStartButton();
         _currentCanvas.SetStartScreenText(headerText, commentText, buttonText, state);
         _currentCanvas.ShowCanvas(CanvasState.Start);
     }
