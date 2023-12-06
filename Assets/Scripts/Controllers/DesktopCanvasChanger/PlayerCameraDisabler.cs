@@ -7,8 +7,8 @@ using UnityEngine.UI;
 
 public class PlayerCameraDisabler : MonoBehaviour
 {
-    [SerializeField] private GameObject _playerDesktopCamera;
-    [SerializeField] private GameObject _menuDesktopCamera;
+    [SerializeField] private GameObject _interactHelpers;
+    [SerializeField] private GameObject _menuCanvas;
     [SerializeField] private Image _knob;
     private DesktopPointer _pointer;
     private void Awake()
@@ -21,8 +21,9 @@ public class PlayerCameraDisabler : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
-            _menuDesktopCamera.SetActive(false);
             Player.Instance.CanMove = true;
+            _interactHelpers.SetActive(true);
+            _menuCanvas.SetActive(false);
         }
         else if(!active)
         {
@@ -30,10 +31,10 @@ public class PlayerCameraDisabler : MonoBehaviour
             InstanceHandler.Instance.HelpTextController.HideHelperText();
             Cursor.lockState = CursorLockMode.Confined;
             Cursor.visible = true;
-            _menuDesktopCamera.SetActive(true);
             Player.Instance.CanMove = false;
-        }   
-        _playerDesktopCamera.SetActive(active);
+            _interactHelpers.SetActive(false);
+            _menuCanvas.SetActive(true);
+        }
         _knob.enabled = active;
         _pointer.enabled = active;
     }
