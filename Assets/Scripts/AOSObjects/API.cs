@@ -188,12 +188,6 @@ public class API : AosObjectBase
     [AosAction(name: "Обновить место")]
     public void updatePlace(JArray data, string snd)
     {
-        List<string> tokens = new List<string>();
-        GetIds(data, "apiId", tokens);
-        foreach (var item in tokens)
-        {
-            Debug.Log(item.ToString() + "   Token");
-        }
         StartUpdatePlaceEvent?.Invoke();
         foreach (JObject item in data)
         {
@@ -276,7 +270,7 @@ public class API : AosObjectBase
             }
         }
     }
-
+    //я реально старался, но приходящий Json это каша сраная необрабатываемая
     private JArray GetIds(JArray array, string searchingValue, List<string> result)
     {
         if (!isArray(array))
@@ -293,16 +287,13 @@ public class API : AosObjectBase
         {
             foreach (var item in array)
             {
-                var value = item.SelectToken(searchingValue);
-                Debug.Log(value.ToString() + " Token");
+                var value = array.SelectToken(searchingValue);
+                result.Add(value.ToString());
                 GetIds((JArray)item, searchingValue, result);
             }
         }
         return null;
     }
-
-
-
 private bool isArray(JToken jObject)
 {
     var tempList = jObject.ToList();
