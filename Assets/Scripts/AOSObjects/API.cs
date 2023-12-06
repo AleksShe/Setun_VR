@@ -12,6 +12,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem.HID;
 using UnityEngine.UIElements;
+using static UnityEngine.Rendering.DebugUI;
 
 public enum NextButtonState
 {
@@ -187,8 +188,6 @@ public class API : AosObjectBase
     public void updatePlace(JArray data, string snd)
     {
         StartUpdatePlaceEvent?.Invoke();
-        List<string> tokens = new List<string>();
-        GetIds(data, "apiId", ref tokens);
         foreach (JObject item in data)
         {
             string pointId = "";
@@ -200,6 +199,21 @@ public class API : AosObjectBase
                 {
                     var apiIdParentText = apiIdParent.ToString();
                     ActivatePointByNameEvent?.Invoke(apiIdParentText, "OnClick");
+                }
+
+                var jsonView = item.SelectTokens("view");
+                if (jsonView != null)
+                {
+                    foreach (var tempView in jsonView)
+                    {
+                        if (tempView.SelectToken("apiId") != null)
+                        {
+                            var pointTempView = tempView.SelectToken("apiId").ToString();
+                            Debug.Log(pointTempView + " View point");
+                            ActivatePointByNameEvent?.Invoke(pointTempView, pointActionName);
+                        }
+
+                    }
                 }
 
                 var childs = item.SelectTokens("childs");
@@ -256,9 +270,9 @@ public class API : AosObjectBase
         }
     }
 
-    private JArray GetIds(JArray array, string searchingValue, ref List<string> result)
+    private JArray GetIds(JArray array, string searchingValue, List<string> result)
     {
-        if (!isArray(array, searchingValue))
+        if (!isArray(array))
         {
             string value = array.SelectToken(searchingValue).ToString();
             if (value == null)
@@ -266,25 +280,21 @@ public class API : AosObjectBase
             else
             {
                 result.Add(value);
-                Debug.Log(value + " from get ids");
             }
-    
         }
         else
         {
             JArray tokens = (JArray)array.SelectTokens(searchingValue);
-            GetIds(tokens, searchingValue, ref result);
+            GetIds(tokens, searchingValue, result);
         }
         return null;
     }
 
 
-    private bool isArray(JArray jObject, string apiId)
+    private bool isArray(JToken jObject)
     {
-        var array = jObject.SelectTokens(apiId);
-        if (array.ToList().Count > 0)
-            return true;
-        return false;
+        bool result = jObject is JArray;
+        return result;
     }
 
     [AosAction(name: "Показать реакцию")]

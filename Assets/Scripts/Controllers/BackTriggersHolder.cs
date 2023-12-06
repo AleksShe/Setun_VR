@@ -11,7 +11,6 @@ public class BackTriggersHolder : MonoBehaviour
 
     public void SetTrigger(string locationName)
     {
-        Debug.Log(locationName + " Location name");
         try
         {
             var trigger = _backTriggers.FirstOrDefault(t => t.LocationName == locationName);
