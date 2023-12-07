@@ -10,7 +10,8 @@ public enum CanvasState
     Arm,
     Phone,
     Last,
-    Other
+    Other,
+    MainMenu
 }
 public abstract class GameCanvasBase : MonoBehaviour
 {

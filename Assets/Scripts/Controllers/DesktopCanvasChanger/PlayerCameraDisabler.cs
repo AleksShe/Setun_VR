@@ -10,6 +10,7 @@ public class PlayerCameraDisabler : MonoBehaviour
     [SerializeField] private GameObject _interactHelpers;
     [SerializeField] private GameObject _menuCanvas;
     [SerializeField] private Image _knob;
+    [SerializeField] private Zoom _zoom;
     private DesktopPointer _pointer;
     private void Awake()
     {
@@ -24,6 +25,7 @@ public class PlayerCameraDisabler : MonoBehaviour
             Player.Instance.CanMove = true;
             _interactHelpers.SetActive(true);
             _menuCanvas.SetActive(false);
+            _zoom.CanZoom = true;
         }
         else if(!active)
         {
@@ -34,6 +36,8 @@ public class PlayerCameraDisabler : MonoBehaviour
             Player.Instance.CanMove = false;
             _interactHelpers.SetActive(false);
             _menuCanvas.SetActive(true);
+            _zoom.CanZoom = false;
+            _zoom.ResetZoomCamera();
         }
         _knob.enabled = active;
         _pointer.enabled = active;

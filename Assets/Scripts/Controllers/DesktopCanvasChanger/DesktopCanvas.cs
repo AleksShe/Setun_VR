@@ -58,6 +58,13 @@ public class DesktopCanvas : GameCanvasBase
         {
             DisableAllCanvases();
             canvasToShow.gameObject.SetActive(true);
+            if(state == CanvasState.Menu)
+            {
+                var childCanvas = _desktopCanvases.FirstOrDefault(c => c.CurrentState == CanvasState.MainMenu);
+                if(childCanvas!=null)
+                    childCanvas.gameObject.SetActive(true);
+            }
+             
         }
         CurrentState = state;
     }
