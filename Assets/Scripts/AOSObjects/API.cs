@@ -10,10 +10,7 @@ using Newtonsoft.Json.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.InputSystem.HID;
 using UnityEngine.UIElements;
-using static UnityEditor.Progress;
-using static UnityEngine.Rendering.DebugUI;
 
 public enum NextButtonState
 {
