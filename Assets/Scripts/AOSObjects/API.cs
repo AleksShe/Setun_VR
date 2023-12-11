@@ -68,6 +68,7 @@ public class API : AosObjectBase
     [AosAction(name: "Задать текст приветствия")]
     public void showWelcome(JObject info, JObject nav)
     {
+        Debug.Log("Show Welcome "+ info.ToString());
         JsonConverter<AosTextModel> aosWelcomeText = new JsonConverter<AosTextModel>(info);
         string buttonText = nav.SelectToken("ok").SelectToken("caption").ToString();
         var welcomeObj = aosWelcomeText.JsonObject;

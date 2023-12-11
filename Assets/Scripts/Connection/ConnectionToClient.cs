@@ -17,7 +17,7 @@ public class ConnectionToClient : AosObjectBase
     private void Start() => _wrapper.OnClientConnected += OnReadyToConnect;
     public void OnReadyToConnect()
     {
-        Thread.Sleep(1000);
+        Thread.Sleep(2000);
         OnReadyToAction.Invoke(_readyText);
         ConnectionReadyEvent?.Invoke();
     }
