@@ -6,21 +6,20 @@ using UnityEngine.InputSystem;
 
 public class SerialChecker : MonoBehaviour
 {
-    private const string RegistryKeyPath = @"SOFTWARE\CATO\Setun";
+    private const string RegistryKeyPath = @"SOFTWARE\CATO\Fpk";
     private void Start()
     {
-   
+
     }
     private void CheckSerial()
     {
         RegistryKey key = Registry.CurrentUser.OpenSubKey(RegistryKeyPath);
-        var text = key.GetValue("key");
-        if (text == null || text.ToString() != GetKey())
+        if (key.GetValue("key") == null|| key.GetValue("key").ToString() != GetKey())
             Application.Quit();
     }
     private string GetKey()
     {
-        var combinedString = "setun";
+        var combinedString = "fpk";
         var md5 = MD5.Create();
         var inputBytes = Encoding.UTF8.GetBytes(combinedString);
         var hashBytes = md5.ComputeHash(inputBytes);
