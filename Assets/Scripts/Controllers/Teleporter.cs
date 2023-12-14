@@ -17,6 +17,8 @@ public class Teleporter : MonoBehaviour
     [SerializeField] private Transform _hallFromMachinePosition;
     [SerializeField] private Transform _hallFromDncPosition;
     [SerializeField] private Transform _hallFromShnPosition;
+    [SerializeField] private Transform _hallFromToiletPosition;
+    [SerializeField] private Transform _hallToiletPosition;
     [Space]
     [SerializeField] private CameraFlash _cameraFlash;
     [SerializeField] private ModeController _modeController;
@@ -84,5 +86,13 @@ public class Teleporter : MonoBehaviour
             return;
         _cameraFlash.CameraFlashStart();
         Player.Instance.TeleportTo(newPos);
+    }
+    public void TeleportFromToilet()
+    {
+        TeleportPlayer(_hallFromToiletPosition);
+    }
+    public void TeleportToToilet()
+    {
+        TeleportPlayer(_hallToiletPosition);
     }
 }
