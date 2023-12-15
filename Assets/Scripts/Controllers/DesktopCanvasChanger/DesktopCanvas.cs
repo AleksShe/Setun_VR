@@ -11,6 +11,8 @@ public class DesktopCanvas : GameCanvasBase
     [SerializeField] private DesktopCanvasObjectsHolder _textHolder;
     [SerializeField] private DesktopCanvasObjectsHolder _buttonsHolder;
     [SerializeField] private CameraFlash _cameraFlash;
+    [SerializeField] private GameObject _timer;
+    [SerializeField] private GameObject _location;
 
     private bool _canSwitch = true;
 
@@ -28,6 +30,8 @@ public class DesktopCanvas : GameCanvasBase
             DisableAllCanvases();
             ShowCanvas(CanvasState.None);
             _cameraFlash.CameraFlashStart();
+            _timer.SetActive(true);
+            _location.SetActive(true);
         }
     }
     private void OnEscClick()
