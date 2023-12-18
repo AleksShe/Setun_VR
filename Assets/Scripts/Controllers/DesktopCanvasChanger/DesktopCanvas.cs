@@ -30,8 +30,7 @@ public class DesktopCanvas : GameCanvasBase
             DisableAllCanvases();
             ShowCanvas(CanvasState.None);
             _cameraFlash.CameraFlashStart();
-            _timer.SetActive(true);
-            _location.SetActive(true);
+            EnableInteractImages(true);
         }
     }
     private void OnEscClick()
@@ -83,6 +82,10 @@ public class DesktopCanvas : GameCanvasBase
             _playerCameraDisabler.EnableDesktopCamera(true);
         else
             _playerCameraDisabler.EnableDesktopCamera(false);
+        if (state == CanvasState.Arm)
+            EnableInteractImages(false);
+        else if(state !=CanvasState.Start)
+            EnableInteractImages(true);
     }
     protected override void OnShowLastScreen()
     {
@@ -101,5 +104,10 @@ public class DesktopCanvas : GameCanvasBase
     public override void AddTextObjectUiButton(string id, string name)
     {
         _buttonsHolder.AddItem(id, name);
+    }
+    private void EnableInteractImages(bool active)
+    {
+        _timer.SetActive(active);
+        _location.SetActive(active);
     }
 }
