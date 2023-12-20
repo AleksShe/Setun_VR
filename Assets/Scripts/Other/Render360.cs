@@ -1,8 +1,5 @@
-using AosSdk.Core.Utils;
-using System;
 using System.IO;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class Render360 : MonoBehaviour
@@ -31,5 +28,4 @@ public class Render360 : MonoBehaviour
             Debug.Log("360 render saved to " + path);
         }
     }
-
 }
