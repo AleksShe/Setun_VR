@@ -20,6 +20,7 @@ public abstract class GameCanvasBase : MonoBehaviour
     [SerializeField] protected TimerTextHolder TimerTextHolder;
     [SerializeField] protected LocationTextHolder LocationText;
     [SerializeField] protected GameObject _catoImage;
+    [SerializeField] protected GameObject _loadImage;
 
     public delegate void ScreenShow();
     public event ScreenShow LastScreenShowEvent;
@@ -41,8 +42,10 @@ public abstract class GameCanvasBase : MonoBehaviour
     {
         if(state==NextButtonState.Fault)
             _catoImage.SetActive(false);
+           
         CanvasText.SetStartScreenText(headerText, commentText, buttonText);
         NextButton.CurrentState = state;
+        _loadImage.SetActive(false);
     }
     protected virtual void OnShowLastScreen()
     {
