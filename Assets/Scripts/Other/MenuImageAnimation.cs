@@ -14,8 +14,8 @@ public class MenuImageAnimation : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(0.2f);
-            _loadImage.transform.Rotate(0, 0,-50);
+            yield return new WaitForSeconds(0.07f);
+            _loadImage.transform.Rotate(0, 0,-10);
         }
        
     }

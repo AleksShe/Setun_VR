@@ -71,6 +71,7 @@ public class API : AosObjectBase
         Debug.Log("Show Welcome "+ info.ToString());
         JsonConverter<AosTextModel> aosWelcomeText = new JsonConverter<AosTextModel>(info);
         string buttonText = nav.SelectToken("ok").SelectToken("caption").ToString();
+        Debug.Log("TEXT" + buttonText);
         var welcomeObj = aosWelcomeText.JsonObject;
         SetStartTextEvent?.Invoke(welcomeObj.Header, welcomeObj.Text, buttonText, NextButtonState.Start);
         SetTeleportLocationEvent?.Invoke("start");
@@ -82,6 +83,7 @@ public class API : AosObjectBase
         string buttonText = nav.SelectToken("ok").SelectToken("caption").ToString();
         var welcomeObj = aosWelcomeText.JsonObject;
         SetStartTextEvent?.Invoke(welcomeObj.Header, welcomeObj.Text, buttonText, NextButtonState.Fault);
+        Debug.Log("TEXT" + buttonText);
     }
 
     public void showDialog(JObject info, JArray points, JObject nav)

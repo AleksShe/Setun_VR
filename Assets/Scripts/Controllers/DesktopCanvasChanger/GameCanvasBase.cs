@@ -21,6 +21,8 @@ public abstract class GameCanvasBase : MonoBehaviour
     [SerializeField] protected LocationTextHolder LocationText;
     [SerializeField] protected GameObject _catoImage;
     [SerializeField] protected GameObject _loadImage;
+    [SerializeField] protected GameObject _exitButtonMidle;
+    [SerializeField] protected GameObject _exitButton;
 
     public delegate void ScreenShow();
     public event ScreenShow LastScreenShowEvent;
@@ -40,12 +42,17 @@ public abstract class GameCanvasBase : MonoBehaviour
     }
     public virtual void SetStartScreenText(string headerText, string commentText, string buttonText, NextButtonState state)
     {
-        if(state==NextButtonState.Fault)
+        if (state == NextButtonState.Fault)
+        {
             _catoImage.SetActive(false);
-           
+            buttonText = "Начать";
+        }
+          
         CanvasText.SetStartScreenText(headerText, commentText, buttonText);
         NextButton.CurrentState = state;
         _loadImage.SetActive(false);
+        _exitButtonMidle.SetActive(false);
+        _exitButton.SetActive(true);
     }
     protected virtual void OnShowLastScreen()
     {
