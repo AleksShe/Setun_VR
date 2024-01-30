@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class PlaceUiButton : MonoBehaviour
 {
     [SerializeField] private GameObject _checkListPanel;
+    [SerializeField] private PlaceUiButton[] _placeUiButton;
     private Button _button;
     public bool Open;
 
@@ -21,6 +22,13 @@ public class PlaceUiButton : MonoBehaviour
         {
             Open = true;
             _checkListPanel.SetActive(true);
+            foreach (var placeButton in _placeUiButton)
+            {
+                if (placeButton.Open)
+                {
+                    placeButton.Click();
+                }
+            }
 
         }
         else
