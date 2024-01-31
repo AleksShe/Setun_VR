@@ -1,8 +1,11 @@
 using AosSdk.Core.PlayerModule;
+using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class NextUIButton : NextButton
 {
+    [SerializeField] private DesktopCanvas _dcCanvas;
     private Button _button;
     private void Awake()
     {
@@ -22,6 +25,8 @@ public class NextUIButton : NextButton
             InstanceHandler.Instance.API.OnInvokeNavAction("start");
             NextButtonPressedEvent?.Invoke("start");
             Player.Instance.CanMove = true;
+            if(_dcCanvas != null) _dcCanvas.CanTeleport = true;
+            
         }
     }
 }

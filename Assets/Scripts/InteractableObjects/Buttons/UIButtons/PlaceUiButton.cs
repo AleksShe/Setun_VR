@@ -7,6 +7,7 @@ public class PlaceUiButton : MonoBehaviour
 {
     [SerializeField] private GameObject _checkListPanel;
     [SerializeField] private PlaceUiButton[] _placeUiButton;
+    [SerializeField] GameObject _buttonImage;
     private Button _button;
     public bool Open;
 
@@ -22,6 +23,7 @@ public class PlaceUiButton : MonoBehaviour
         {
             Open = true;
             _checkListPanel.SetActive(true);
+            _buttonImage.SetActive(true);
             foreach (var placeButton in _placeUiButton)
             {
                 if (placeButton.Open)
@@ -35,6 +37,7 @@ public class PlaceUiButton : MonoBehaviour
         {
             Open = false;
             _checkListPanel.SetActive(false);
+            _buttonImage.SetActive(false);
         }
     }
 }

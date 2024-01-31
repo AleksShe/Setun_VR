@@ -14,6 +14,8 @@ public class DesktopCanvas : GameCanvasBase
     [SerializeField] private GameObject _timer;
     [SerializeField] private GameObject _location;
 
+    [HideInInspector] public bool CanTeleport = true;
+
     private bool _canSwitch = true;
 
     private const string START = "start";
@@ -22,6 +24,8 @@ public class DesktopCanvas : GameCanvasBase
         NextButton.NextButtonPressedEvent += OnStartGame;
         _escButton.EscClickEvent += OnEscClick;
         BackFromMenuUIButton.BackButtonClickEvent += OnExitFromCanvas;
+        Player.Instance.CanMove = false;
+        CanTeleport = false;
     }
     private void OnStartGame(string name)
     {
@@ -35,6 +39,8 @@ public class DesktopCanvas : GameCanvasBase
     }
     private void OnEscClick()
     {
+        if (!CanTeleport)
+            return;
         if (CurrentState == CanvasState.Arm || CurrentState == CanvasState.Phone)
             return;
         if (CurrentState != CanvasState.Start && CurrentState != CanvasState.Menu)

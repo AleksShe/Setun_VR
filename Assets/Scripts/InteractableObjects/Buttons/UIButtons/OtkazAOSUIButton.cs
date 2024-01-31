@@ -5,27 +5,37 @@ using UnityEngine.UI;
 
 public class OtkazAOSUIButton : BaseUIButton
 {
-    [SerializeField] private string _buttonId;   
+    [SerializeField] private string _buttonId;
     [SerializeField] private AnswerUIButton _answerButton;
+
     public bool Check = false;
-   
+
     protected override void Click()
     {
         if (!Check)
         {
-            Debug.Log("Check");
+
+            foreach (var item in _answerButton.OtkazButtons)
+            {
+                if (item.Check)
+                {
+                    item.Click();
+                }
+            }
             Check = true;
-            _answerButton.SetColor(_buttonId);
-            Debug.Log(_buttonId);
+            _answerButton.SetColor();
+            _answerButton.SetId(_buttonId);
+
         }
-           
+
         else
         {
             Check = false;
-            _answerButton.SetColor("");
-                       
+            _answerButton.SetColor();
+
+
         }
-          
-        
+
+
     }
 }
