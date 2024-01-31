@@ -7,11 +7,16 @@ public class PlaceUiButton : MonoBehaviour
 {
     [SerializeField] private GameObject _checkListPanel;
     [SerializeField] private PlaceUiButton[] _placeUiButton;
-    [SerializeField] GameObject _buttonImage;
+    [SerializeField] private GameObject _buttonImage;
+    [SerializeField] private OtkazAOSUIButton[] _otkazButton;
+    [SerializeField] private Image _dotImage;
+    [SerializeField] private Sprite _selectedDotOk;
+    [SerializeField] private Sprite _selectedDotNotOk;
+
     private Button _button;
     public bool Open;
 
-    private  void Awake()
+    private void Awake()
     {
         _button = GetComponent<Button>();
         if (_button != null)
@@ -38,6 +43,17 @@ public class PlaceUiButton : MonoBehaviour
             Open = false;
             _checkListPanel.SetActive(false);
             _buttonImage.SetActive(false);
+        }
+    }
+    public void SetDotSprite(bool check)
+    {
+        if (check)
+        {
+            _dotImage.sprite = _selectedDotNotOk;
+        }
+        else
+        {
+            _dotImage.sprite = _selectedDotOk;
         }
     }
 }

@@ -7,6 +7,11 @@ public class OtkazAOSUIButton : BaseUIButton
 {
     [SerializeField] private string _buttonId;
     [SerializeField] private AnswerUIButton _answerButton;
+    [SerializeField] private PlaceUiButton _placeUiButton;
+    [SerializeField] private Image _selectedImage;
+    [SerializeField] private Sprite _selectedOk;
+    [SerializeField] private Sprite _selectedNotOk;
+   
 
     public bool Check = false;
 
@@ -23,8 +28,10 @@ public class OtkazAOSUIButton : BaseUIButton
                 }
             }
             Check = true;
+            _placeUiButton.SetDotSprite(true);
             _answerButton.SetColor();
             _answerButton.SetId(_buttonId);
+            _selectedImage.sprite = _selectedOk;
 
         }
 
@@ -32,6 +39,8 @@ public class OtkazAOSUIButton : BaseUIButton
         {
             Check = false;
             _answerButton.SetColor();
+            _selectedImage.sprite = _selectedNotOk;
+            _placeUiButton.SetDotSprite(false);
 
 
         }
