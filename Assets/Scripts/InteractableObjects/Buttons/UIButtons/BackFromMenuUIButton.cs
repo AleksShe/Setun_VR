@@ -12,5 +12,6 @@ public class BackFromMenuUIButton : BaseUIButton
         if(_event)
         InstanceHandler.Instance.API.OnInvokeNavAction(InstanceHandler.Instance.BackButtonsActivator.ActionToInvoke);
         BackButtonClickEvent?.Invoke();
+        
     }
 }

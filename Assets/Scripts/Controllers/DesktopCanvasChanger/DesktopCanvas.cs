@@ -63,8 +63,10 @@ public class DesktopCanvas : GameCanvasBase
             return;
         SwitchCamera(state);
         var canvasToShow = _desktopCanvases.FirstOrDefault(c => state == c.CurrentState);
+      
         if (canvasToShow != null)
         {
+            Debug.Log(canvasToShow.ToString());
             DisableAllCanvases();
             canvasToShow.gameObject.SetActive(true);
             if(state == CanvasState.Menu)
@@ -99,7 +101,8 @@ public class DesktopCanvas : GameCanvasBase
     }
     protected override void OnShowResultLastScreen()
     {
-        ShowCanvas(CanvasState.Last);
+        Debug.Log("IN RESULT SCREEN");
+        ShowCanvas(CanvasState.Result);
         _canSwitch = false;
         CanvasText.ShowExitButton();
     }

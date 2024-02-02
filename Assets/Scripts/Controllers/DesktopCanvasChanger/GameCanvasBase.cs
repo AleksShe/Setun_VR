@@ -11,7 +11,8 @@ public enum CanvasState
     Phone,
     Last,
     Other,
-    MainMenu
+    MainMenu,
+    Result
 }
 public abstract class GameCanvasBase : MonoBehaviour
 {
@@ -35,6 +36,11 @@ public abstract class GameCanvasBase : MonoBehaviour
         LastScreenShowEvent += OnShowLastScreen;
         ResultScreenShowEvent += OnShowResultLastScreen;
         CanvasEnableObject.CanvasEnableEvent += ShowCanvas;
+    }
+    private void Start()
+    {
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
     }
     public void EnableStartButton()
     {
@@ -91,7 +97,7 @@ public abstract class GameCanvasBase : MonoBehaviour
     public virtual void SetResultScreenText(string headertext, string commentText, string evalText)
     {
         ResultScreenShowEvent?.Invoke();
-        CanvasText.SetText(headertext, commentText, evalText);
+        CanvasText.SetExitText(headertext, commentText, evalText);
     }
     public virtual void SetExitText(string exitText, string warntext)
     {

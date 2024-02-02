@@ -427,7 +427,7 @@ public class API : AosObjectBase
     }
     [AosAction(name: "Показать сообщение")]
     public void showMessage(JObject info, JObject nav)
-    {
+    {   Debug.Log("MESSAGE  "+ info.ToString()+ "NAV"+nav.ToString());
         JsonConverter<AosTextModel> aosWelcomeText = new JsonConverter<AosTextModel>(info);
         var welcomeObj = aosWelcomeText.JsonObject;
         SetMessageTextEvent?.Invoke(welcomeObj.Header, welcomeObj.Text);
@@ -435,11 +435,12 @@ public class API : AosObjectBase
     [AosAction(name: "Показать сообщение")]
     public void showResult(JObject info, JObject nav)
     {
+        Debug.Log("RESULT " + info.ToString() + "NAV" + nav.ToString());
         string headText = info.SelectToken("name").ToString();
         string commentText = HtmlToText.Instance.HTMLToTextReplace(HtmlToText.Instance.HTMLToTextReplace(info.SelectToken("text").ToString()));
         string evalText = HtmlToText.Instance.HTMLToTextReplace(info.SelectToken("eval").ToString());
         SetResultTextEvent?.Invoke(headText, commentText, evalText);
-        Debug.Log($"Show result text event head text: {headText} comment text: {commentText} eval text: {evalText}");
+       
     }
     public void OnReasonInvoke(string name)
     {

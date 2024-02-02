@@ -7,6 +7,10 @@ public class CanvasView : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _commentText;
     [SerializeField] private TextMeshProUGUI _nextButtonText;
     [Space]
+    [SerializeField] private TextMeshProUGUI _headTextExit;
+    [SerializeField] private TextMeshProUGUI _commentTextExit;
+    [SerializeField] private TextMeshProUGUI _evalTextExit;
+    [Space]
     [SerializeField] private TextMeshProUGUI _infoHeaderText;
     [SerializeField] private TextMeshProUGUI _infoText;
     [SerializeField] private TextMeshProUGUI _headerExitText;
@@ -46,11 +50,11 @@ public class CanvasView : MonoBehaviour
         _headerExitText.text = HtmlToText.Instance.HTMLToTextReplace(headText);
         _commentExitText.text = HtmlToText.Instance.HTMLToTextReplace(commentText);
     }
-    public void SetText(string headText, string commentText, string evalText)
+    public void SetExitText(string headText, string commentText, string evalText)
     {
-        _headerExitText.text = HtmlToText.Instance.HTMLToTextReplace(headText);
-        _resultText.text = HtmlToText.Instance.HTMLToTextReplace(commentText);
-        _evalText.text = HtmlToText.Instance.HTMLToTextReplace(evalText);
+        _headTextExit.text = HtmlToText.Instance.HTMLToTextReplace(headText);
+        _commentTextExit.text = HtmlToText.Instance.HTMLToTextReplace(commentText);
+        _evalTextExit.text = HtmlToText.Instance.HTMLToTextReplace(evalText);
     }
     public void ShowExitButton()
     {
