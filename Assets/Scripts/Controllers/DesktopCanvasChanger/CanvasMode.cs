@@ -24,9 +24,9 @@ public class CanvasMode : MonoBehaviour
     {
         _currentCanvas.SetTimerText(timerText);
     }
-    public void SetLastScreenText(string headertext, string commentText)
+    public void SetLastScreenText(string headertext, string commentText,string footerText,string alarmImg)
     {
-     _currentCanvas.SetLastScreenText(headertext, commentText);
+     _currentCanvas.SetLastScreenText(headertext, commentText, footerText, alarmImg);
     }
     public void SetResultScreenText(string headertext, string commentText, string evalText)
     {

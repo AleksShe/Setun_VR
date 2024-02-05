@@ -89,10 +89,10 @@ public abstract class GameCanvasBase : MonoBehaviour
             CanvasText.EnableDialogBoxCanvas(true);
         }
     }
-    public virtual void SetLastScreenText(string headertext, string commentText)
+    public virtual void SetLastScreenText(string headertext, string commentText, string footerText, string alarmImg)
     {
         LastScreenShowEvent?.Invoke();
-        CanvasText.SetText(headertext, commentText);
+        CanvasText.SetText(headertext, commentText,footerText,alarmImg);
     }
     public virtual void SetResultScreenText(string headertext, string commentText, string evalText)
     {

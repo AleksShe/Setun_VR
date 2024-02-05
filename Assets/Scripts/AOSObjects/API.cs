@@ -36,14 +36,16 @@ public class API : AosObjectBase
     public UnityAction<string> ActivateBackButtonEvent;
     public UnityAction<string> EnableDietButtonsEvent;
     public UnityAction<string> SetTimerTextEvent;
-    public UnityAction<string> ReactionEvent;
+    public UnityAction<string> ReactionEvent;  
     public UnityAction<string, DialogRole> AddTextObjectUiEvent;
+    public UnityAction<string,string,string> ResultNameTextButtonEvent;
+    public UnityAction<string,string> ResultNameTextButtonSingleEvent;
     public UnityAction<string, string> AddTextObjectUiButtonEvent;
     public UnityAction<string, string> PointEvent;
     public UnityAction<string, string> EnableMovingButtonEvent;
     public UnityAction<string, string> ActivateByNameEvent;
     public UnityAction<string, string> ActivatePointByNameEvent;
-    public UnityAction<string, string> SetMessageTextEvent;
+    public UnityAction<string, string,string,string> SetMessageTextEvent;
     public UnityAction<string, string, string> SetResultTextEvent;
     public UnityAction<string, string> ShowExitTextEvent;
     public UnityAction<string, string, string> ShowMenuTextEvent;
@@ -427,20 +429,78 @@ public class API : AosObjectBase
     }
     [AosAction(name: "Показать сообщение")]
     public void showMessage(JObject info, JObject nav)
-    {   Debug.Log("MESSAGE  "+ info.ToString()+ "NAV"+nav.ToString());
-        JsonConverter<AosTextModel> aosWelcomeText = new JsonConverter<AosTextModel>(info);
-        var welcomeObj = aosWelcomeText.JsonObject;
-        SetMessageTextEvent?.Invoke(welcomeObj.Header, welcomeObj.Text);
+    {
+        string footerText = ""; 
+        var header = info.SelectToken("header");
+        var footer = info.SelectToken("footer");       
+        var comment = info.SelectToken("text");
+        var alarm = info.SelectToken("alarm");
+        if (header != null && footer != null && comment != null && alarm != null)
+        {
+            footerText = HtmlToText.Instance.HTMLToTextReplace(footer.ToString());
+            string commentText = HtmlToText.Instance.HTMLToTextReplace(comment.ToString());
+            string headText = header.ToString();
+            string alarmImg = alarm.ToString();
+            SetMessageTextEvent?.Invoke(headText, footerText, commentText, alarmImg);
+        }
+        else if (header != null && comment != null && alarm != null)
+        {
+            
+            string commentText = HtmlToText.Instance.HTMLToTextReplace(comment.ToString());
+            string headText = header.ToString();
+            string alarmImg = alarm.ToString();
+            SetMessageTextEvent?.Invoke(headText, footerText, commentText, alarmImg);
+        }
+
+
+
     }
     [AosAction(name: "Показать сообщение")]
     public void showResult(JObject info, JObject nav)
     {
-        Debug.Log("RESULT " + info.ToString() + "NAV" + nav.ToString());
+        string resultText = "";
+        Debug.Log("RESULT " + info.ToString());
         string headText = info.SelectToken("name").ToString();
         string commentText = HtmlToText.Instance.HTMLToTextReplace(HtmlToText.Instance.HTMLToTextReplace(info.SelectToken("text").ToString()));
         string evalText = HtmlToText.Instance.HTMLToTextReplace(info.SelectToken("eval").ToString());
         SetResultTextEvent?.Invoke(headText, commentText, evalText);
-       
+        var result = info.SelectToken("result");
+        
+
+        if (result != null)
+        {
+            foreach (JObject item in result)
+            {
+                resultText = "";
+                var name = item.SelectToken("name").ToString();
+                var penalty = item.SelectToken("penalty").ToString();
+                var msg = item.SelectToken("msg");              
+                if (msg == null)
+                {   
+                    ResultNameTextButtonSingleEvent?.Invoke(name, penalty);
+                }
+                else {                                                                
+                    
+                    foreach(var item2 in msg)
+                    {
+                        var message2 = item2.SelectToken("msg");
+                        var name2 = item2.SelectToken("name");
+                        if(message2 != null && name2 != null)
+                        {
+                            resultText += name2.ToString()+ message2.ToString() ;
+                        }
+                        else
+                        {
+                            resultText += HtmlToText.Instance.HTMLToTextReplace(item2.ToString()) + "\n";
+                        }                                              
+                    }
+                    ResultNameTextButtonEvent?.Invoke(name, penalty, resultText);
+                }
+
+            }
+
+        }
+
     }
     public void OnReasonInvoke(string name)
     {

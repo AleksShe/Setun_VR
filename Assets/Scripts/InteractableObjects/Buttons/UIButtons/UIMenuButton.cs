@@ -11,14 +11,18 @@ public class UIMenuButton : BaseUIButton
     public event UIMenuButtonClicked ButtonClickedEvent;
     [SerializeField] private GameObject _showScreen;
     [SerializeField] private GameObject _hideScreen;
+   
 
     protected override void Click()
     {
-        _showScreen.SetActive(true);
+       
+        if (_showScreen != null)
+            _showScreen.SetActive(true);
         if (_hideScreen != null)
         {
             _hideScreen.SetActive(false);
         }
         ButtonClickedEvent?.Invoke();
+
     }
 }

@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CanvasView : MonoBehaviour
 {
@@ -7,15 +8,15 @@ public class CanvasView : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _commentText;
     [SerializeField] private TextMeshProUGUI _nextButtonText;
     [Space]
-    [SerializeField] private TextMeshProUGUI _headTextExit;
-    [SerializeField] private TextMeshProUGUI _commentTextExit;
-    [SerializeField] private TextMeshProUGUI _evalTextExit;
+    [SerializeField] private Text _headTextExit;
+    [SerializeField] private Text _commentTextExit;
+    [SerializeField] private Text _evalTextExit;
     [Space]
     [SerializeField] private TextMeshProUGUI _infoHeaderText;
     [SerializeField] private TextMeshProUGUI _infoText;
-    [SerializeField] private TextMeshProUGUI _headerExitText;
-    [SerializeField] private TextMeshProUGUI _commentExitText;
-    [SerializeField] private TextMeshProUGUI _resultText;
+    [SerializeField] private TextMeshProUGUI _headerMessageText;
+    [SerializeField] private TextMeshProUGUI _commentMessageText;
+    [SerializeField] private TextMeshProUGUI _footerMessageText;  
     [SerializeField] private TextMeshProUGUI _evalText;
     [SerializeField] private TextMeshProUGUI _exitText;
     [SerializeField] private TextMeshProUGUI _warnText;
@@ -25,6 +26,7 @@ public class CanvasView : MonoBehaviour
     [SerializeField] private GameObject _exitButton;
     [SerializeField] private GameObject _mainMenuDialogCanvas;
     [SerializeField] private GameObject _dialogBoxCanvas;
+    [SerializeField] private AlarmImageController _armImageController;
 
 
     public void SetStartScreenText(string headerText, string commentText, string buttonText)
@@ -42,13 +44,16 @@ public class CanvasView : MonoBehaviour
     }
     public void SetExitText(string exitText, string warntext)
     {
+        Debug.Log(exitText + warntext);
         _exitText.text = HtmlToText.Instance.HTMLToTextReplace(exitText);
         _warnText.text = HtmlToText.Instance.HTMLToTextReplace(warntext);
     }
-    public void SetText(string headText, string commentText)
+    public void SetText(string headText, string commentText,string footerText,string alarmImg)
     {
-        _headerExitText.text = HtmlToText.Instance.HTMLToTextReplace(headText);
-        _commentExitText.text = HtmlToText.Instance.HTMLToTextReplace(commentText);
+        _headerMessageText.text = HtmlToText.Instance.HTMLToTextReplace(headText);
+        _commentMessageText.text = HtmlToText.Instance.HTMLToTextReplace(commentText);
+        _footerMessageText.text = HtmlToText.Instance.HTMLToTextReplace(footerText);
+        _armImageController.SetAlarmImage(alarmImg);
     }
     public void SetExitText(string headText, string commentText, string evalText)
     {

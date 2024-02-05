@@ -30,7 +30,7 @@ public class VRCanvas : GameCanvasBase
     {
         InstanceHandler.Instance.MainMenuCanvas.SetMenuText(headText, commentText, exitSureText);
     }
-    public override void SetLastScreenText(string headertext, string commentText)
+    public override void SetLastScreenText(string headertext, string commentText, string footerText, string alarmImg)
     {
         InstanceHandler.Instance.MainMenuCanvas.ShowCanvasByName("LastWindow");
         InstanceHandler.Instance.MainMenuCanvas.SetText(headertext, commentText);

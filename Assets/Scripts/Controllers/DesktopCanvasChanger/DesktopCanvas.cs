@@ -12,6 +12,7 @@ public class DesktopCanvas : GameCanvasBase
     [SerializeField] private DesktopCanvasObjectsHolder _buttonsHolder;
     [SerializeField] private CameraFlash _cameraFlash;
     [SerializeField] private GameObject _timer;
+    [SerializeField] private GameObject _messagePanel;
     [SerializeField] private GameObject _location;
 
     [HideInInspector] public bool CanTeleport = true;
@@ -39,6 +40,7 @@ public class DesktopCanvas : GameCanvasBase
     }
     private void OnEscClick()
     {
+        
         if (!CanTeleport)
             return;
         if (CurrentState == CanvasState.Arm || CurrentState == CanvasState.Phone)
@@ -50,6 +52,7 @@ public class DesktopCanvas : GameCanvasBase
         }
         else ShowCanvas(CanvasState.None);
         _cameraFlash.CameraFlashStart();
+        
     }
     private void OnExitFromCanvas()
     {
@@ -97,7 +100,8 @@ public class DesktopCanvas : GameCanvasBase
     }
     protected override void OnShowLastScreen()
     {
-        ShowCanvas(CanvasState.Last);
+        ShowCanvas(CanvasState.Menu);
+        _messagePanel.SetActive(true);
     }
     protected override void OnShowResultLastScreen()
     {

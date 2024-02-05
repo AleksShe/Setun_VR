@@ -33,6 +33,8 @@ public class APIEventsInvoker : MonoBehaviour
         _api.DialogEvent += OnEnableDialog;
         _api.AddTextObjectUiButtonEvent += OnAddTextObjectUiButton;
         _api.AddTextObjectUiEvent += OnAddTextObjectUi;
+        _api.ResultNameTextButtonEvent += OnInstanseResultButtons;
+        _api.ResultNameTextButtonSingleEvent += OnInstanseResultSingleButtons;
     }
 
     private void OnDisable()
@@ -59,6 +61,16 @@ public class APIEventsInvoker : MonoBehaviour
         _api.DialogEvent -= OnEnableDialog;
         _api.AddTextObjectUiButtonEvent -= OnAddTextObjectUiButton;
         _api.AddTextObjectUiEvent -= OnAddTextObjectUi;
+        _api.ResultNameTextButtonEvent -= OnInstanseResultButtons;
+        _api.ResultNameTextButtonSingleEvent += OnInstanseResultSingleButtons;
+    }
+    private void OnInstanseResultSingleButtons(string name, string penalty)
+    {
+        InstanceHandler.Instance.InstResultButton.InstantiateSingleButtons(name, penalty);
+    }
+    private void OnInstanseResultButtons(string name,string penalty,string resultText)
+    {
+        InstanceHandler.Instance.InstResultButton.InstantiateButtons(name, penalty,resultText);
     }
     private void OnDeactivateUiButtons()
     {
@@ -193,9 +205,9 @@ public class APIEventsInvoker : MonoBehaviour
     {
         InstanceHandler.Instance.AOSColliderActivator.ActivatePoints(id, name);
     }
-    private void OnSetLastScreenText(string headertext, string commentText)
+    private void OnSetLastScreenText(string headertext, string commentText,string footerText,string alarmImg)
     {
-        InstanceHandler.Instance.CanvasMode.SetLastScreenText(headertext, commentText);
+        InstanceHandler.Instance.CanvasMode.SetLastScreenText(headertext, commentText,footerText,alarmImg);
     }
     private void OnSetResultScreenText(string headertext, string commentText, string evalText)
     {
