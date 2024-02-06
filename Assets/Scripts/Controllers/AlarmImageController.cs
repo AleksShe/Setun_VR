@@ -21,6 +21,10 @@ public class AlarmImageController : MonoBehaviour
         {
             _alarmImage.sprite = _notOkImage;
         }
+        else if(imageName == "none") 
+        {
+            _alarmImage.gameObject.SetActive(false);
+        }
        
     }
 }

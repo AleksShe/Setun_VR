@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class InfoPanelModel : MonoBehaviour
 {
@@ -16,17 +17,43 @@ public class InfoPanelModel : MonoBehaviour
 
         if (!_isOpen)
         {
-            Debug.Log("OPEN");
-          
+           
+          HidePanel();
+            HideResultButtons();
            gameObject.SetActive(true);           
             _isOpen = true;
         }
         else
         {
-            Debug.Log("Close");
+           
             gameObject.SetActive(false);
             _isOpen = false;
         }
 
+    }
+    private void HidePanel()
+    {
+        var panelList = ResultPanelList.Instance.InfoPanelModels;
+        foreach (var panel in panelList)
+        {
+            panel.gameObject.SetActive(false);
+            panel.SetOpen(false);
+        }
+    }
+    public void SetOpen(bool open)
+    {
+        _isOpen = open;
+    }
+    private void HideResultButtons()
+    {
+        var buttonsList = ResultPanelList.Instance.ResultButtonsList;
+        foreach (var button in buttonsList)
+        {
+            if (button.Open)
+            {
+                button.ShowImage();
+            }
+            
+        }
     }
 }

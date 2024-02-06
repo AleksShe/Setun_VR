@@ -20,6 +20,8 @@ public class InstantiateResultButton : MonoBehaviour
         resultButton.ButtonClickEvent += infoPanel.ShowInfo;
         string text = resultText.Replace("&emsp;", " ").Replace("[", "").Replace("]", "");        
         infoPanel.setNameText(text);
+        ResultPanelList.Instance.AddResultButton(resultButton);
+        ResultPanelList.Instance.AddModel(infoPanel);
     }
     public void InstantiateSingleButtons(string nameText, string penalty)
     {

@@ -48,7 +48,7 @@ public class ResultTextButton : MonoBehaviour
         }
        
     }
-    private void ShowImage()
+    public void ShowImage()
     {
         if (!Open) 
         {
