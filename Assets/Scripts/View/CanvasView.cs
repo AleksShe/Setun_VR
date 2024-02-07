@@ -11,6 +11,7 @@ public class CanvasView : MonoBehaviour
     [SerializeField] private Text _headTextExit;
     [SerializeField] private Text _commentTextExit;
     [SerializeField] private Text _evalTextExit;
+    [SerializeField] private Text _taskText;
     [Space]
     [SerializeField] private TextMeshProUGUI _infoHeaderText;
     [SerializeField] private TextMeshProUGUI _infoText;
@@ -34,6 +35,7 @@ public class CanvasView : MonoBehaviour
         _headerText.text = HtmlToText.Instance.HTMLToTextReplace(headerText);
         _commentText.text = HtmlToText.Instance.HTMLToTextReplace(commentText);
         _nextButtonText.text = HtmlToText.Instance.HTMLToTextReplace(buttonText);
+        _taskText.text = HtmlToText.Instance.HTMLToTextReplace(commentText);
     }
     public void SetMenuText(string headText, string commentText, string exitSureText)
     {

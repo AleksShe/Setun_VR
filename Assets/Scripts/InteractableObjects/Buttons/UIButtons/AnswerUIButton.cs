@@ -7,12 +7,15 @@ public class AnswerUIButton : BaseUIButton
 {
     [SerializeField] private OtkazAOSUIButton[] _otkazButton;
     [SerializeField] private TextMeshProUGUI _answerButtonText;
+    [SerializeField] private TextMeshProUGUI[] _attempText;
     private string _buttonId="";
+    private string _attemp = "Осталось попыток: 1";
     public OtkazAOSUIButton[] OtkazButtons => _otkazButton;
     protected override void Click()
     {
         InstanceHandler.Instance.API.OnReasonInvoke(_buttonId);
         Debug.Log(_buttonId);
+        SetText(_attemp);
     }    
 
     public void SetColor()
@@ -40,5 +43,12 @@ public class AnswerUIButton : BaseUIButton
     public void SetId(string id)
     {
         _buttonId = id;
+    }
+    private void SetText(string attemptext)
+    {
+        foreach(var text in _attempText)
+        {
+            text.text = attemptext;
+        }
     }
 }

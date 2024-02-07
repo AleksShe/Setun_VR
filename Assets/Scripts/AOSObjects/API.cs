@@ -85,7 +85,7 @@ public class API : AosObjectBase
         string buttonText = nav.SelectToken("ok").SelectToken("caption").ToString();
         var welcomeObj = aosWelcomeText.JsonObject;
         SetStartTextEvent?.Invoke(welcomeObj.Header, welcomeObj.Text, buttonText, NextButtonState.Fault);
-        Debug.Log("TEXT" + buttonText);
+        Debug.Log("TEXT" + info);
     }
 
     public void showDialog(JObject info, JArray points, JObject nav)
