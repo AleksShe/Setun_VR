@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class NextUIButton : NextButton
 {
     [SerializeField] private DesktopCanvas _dcCanvas;
+    [SerializeField] private GameObject _lineImage;
     private Button _button;
     private void Awake()
     {
@@ -26,6 +27,8 @@ public class NextUIButton : NextButton
             NextButtonPressedEvent?.Invoke("start");
             Player.Instance.CanMove = true;
             if(_dcCanvas != null) _dcCanvas.CanTeleport = true;
+            if(_lineImage != null) _lineImage.SetActive(true);
+
             
         }
     }

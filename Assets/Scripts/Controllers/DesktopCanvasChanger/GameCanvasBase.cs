@@ -44,6 +44,7 @@ public abstract class GameCanvasBase : MonoBehaviour
     }
     public void EnableStartButton()
     {
+        _catoImage.SetActive(true);
         NextButton.gameObject.SetActive(true);
     }
     public virtual void SetStartScreenText(string headerText, string commentText, string buttonText, NextButtonState state)
