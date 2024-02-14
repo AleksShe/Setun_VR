@@ -1,6 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+public enum PlayerState
+{
+    Walk,
+    Look
+}
 
 public class InstanceHandler : MonoBehaviour
 {
@@ -22,6 +27,9 @@ public class InstanceHandler : MonoBehaviour
     [SerializeField] private BackTriggersHolder _backTriggersHolder;
     [SerializeField] private InstantiateResultButton _instResultButton;
     [SerializeField] private API _api;
+    [SerializeField] private MouseRayCastHandler _mouseRayCastHandler;
+    [SerializeField] private CanvasParentChanger _canvasParentChanger;
+    [SerializeField] private MoveUiButtonsHolder _moveUiButtonsHolder;
 
     public AOSObjectsActivator AOSColliderActivator => _aosColliderActivator;
     public MovingButtonsController MovingButtonsController => _movinButtonsController;
@@ -36,7 +44,11 @@ public class InstanceHandler : MonoBehaviour
     public DoorSoundPlayer DoorSoundPlayer => _doorSoundPlayer;
     public BackTriggersHolder BackTriggersHolder => _backTriggersHolder;
     public API API => _api;
+    public MouseRayCastHandler MouseRayCastHandler => _mouseRayCastHandler;
+    public CanvasParentChanger CanvasParentChanger => _canvasParentChanger;
     public InstantiateResultButton InstResultButton => _instResultButton;
+    public MoveUiButtonsHolder MoveUiButtonsHolder => _moveUiButtonsHolder;
+    public PlayerState CurrentState { get; set; }
     public void AddAnimationObjectToList(ObjectWithAnimation obj)
     {
         _animationObjectList.Add(obj);

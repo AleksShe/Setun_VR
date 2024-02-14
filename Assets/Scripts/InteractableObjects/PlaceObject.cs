@@ -5,10 +5,12 @@ using UnityEngine;
 
 public class PlaceObject : SceneObject
 {
+    [SerializeField] private Camera _camera;
     [SerializeField] private BackButton _backButton;
     [SerializeField] private Transform _reactionPos;
     [SerializeField] private Renderer[] _renderers;
     [SerializeField] private Color _color;
+    private BaseSideMovingObject _sideMovingObject;
     private ObjectWithAnimation _objectWithAnimation;
     public override void OnClicked(InteractHand interactHand)
     {
@@ -23,6 +25,16 @@ public class PlaceObject : SceneObject
             _objectWithAnimation.PlayScriptableAnimationOpen();
             InstanceHandler.Instance.AddAnimationObjectToList(_objectWithAnimation);
         }
+        if (_camera != null)
+        {
+            InstanceHandler.Instance.CanvasParentChanger.ChangeCameraParent(_camera);
+            InstanceHandler.Instance.MouseRayCastHandler.CanHover = true;
+            InstanceHandler.Instance.MouseRayCastHandler.CanInteract = true;
+        }
+        _sideMovingObject = GetComponent<BaseSideMovingObject>();
+        if (_sideMovingObject != null)
+            InstanceHandler.Instance.MoveUiButtonsHolder.SetSideMovingObject(_sideMovingObject);
+
         InstanceHandler.Instance.BackTriggersHolder.EnableCurrentTrigger(true);
     }
     public override void OnHoverIn(InteractHand interactHand)
