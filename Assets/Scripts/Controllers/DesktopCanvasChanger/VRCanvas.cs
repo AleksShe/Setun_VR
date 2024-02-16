@@ -9,12 +9,10 @@ public class VRCanvas : GameCanvasBase
 
     private void OnEnable()
     {
-        NextButton.NextButtonPressedEvent += OnHideStartScreen;
         _teleporter.TeleportEndEvent += OnEnableMenuScreen;
     }
     private void OnDisable()
     {
-        NextButton.NextButtonPressedEvent -= OnHideStartScreen;
         _teleporter.TeleportEndEvent -= OnEnableMenuScreen;
     }
     public override void SetStartScreenText(string headerText, string commentText, string buttonText, NextButtonState state)

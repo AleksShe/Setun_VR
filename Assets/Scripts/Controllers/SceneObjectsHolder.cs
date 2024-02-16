@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,6 +22,7 @@ public class SceneObjectsHolder : MonoBehaviour
     [SerializeField] private DoorSoundPlayer _doorSoundPlayer;
 
     public PlayerState CurrentState { get; set; }
+    public IToolObject ToolObject { get; private set; }
 
     private List<BaseObject> _baseObjects = new List<BaseObject>();
     private List<PointObject> _aosPointObjects = new List<PointObject>();
@@ -45,7 +47,9 @@ public class SceneObjectsHolder : MonoBehaviour
             _mouseRayCastHandler.MousePosHoverEvent += OnChangeHelperOnHoverEvent;
         _mouseRayCastHandler.MousePosClickEvent += OnChangeReactionPositionEvent;
         _actionObject.EscActionEvent += OnEscButtonAction;
+        ReactionUIButton.ActionWithObjectEvent += OnPlayActionAnimation;
     }
+
     public void AddSceneObject(BaseObject obj)
     {
         if (obj is PlaceObject)
@@ -60,6 +64,7 @@ public class SceneObjectsHolder : MonoBehaviour
             var sceneObject = (SceneObject)obj;
             sceneObject.HelperTextEvent += OnShowHelperText;
             sceneObject.AddAnimationObjectEvent += OnAddAnimationObject;
+            sceneObject.SetToolObjectEvent += OnSetToolObject;
         }
         if(obj is ObjectWithActions)
         {
@@ -69,6 +74,7 @@ public class SceneObjectsHolder : MonoBehaviour
         obj.AddSceneObjectEvent += OnInitCurrentSceneObject;
         _baseObjects.Add(obj);
     }
+
     public void AddBaseUIButton(BaseUIButton obj)
     {
         if (obj is INextButton)
@@ -102,6 +108,17 @@ public class SceneObjectsHolder : MonoBehaviour
                 pointObj.EnableObject(true);
                 pointObj.SetPointText(text);
             }
+        }
+    }
+    private void OnSetToolObject(IToolObject toolObject) => ToolObject = toolObject;
+    private void OnPlayActionAnimation(ButtonActionName name)
+    {
+       switch (name)
+        {
+            case ButtonActionName.tool:
+
+                ToolObject.PlayToolAnimation();
+                    break;
         }
     }
     public void ActivateBaseObjects(string objectId, string objectName, string timeText)

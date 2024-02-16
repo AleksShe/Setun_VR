@@ -20,7 +20,6 @@ public class DesktopCanvas : GameCanvasBase
     private const string START = "start";
     private void Start()
     {
-        NextButton.NextButtonPressedEvent += OnStartGame;
         Player.Instance.CanMove = false;
         CanTeleport = false;
     }

@@ -13,10 +13,7 @@ public class BackButton : BaseButton
     public override void OnClicked(InteractHand interactHand)
     {
         InstanceHandler.Instance.MovingButtonsController.HideAllButtons();
-        InstanceHandler.Instance.API.OnInvokeNavAction(InstanceHandler.Instance.BackButtonsActivator.ActionToInvoke);
         InstanceHandler.Instance.PlayCloseAnimationForAllObjects();
-        InstanceHandler.Instance.BackButtonsActivator.SetCurrentBackButton(null);
-        InstanceHandler.Instance.BackTriggersHolder.EnableCurrentTrigger(false);
         BackButtonClickEvent?.Invoke();
     }
 }

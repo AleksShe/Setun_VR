@@ -9,7 +9,6 @@ public class InstanceHandler : MonoBehaviour
     public string BackPlaceName { get; set; }
     private List<ObjectWithAnimation> _animationObjectList = new List<ObjectWithAnimation>();
 
-    [SerializeField] private BackButtonsActivator _backButtonsActivator;
     [SerializeField] private LocationController _locationController;
     [SerializeField] private Teleporter _teleporter;
     [SerializeField] private MovingButtonsController _movinButtonsController;
@@ -17,7 +16,6 @@ public class InstanceHandler : MonoBehaviour
     [SerializeField] private MainMenuCanvas _mainMenuCanvas;
     [SerializeField] private ModeController _modeController;
     [SerializeField] private DoorSoundPlayer _doorSoundPlayer;
-    [SerializeField] private BackTriggersHolder _backTriggersHolder;
     [SerializeField] private InstantiateResultButton _instResultButton;
     [SerializeField] private API _api;
     [SerializeField] private MouseRayCastHandler _mouseRayCastHandler;
@@ -29,10 +27,8 @@ public class InstanceHandler : MonoBehaviour
     public CanvasMode CanvasMode => _canvasMode;
     public MainMenuCanvas MainMenuCanvas => _mainMenuCanvas;
     public Teleporter Teleporter => _teleporter;
-    public BackButtonsActivator BackButtonsActivator => _backButtonsActivator;
     public ModeController ModeController => _modeController;
     public DoorSoundPlayer DoorSoundPlayer => _doorSoundPlayer;
-    public BackTriggersHolder BackTriggersHolder => _backTriggersHolder;
     public API API => _api;
     public MouseRayCastHandler MouseRayCastHandler => _mouseRayCastHandler;
     public CanvasParentChanger CanvasParentChanger => _canvasParentChanger;

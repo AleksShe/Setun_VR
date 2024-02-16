@@ -16,7 +16,8 @@ public class StringParser
     }
     public string GetStringWithoutNumbers(string text)
     {
-       return Regex.Replace(text, @"[\d-]", string.Empty);
+        var cleanText = Regex.Replace(text, "_", string.Empty);
+       return Regex.Replace(cleanText, @"[\d-]", string.Empty);
     }
     public bool GetSearchingValue(string text, string searchingValue)
     {

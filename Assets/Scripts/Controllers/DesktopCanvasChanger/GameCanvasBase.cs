@@ -17,7 +17,6 @@ public enum CanvasState
 public abstract class GameCanvasBase : MonoBehaviour
 {
     [SerializeField] protected CanvasView CanvasText;
-    [SerializeField] protected NextButton NextButton;
     [SerializeField] protected GameObject _catoImage;
     [SerializeField] protected GameObject _loadImage;
     [SerializeField] protected GameObject _exitButtonMidle;
@@ -43,7 +42,6 @@ public abstract class GameCanvasBase : MonoBehaviour
     public void EnableStartButton()
     {
         _catoImage.SetActive(true);
-        NextButton.gameObject.SetActive(true);
     }
     public virtual void SetStartScreenText(string headerText, string commentText, string buttonText, NextButtonState state)
     {
@@ -54,7 +52,6 @@ public abstract class GameCanvasBase : MonoBehaviour
         }
           
         CanvasText.SetStartScreenText(headerText, commentText, buttonText);
-        NextButton.CurrentState = state;
         _loadImage.SetActive(false);
         _exitButtonMidle.SetActive(false);
         _exitButton.SetActive(true);

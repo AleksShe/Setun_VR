@@ -7,14 +7,13 @@ public class Zoom : MonoBehaviour
 {
     [SerializeField] private InputActionProperty _wheelAction;
 
-    private Camera _playerCamera;
+    [SerializeField] private Camera _playerCamera;
 
     private float _zoomValue;
     private float _zoom;
     public bool CanZoom = true;
     private void Start()
     {
-        _playerCamera = FindObjectOfType<Camera>();
         _zoomValue = _playerCamera.fieldOfView;
     }
     private void OnEnable()

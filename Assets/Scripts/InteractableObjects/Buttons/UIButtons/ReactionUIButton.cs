@@ -10,6 +10,7 @@ public class ReactionUIButton : BaseUIButton
     [SerializeField] private Image _currentSprite;
     [SerializeField] private TextMeshProUGUI _reactionText;
 
+    public static Action<ButtonActionName> ActionWithObjectEvent;
     private ButtonActionName _currentActionName;
     private StringParser _stringParser = new StringParser();
     private SceneAosObject _sceneAosObject;
@@ -28,12 +29,11 @@ public class ReactionUIButton : BaseUIButton
     }
     protected override void Click()
     {
-        Debug.Log("IN CLICK   "+ _sceneAosObject.ObjectId);
         if (_sceneAosObject == null)
             return;
         var actionText = _stringParser.GetStringFromEnum(_currentActionName);
         _sceneAosObject.ActionWithObject(actionText);
-        Debug.Log("OUT CLICK   " + _sceneAosObject.ObjectId);
+        ActionWithObjectEvent?.Invoke(_currentActionName);
     }
     private Sprite GetSpriteByName()
     {

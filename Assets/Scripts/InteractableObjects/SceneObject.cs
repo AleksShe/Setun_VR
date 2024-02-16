@@ -11,9 +11,13 @@ public class SceneObject : BaseObject
     public bool NonAOS;
 
     [SerializeField] private GameObject[] _highlights;
+
     public Action<string> HelperTextEvent;
     public Action<ObjectWithAnimation> AddAnimationObjectEvent;
+    public Action<IToolObject> SetToolObjectEvent;
+
     protected ObjectWithAnimation ObjectWithAnimation;
+    protected IToolObject ToolObject;
     protected string HelperName;
 
     private float _emissionValue = 0.5f;
@@ -30,7 +34,13 @@ public class SceneObject : BaseObject
         base.OnClicked(interactHand);
         ObjectWithAnimation = GetComponent<ObjectWithAnimation>();
         if(ObjectWithAnimation!=null)
+        {
             AddAnimationObjectEvent?.Invoke(ObjectWithAnimation);
+            ObjectWithAnimation.PlayScriptableAnimationOpen();
+        }
+        ToolObject = GetComponent<IToolObject>();
+        if (ToolObject!=null)
+            SetToolObjectEvent?.Invoke(ToolObject);
     }
     public override void OnHoverIn(InteractHand interactHand)
     {
