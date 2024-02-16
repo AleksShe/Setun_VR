@@ -86,19 +86,24 @@ public class APIEventsInvoker : MonoBehaviour
     }
     private void OnEnableDialog(string text)
     {
-        //InstanceHandler.Instance.CanvasMode.EnableDialogCanvas(text);
+        Debug.Log("OnEnableDialog");
+        _modeController.CurrentPhoneScreen.ActivatePhoneDialogScreen(true);
+        _modeController.CurrentPhoneScreen.SetPhoneHeader(text);
     }
     private void OnAddTextObjectUiButton(string id,string name)
     {
-        //InstanceHandler.Instance.CanvasMode.AddTextObjectUiButton(id, name);
+        Debug.Log("OnAddTextObjectUiButton");
+        _modeController.CurrentPhoneScreen.AddItem(id, name);
     }
     private void OnAddTextObjectUi(string text,DialogRole role)
     {
-        //InstanceHandler.Instance.CanvasMode.AddTextObjectUi(text, role);
+        Debug.Log("OnAddTextObjectUi");
+        _modeController.CurrentPhoneScreen.AddItem(text, role);
     }
     private void OnEnableDialogHeader(string text)
     {
-        //InstanceHandler.Instance.CanvasMode.SetDialogHeaderText(text);
+        Debug.Log("OnEnableDialogHeader");
+        _modeController.CurrentPhoneScreen.SetPhoneHeader(text);
     }
     private void OnSetReaction(string text)
     {
@@ -139,7 +144,7 @@ public class APIEventsInvoker : MonoBehaviour
     }
     private void OnActivateSceneArmPointByName(string id, string name)
     {
-        SceneObjectsHolder.Instance.ActivateArmUIpoints(id, name);
+        //SceneObjectsHolder.Instance.ActivateArmUIpoints(id, name);
     }
     private void OnActivatePointObjectByName(string id, string name)
     {

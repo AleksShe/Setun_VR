@@ -12,7 +12,6 @@ public class InstanceHandler : MonoBehaviour
     [SerializeField] private LocationController _locationController;
     [SerializeField] private Teleporter _teleporter;
     [SerializeField] private MovingButtonsController _movinButtonsController;
-    [SerializeField] private CanvasMode _canvasMode;
     [SerializeField] private MainMenuCanvas _mainMenuCanvas;
     [SerializeField] private ModeController _modeController;
     [SerializeField] private DoorSoundPlayer _doorSoundPlayer;
@@ -24,7 +23,6 @@ public class InstanceHandler : MonoBehaviour
 
     public MovingButtonsController MovingButtonsController => _movinButtonsController;
     public LocationController LocationController => _locationController;
-    public CanvasMode CanvasMode => _canvasMode;
     public MainMenuCanvas MainMenuCanvas => _mainMenuCanvas;
     public Teleporter Teleporter => _teleporter;
     public ModeController ModeController => _modeController;

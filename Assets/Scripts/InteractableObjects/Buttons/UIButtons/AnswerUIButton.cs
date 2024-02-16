@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -10,10 +11,11 @@ public class AnswerUIButton : BaseUIButton
     [SerializeField] private TextMeshProUGUI[] _attempText;
     private string _buttonId="";
     private string _attemp = "Осталось попыток: 1";
+    public Action<string> AnswerClickedEvent;
     public OtkazAOSUIButton[] OtkazButtons => _otkazButton;
     protected override void Click()
     {
-        InstanceHandler.Instance.API.OnReasonInvoke(_buttonId);
+        AnswerClickedEvent?.Invoke(_buttonId);
         Debug.Log(_buttonId);
         SetText(_attemp);
     }    

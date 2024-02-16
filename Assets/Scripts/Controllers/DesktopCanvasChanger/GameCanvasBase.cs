@@ -17,8 +17,7 @@ public enum CanvasState
 public abstract class GameCanvasBase : MonoBehaviour
 {
     [SerializeField] protected CanvasView CanvasText;
-    [SerializeField] protected GameObject _catoImage;
-    [SerializeField] protected GameObject _loadImage;
+
     [SerializeField] protected GameObject _exitButtonMidle;
     [SerializeField] protected GameObject _exitButton;
 
@@ -28,33 +27,11 @@ public abstract class GameCanvasBase : MonoBehaviour
 
     protected CanvasState CurrentState;
     protected const string DIALOG_POINT = "OnDialogPoint";
-    private void Awake()
+    protected void Awake()
     {
         LastScreenShowEvent += OnShowLastScreen;
         ResultScreenShowEvent += OnShowResultLastScreen;
         CanvasEnableObject.CanvasEnableEvent += ShowCanvas;
-    }
-    private void Start()
-    {
-        Cursor.lockState = CursorLockMode.Confined;
-        Cursor.visible = true;
-    }
-    public void EnableStartButton()
-    {
-        _catoImage.SetActive(true);
-    }
-    public virtual void SetStartScreenText(string headerText, string commentText, string buttonText, NextButtonState state)
-    {
-        if (state == NextButtonState.Fault)
-        {
-            _catoImage.SetActive(false);
-            buttonText = "Начать";
-        }
-          
-        CanvasText.SetStartScreenText(headerText, commentText, buttonText);
-        _loadImage.SetActive(false);
-        _exitButtonMidle.SetActive(false);
-        _exitButton.SetActive(true);
     }
     protected virtual void OnShowLastScreen()
     {

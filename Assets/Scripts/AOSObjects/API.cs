@@ -96,7 +96,6 @@ public class API : AosObjectBase
         foreach (var item in points)
         {
             var action = item.SelectToken("action").ToString();
-            Debug.Log("Action " + action);
             if (action != null)
                 DialogEvent?.Invoke(action);
             var id = item.SelectToken("apiId").ToString();
@@ -307,6 +306,7 @@ public class API : AosObjectBase
     [AosAction(name: "Показать точки")]
     public void showPoints(string info, JArray data)
     {
+
         EnableMovingButtonEvent?.Invoke(null, null);
         foreach (JObject item in data)
         {
@@ -314,78 +314,9 @@ public class API : AosObjectBase
                 return;
             if (item.SelectToken("tool") != null && item.SelectToken("name") != null)
             {
-                if (item.SelectToken("tool").ToString() == "eye")
-                {
-                    string eye = item.SelectToken("tool").ToString();
-                    string text = item.SelectToken("name").ToString();
-                    EnableMovingButtonEvent?.Invoke(eye, text);
-                }
-                if (item.SelectToken("tool").ToString() == "eye_1")
-                {
-                    string eye = item.SelectToken("tool").ToString();
-                    string text = item.SelectToken("name").ToString();
-                    EnableMovingButtonEvent?.Invoke(eye, text);
-                }
-                if (item.SelectToken("tool").ToString() == "eye_2")
-                {
-                    string eye = item.SelectToken("tool").ToString();
-                    string text = item.SelectToken("name").ToString();
-                    EnableMovingButtonEvent?.Invoke(eye, text);
-                }
-                if (item.SelectToken("tool").ToString() == "hand")
-                {
-                    string hand = item.SelectToken("tool").ToString();
-                    string text = item.SelectToken("name").ToString();
-                    EnableMovingButtonEvent?.Invoke(hand, text);
-                }
-                if (item.SelectToken("tool").ToString() == "hand_1")
-                {
-                    string hand = item.SelectToken("tool").ToString();
-                    string text = item.SelectToken("name").ToString();
-                    EnableMovingButtonEvent?.Invoke(hand, text);
-                }
-                if (item.SelectToken("tool").ToString() == "hand_2")
-                {
-                    string hand = item.SelectToken("tool").ToString();
-                    string text = item.SelectToken("name").ToString();
-                    EnableMovingButtonEvent?.Invoke(hand, text);
-                }
-                if (item.SelectToken("tool").ToString() == "hand_3")
-                {
-                    string hand = item.SelectToken("tool").ToString();
-                    string text = item.SelectToken("name").ToString();
-                    EnableMovingButtonEvent?.Invoke(hand, text);
-                }
-                if (item.SelectToken("tool").ToString() == "hand_4")
-                {
-                    string hand = item.SelectToken("tool").ToString();
-                    string text = item.SelectToken("name").ToString();
-                    EnableMovingButtonEvent?.Invoke(hand, text);
-                }
-                if (item.SelectToken("tool").ToString() == "tool")
-                {
-                    string tool = item.SelectToken("tool").ToString();
-                    string text = item.SelectToken("name").ToString();
-                    EnableMovingButtonEvent?.Invoke(tool, text);
-                }
-                if (item.SelectToken("tool").ToString() == "tool_1")
-                {
-                    string tool = item.SelectToken("tool").ToString();
-                    string text = item.SelectToken("name").ToString();
-                    EnableMovingButtonEvent?.Invoke(tool, text);
-                }
-                if (item.SelectToken("tool").ToString() == "pen")
-                {
-                    string pen = item.SelectToken("tool").ToString();
-                    string text = item.SelectToken("name").ToString();
-                    EnableMovingButtonEvent?.Invoke(pen, text);
-                }
-                if (item.SelectToken("tool").ToString() == "pen_1")
-                {
-                    string pen = item.SelectToken("tool").ToString();
-                    string text = item.SelectToken("name").ToString();
-                    EnableMovingButtonEvent?.Invoke(pen, text);
-                }
+                string id = item.SelectToken("tool").ToString();
+                string text = item.SelectToken("name").ToString();
+                EnableMovingButtonEvent?.Invoke(id, text);
             }
 
             if (item.SelectToken("apiId") != null)

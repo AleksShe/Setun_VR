@@ -66,13 +66,28 @@ public class SceneObjectsHolder : MonoBehaviour
             sceneObject.AddAnimationObjectEvent += OnAddAnimationObject;
             sceneObject.SetToolObjectEvent += OnSetToolObject;
         }
-        if(obj is ObjectWithActions)
+        if(obj is SceneObjectWithEnabler)
         {
-            var sceneObject = (ObjectWithActions)obj;
-            sceneObject.AddToolObjectEvent += OnSetCurrentTool;
+            var enabler = (SceneObjectWithEnabler)obj;
+            enabler.EnableScreenEvent += OnEnableScreen;
+        }
+        if(obj is PointObject)
+        {
+            var pointObject = (PointObject)obj;
+            _aosPointObjects.Add(pointObject);
         }
         obj.AddSceneObjectEvent += OnInitCurrentSceneObject;
         _baseObjects.Add(obj);
+    }
+
+    private void OnEnableScreen(EnableScreen screen)
+    {
+      switch (screen)
+        {
+            case EnableScreen.Phone:
+                _modeController.CurrentPhoneScreen.ActivatePhone(true);
+                break;
+        }
     }
 
     public void AddBaseUIButton(BaseUIButton obj)
@@ -92,15 +107,43 @@ public class SceneObjectsHolder : MonoBehaviour
             var okButton = (OkUiButton)obj;
             okButton.OkClickEvent += OnHideReactionWindow;
         }
+        if (obj is AnswerUIButton)
+        {
+            var answerButton = (AnswerUIButton)obj;
+            answerButton.AnswerClickedEvent += OnSetAnswer;
+        }
+        if (obj is PointUiButton)
+        {
+            var pointButton = (PointUiButton)obj;
+            pointButton.PointClickEvent += OnPointClick;
+        }
+        if(obj is UIPhoneButton)
+        {
+            var pressButton = (UIPhoneButton)obj;
+            pressButton.PhoneBackButtonClickedEvent += OnClosePhone;
+        }
         obj.HoverUiEvent += OnHandleHoverMouse;
         _baseUiButtons.Add(obj);
     }
+
+    private void OnClosePhone()
+    {
+        _modeController.CurrentPhoneScreen.ActivatePhoneMainScreen(true);
+        _modeController.CurrentPhoneScreen.ClearItemsList();
+    }
+
+    private void OnPointClick(string reactionName)
+    {
+        _api.OnDialogInvoke(reactionName);
+    }
+
     private void OnNextButtonClicked(string actionName)
     {
         _api.OnInvokeNavAction(actionName);
     }
     public void ActivatePoints(string pointName, string text)
     {
+        _modeController.CurrentPhoneScreen.ActivatePhoneMainScreen(true);
         foreach (var pointObj in _aosPointObjects)
         {
             if (pointObj.GetAOSName() == pointName)
@@ -166,10 +209,7 @@ public class SceneObjectsHolder : MonoBehaviour
     {
         SceneAosObject = sceneAosObject;
     }
-    private void OnSetCurrentTool(IToolObject tool)
-    {
-
-    }
+    private void OnSetAnswer(string answerName) => _api.OnReasonInvoke(answerName);
     //public void ActivateArmUIpoints(string pointName, string actiontext)
     //{
     //    foreach (var pointObj in _baseUiButtons)
@@ -199,11 +239,6 @@ public class SceneObjectsHolder : MonoBehaviour
         _modeController.BaseReactionButtonsHandler.HideAllReactions();
         _mouseRayCastHandler.CanHover = true;
         _mouseRayCastHandler.CanInteract = true;
-    }
-    private void OnDeactivateAllColliders()
-    {
-        foreach (var sceneObject in _baseObjects)
-            sceneObject.EnableObject(false);
     }
     public void DeactivateAllArmUIPoints()
     {
@@ -263,7 +298,6 @@ public class SceneObjectsHolder : MonoBehaviour
     }
     public void SetReaction(string text)
     {
-        Debug.Log(text + "     SetReaction");
         ModeController.CurrentInteractScreen.EnableReactionObject(true);
         ModeController.CurrentInteractScreen.SetReactionText(text);
         ModeController.CurrentInteractScreen.EnableHelperObject(false);
@@ -272,9 +306,5 @@ public class SceneObjectsHolder : MonoBehaviour
         _reaction = true;
         if (CurrentState == PlayerState.Walk)
             _cursor.EnableCursor(true);
-    }
-    public void ActivateArmUIpoints(string id,string name)
-    {
-
     }
 }

@@ -9,6 +9,7 @@ public class PointObject : BaseObject
     private bool _uiPointer;
     private void Start()
     {
+        SceneObjectsHolder.Instance.AddSceneObject(this);
         _button = GetComponent<Button>();
         if (_button != null)
         {
@@ -16,7 +17,6 @@ public class PointObject : BaseObject
             _uiPointer = true;
         }
         EnableObject(false);
-        //InstanceHandler.Instance.AOSColliderActivator.AddPointObject(this);
     }
     public void SetPointText(string text) => _pointText.text = text;
     public override void EnableObject(bool value)

@@ -4,57 +4,25 @@ using UnityEngine;
 
 public class DesktopCanvas : GameCanvasBase
 {
- 
     [SerializeField] private DesktopCanvasObject[] _desktopCanvases;
-    [SerializeField] private DesktopCanvasObjectsHolder _textHolder;
-    [SerializeField] private DesktopCanvasObjectsHolder _buttonsHolder;
-    [SerializeField] private CameraFlash _cameraFlash;
-    [SerializeField] private GameObject _timer;
+    [SerializeField] private DesktopPhoneScreen _textHolder;
+    [SerializeField] private DesktopPhoneScreen _buttonsHolder;
+
     [SerializeField] private GameObject _messagePanel;
-    [SerializeField] private GameObject _location;
 
     [HideInInspector] public bool CanTeleport = true;
 
     private bool _canSwitch = true;
-
-    private const string START = "start";
     private void Start()
     {
         Player.Instance.CanMove = false;
         CanTeleport = false;
-    }
-    private void OnStartGame(string name)
-    {
-        if (name == START)
-        {
-            DisableAllCanvases();
-            ShowCanvas(CanvasState.None);
-            _cameraFlash.CameraFlashStart();
-            EnableInteractImages(true);
-        }
-    }
-    private void OnEscClick()
-    {
-        
-        if (!CanTeleport)
-            return;
-        if (CurrentState == CanvasState.Arm || CurrentState == CanvasState.Phone)
-            return;
-        if (CurrentState != CanvasState.Start && CurrentState != CanvasState.Menu)
-        {
-            ShowCanvas(CanvasState.Menu);
-            InstanceHandler.Instance.API.OnMenuInvoke();
-        }
-        else ShowCanvas(CanvasState.None);
-        _cameraFlash.CameraFlashStart();
-        
     }
 
     public override void ShowCanvas(CanvasState state)
     {
         if (!_canSwitch)
             return;
-        SwitchCamera(state);
         var canvasToShow = _desktopCanvases.FirstOrDefault(c => state == c.CurrentState);
       
         if (canvasToShow != null)
@@ -77,13 +45,6 @@ public class DesktopCanvas : GameCanvasBase
         foreach (var canvas in _desktopCanvases)
             canvas.gameObject.SetActive(false);
     }
-    public void SwitchCamera(CanvasState state)
-    {
-        if (state == CanvasState.Arm)
-            EnableInteractImages(false);
-        else if(state !=CanvasState.Start)
-            EnableInteractImages(true);
-    }
     protected override void OnShowLastScreen()
     {
         ShowCanvas(CanvasState.Menu);
@@ -104,9 +65,5 @@ public class DesktopCanvas : GameCanvasBase
     {
         _buttonsHolder.AddItem(id, name);
     }
-    private void EnableInteractImages(bool active)
-    {
-        _timer.SetActive(active);
-        _location.SetActive(active);
-    }
+
 }
