@@ -2,18 +2,22 @@ using AosSdk.Core.PlayerModule;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.iOS;
 using UnityEngine;
 
 public class APIEventsInvoker : MonoBehaviour
 {
     [SerializeField] private API _api;
+    [SerializeField] private Teleporter _teleporter;
     [SerializeField] private ConnectionToClient _connectionChecker;
+    [SerializeField] private LocationController _locationController;
+    [SerializeField] private ModeController _modeController;
 
     private void OnEnable()
     {
         _connectionChecker.ConnectionReadyEvent += OnSetLocationAfterConnection;
         _api.ShowPlaceEvent += OnDeactivateColliders;
-        _api.ReactionEvent += OnShowReactionWindow;
+        _api.ReactionEvent += OnSetReaction;
         _api.SetTeleportLocationEvent += OnSetLocationToTeleport;
         _api.SetNewLocationTextEvent += OnSetLocationTextToLocationController;
         _api.SetLocationEvent += OnSetLocationToLocationController;
@@ -41,7 +45,7 @@ public class APIEventsInvoker : MonoBehaviour
     {
         _connectionChecker.ConnectionReadyEvent -= OnSetLocationAfterConnection;
         _api.ShowPlaceEvent -= OnDeactivateColliders;
-        _api.ReactionEvent -= OnShowReactionWindow;
+        _api.ReactionEvent -= OnSetReaction;
         _api.SetTeleportLocationEvent -= OnSetLocationToTeleport;
         _api.SetNewLocationTextEvent -= OnSetLocationTextToLocationController;
         _api.SetLocationEvent -= OnSetLocationToLocationController;
@@ -66,163 +70,100 @@ public class APIEventsInvoker : MonoBehaviour
     }
     private void OnInstanseResultSingleButtons(string name, string penalty)
     {
-        InstanceHandler.Instance.InstResultButton.InstantiateSingleButtons(name, penalty);
+        //InstanceHandler.Instance.InstResultButton.InstantiateSingleButtons(name, penalty);
     }
     private void OnInstanseResultButtons(string name,string penalty,string resultText)
     {
-        InstanceHandler.Instance.InstResultButton.InstantiateButtons(name, penalty,resultText);
+        //InstanceHandler.Instance.InstResultButton.InstantiateButtons(name, penalty,resultText);
     }
     private void OnDeactivateUiButtons()
     {
-        InstanceHandler.Instance.AOSColliderActivator.DeactivateAllArmUIPoints();
+        //InstanceHandler.Instance.AOSColliderActivator.DeactivateAllArmUIPoints();
     }
     private void OnDeactivateColliders()
     {
-        InstanceHandler.Instance.AOSColliderActivator.DeactivateAllColliders();
+        SceneObjectsHolder.Instance.DeactivateAllSceneObjects();
     }
     private void OnEnableDialog(string text)
     {
-        InstanceHandler.Instance.CanvasMode.EnableDialogCanvas(text);
+        //InstanceHandler.Instance.CanvasMode.EnableDialogCanvas(text);
     }
     private void OnAddTextObjectUiButton(string id,string name)
     {
-        InstanceHandler.Instance.CanvasMode.AddTextObjectUiButton(id, name);
+        //InstanceHandler.Instance.CanvasMode.AddTextObjectUiButton(id, name);
     }
     private void OnAddTextObjectUi(string text,DialogRole role)
     {
-        InstanceHandler.Instance.CanvasMode.AddTextObjectUi(text, role);
+        //InstanceHandler.Instance.CanvasMode.AddTextObjectUi(text, role);
     }
     private void OnEnableDialogHeader(string text)
     {
-        InstanceHandler.Instance.CanvasMode.SetDialogHeaderText(text);
+        //InstanceHandler.Instance.CanvasMode.SetDialogHeaderText(text);
     }
-    private void OnShowReactionWindow(string reactionText)
+    private void OnSetReaction(string text)
     {
-        InstanceHandler.Instance.HelpTextController.SetReactionText(reactionText);
+        SceneObjectsHolder.Instance.SetReaction(text);
     }
     private void OnSetLocationToTeleport(string location)
     {
-       InstanceHandler.Instance.Teleporter.Teleport(location);
+        _teleporter.Teleport(location);
     }
     private void OnSetLocationTextToLocationController(string location)
     {
-        InstanceHandler.Instance.CanvasMode.SetLocationtext(location);
+        _modeController.CurrentInteractScreen.SetLocationText(location);
     }
     private void OnSetLocationToLocationController(string location)
     {
-        InstanceHandler.Instance.BackTriggersHolder.SetTrigger(location);
-        InstanceHandler.Instance.LocationController.SetLocation(location);
+        _locationController.SetLocation(location);
     }
     private void OnSetLocationAfterConnection()
     {
-        InstanceHandler.Instance.LocationController.ConnectionEstablished();
+        _locationController.ConnectionEstablished();
     }
-
-    private void OnEnableMovingButton(string buttonType, string buttonText)
+    private void OnEnableMovingButton(string button, string buttonName)
     {
-        if (buttonType == "eye")
-        {
-            InstanceHandler.Instance.MovingButtonsController.ShowWatchButton();
-            InstanceHandler.Instance.MovingButtonsController.SetWatchButtonText(buttonText);
-        }
-        else if (buttonType == "eye_1")
-        {
-            InstanceHandler.Instance.MovingButtonsController.ShowWatch1Button();
-            InstanceHandler.Instance.MovingButtonsController.SetWatch1ButtonText(buttonText);
-        }
-        else if (buttonType == "eye_2")
-        {
-            InstanceHandler.Instance.MovingButtonsController.ShowWatch2Button();
-            InstanceHandler.Instance.MovingButtonsController.SetWatch2ButtonText(buttonText);
-        }
-        else if (buttonType == "hand")
-        {
-            InstanceHandler.Instance.MovingButtonsController.ShowHandButton();
-            InstanceHandler.Instance.MovingButtonsController.SetHandButtonText(buttonText);
-        }
-        else if (buttonType == "hand_1")
-        {
-            InstanceHandler.Instance.MovingButtonsController.ShowHand1Button();
-            InstanceHandler.Instance.MovingButtonsController.SetHand1ButtonText(buttonText);
-        }
-        else if (buttonType == "hand_2")
-        {
-            InstanceHandler.Instance.MovingButtonsController.ShowHand2Button();
-            InstanceHandler.Instance.MovingButtonsController.SetHand2ButtonText(buttonText);
-        }
-        else if (buttonType == "hand_3")
-        {
-            InstanceHandler.Instance.MovingButtonsController.ShowHand3Button();
-            InstanceHandler.Instance.MovingButtonsController.SetHand3ButtonText(buttonText);
-        }
-        else if (buttonType == "hand_4")
-        {
-            InstanceHandler.Instance.MovingButtonsController.ShowHand4Button();
-            InstanceHandler.Instance.MovingButtonsController.SetHand4ButtonText(buttonText);
-        }
-        else if (buttonType == "tool")
-        {
-            InstanceHandler.Instance.MovingButtonsController.ShowToolButton();
-            InstanceHandler.Instance.MovingButtonsController.SetToolButtonText(buttonText);
-        }
-        else if (buttonType == "tool_1")
-        {
-            InstanceHandler.Instance.MovingButtonsController.ShowTool1Button();
-            InstanceHandler.Instance.MovingButtonsController.SetTool1ButtonText(buttonText);
-        }
-        else if (buttonType == "pen")
-        {
-            InstanceHandler.Instance.MovingButtonsController.ShowPenButton();
-            InstanceHandler.Instance.MovingButtonsController.SetPenButtonText(buttonText);
-        }
-        else if (buttonType == "pen_1")
-        {
-            InstanceHandler.Instance.MovingButtonsController.ShowPen1Button();
-            InstanceHandler.Instance.MovingButtonsController.SetPen1ButtonText(buttonText);
-        }
-
-        else if (buttonType == null)
-            InstanceHandler.Instance.MovingButtonsController.HideAllButtons();
+        _modeController.BaseReactionButtonsHandler.ShowReactionButtonByName(button, buttonName);
     }
     private void OnSetTimerText(string timerText)
     {
-        InstanceHandler.Instance.CanvasMode.SetTimeText(timerText);
+        _modeController.CurrentInteractScreen.SetTimerText(timerText);
     }
     private void OnActivaneBackButton(string actionName)
     {
-        InstanceHandler.Instance.BackButtonsActivator.ActionToInvoke = actionName;
-        InstanceHandler.Instance.BackButtonsActivator.EnableCurrentBackButton(true);
+        //InstanceHandler.Instance.BackButtonsActivator.ActionToInvoke = actionName;
+        //InstanceHandler.Instance.BackButtonsActivator.EnableCurrentBackButton(true);
     }
-    private void OnActivateSceneObjectByName(string id, string name)
+    private void OnActivateSceneObjectByName(string id, string name, string time)
     {
-        InstanceHandler.Instance.AOSColliderActivator.ActivateColliders(id, name);
+        SceneObjectsHolder.Instance.ActivateBaseObjects(id, name, time);
     }
     private void OnActivateSceneArmPointByName(string id, string name)
     {
-        InstanceHandler.Instance.AOSColliderActivator.ActivateArmUIpoints(id, name);
+        SceneObjectsHolder.Instance.ActivateArmUIpoints(id, name);
     }
     private void OnActivatePointObjectByName(string id, string name)
     {
-        InstanceHandler.Instance.AOSColliderActivator.ActivatePoints(id, name);
+        SceneObjectsHolder.Instance.ActivatePoints(id, name);
     }
-    private void OnSetLastScreenText(string headertext, string commentText,string footerText,string alarmImg)
+    private void OnSetLastScreenText(string headerText, string commentText,string footer,string alarm)
     {
-        InstanceHandler.Instance.CanvasMode.SetLastScreenText(headertext, commentText,footerText,alarmImg);
+        _modeController.CurrentMenuScreen.ShowMessageScreen(headerText, commentText);
     }
-    private void OnSetResultScreenText(string headertext, string commentText, string evalText)
+    private void OnSetResultScreenText(string headerText, string commentText, string evalText)
     {
-        InstanceHandler.Instance.CanvasMode.SetResultScreenText(headertext, commentText, evalText);
+        _modeController.CurrentMenuScreen.ShowLastScreen(headerText, commentText, evalText);
+        _modeController.CurrentMenuController.TeleportByGameTimer();
     }
-    private void OnSetExitText(string exitText, string warntext)
+    private void OnSetExitText(string exitText, string warnText)
     {
-        InstanceHandler.Instance.CanvasMode.SetExitText(exitText, warntext);
+        _modeController.CurrentMenuScreen.SetExitText(exitText, warnText);
     }
     private void OnSetMenuText(string headText, string commentText, string exitSureText)
     {
-        InstanceHandler.Instance.CanvasMode.SetMenuText(headText, commentText, exitSureText);
+        _modeController.CurrentMenuScreen.SetMenuText(headText, commentText, exitSureText);
     }
     private void OnSetStartText(string headerText, string commentText, string buttonText, NextButtonState state)
     {
-       InstanceHandler.Instance.CanvasMode.SetStartScreenText(headerText, commentText, buttonText, state);
+        _modeController.CurrentStartScreen.SetStartScreenText(headerText, HtmlToText.Instance.HTMLToTextReplace(commentText), buttonText, state);
     }
 }

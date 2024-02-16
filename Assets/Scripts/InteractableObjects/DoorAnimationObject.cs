@@ -13,7 +13,7 @@ public class DoorAnimationObject : ObjectWithAnimation
         GetComponent<Collider>().enabled = false;
         if(value)
         {
-            InstanceHandler.Instance.DoorSoundPlayer.PlayOpenMetalDoorSound();
+            SceneObjectsHolder.Instance.DoorSoundPlayer.PlayOpenMetalDoorSound();
             if (!_side)
             {
                 int y = 0;
@@ -59,7 +59,7 @@ public class DoorAnimationObject : ObjectWithAnimation
                     yield return new WaitForSeconds(0.01f);
                 }
             }
-            InstanceHandler.Instance.DoorSoundPlayer.PlayCloseMetalDoorSound();
+            SceneObjectsHolder.Instance.DoorSoundPlayer.PlayCloseMetalDoorSound();
         }
     }
 }

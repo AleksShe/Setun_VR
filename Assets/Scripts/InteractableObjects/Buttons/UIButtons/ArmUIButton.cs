@@ -17,7 +17,7 @@ public class ArmUIButton : ArmButtonWithImage
     {
         if(_closeButton!=null)
         _closeButton.CloseUiButtonClickEvent += EnableUIButton;
-        InstanceHandler.Instance.AOSColliderActivator.AddArmIUObject(this);
+        //InstanceHandler.Instance.AOSColliderActivator.AddArmIUObject(this);
     }
     public override void EnableUIButton(bool value)
     {

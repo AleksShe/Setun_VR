@@ -4,35 +4,49 @@ using AosSdk.Core.Utils;
 using AosSdk.Core.PlayerModule.Pointer;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class SceneObject : BaseObject
 {
     public bool NonAOS;
 
-    [SerializeField] protected Transform HelperPos;
     [SerializeField] private GameObject[] _highlights;
+    public Action<string> HelperTextEvent;
+    public Action<ObjectWithAnimation> AddAnimationObjectEvent;
+    protected ObjectWithAnimation ObjectWithAnimation;
     protected string HelperName;
+
+    private float _emissionValue = 0.5f;
     protected void Start()
     {
         if (!NonAOS)
         {
             EnableObject(false);
-            InstanceHandler.Instance.AOSColliderActivator.AddSceneObject(this);
+            SceneObjectsHolder.Instance.AddSceneObject(this);
         }
+    }
+    public override void OnClicked(InteractHand interactHand)
+    {
+        base.OnClicked(interactHand);
+        ObjectWithAnimation = GetComponent<ObjectWithAnimation>();
+        if(ObjectWithAnimation!=null)
+            AddAnimationObjectEvent?.Invoke(ObjectWithAnimation);
     }
     public override void OnHoverIn(InteractHand interactHand)
     {
-        if (HelperPos != null)
-            InstanceHandler.Instance.HelpTextController.ShowHelperText(HelperPos, HelperName);
+        if (!NonAOS)
+            HelperTextEvent?.Invoke(HelperName);
         EnableHighlight(true);
     }
     public override void OnHoverOut(InteractHand interactHand)
     {
-        InstanceHandler.Instance.HelpTextController.HideHelperText();
+        if (!NonAOS)
+            HelperTextEvent?.Invoke(null);
         EnableHighlight(false);
     }
     public override void EnableObject(bool value)
     {
+        EnableHighlight(false);
         if (GetComponent<Collider>() != null)
             GetComponent<Collider>().enabled = value;
         if (GetComponent<SpriteRenderer>() != null)
@@ -43,22 +57,20 @@ public class SceneObject : BaseObject
     public virtual void SetHelperName(string value) => HelperName = value;
     protected virtual void EnableHighlight(bool value)
     {
-        if (_highlights == null)
-            return;
-        foreach (var hl in _highlights)
-            hl.SetActive(value);
-        //Renderer[] renderers = GetComponentsInChildren<Renderer>();
-        //if (renderers == null)
-        //    return;
-        //foreach (var renderer in renderers)
-        //{
-        //    foreach (var mat in renderer.materials)
-        //    {
-        //        if (value)
-        //            mat.color *= 2;
-        //        else
-        //            mat.color /= 2;
-        //    }
-        //}
+        foreach (var visual in _highlights)
+        {
+            foreach (var mesh in visual.GetComponentsInChildren<Renderer>())
+            {
+                if (mesh == null)
+                    return;
+                if (value)
+                {
+                    mesh.material.EnableKeyword("_EMISSION");
+                    mesh.material.SetColor("_EmissionColor", new Color(_emissionValue, _emissionValue, _emissionValue));
+                }
+                else
+                    mesh.material.SetColor("_EmissionColor", Color.black);
+            }
+        }
     }
 }

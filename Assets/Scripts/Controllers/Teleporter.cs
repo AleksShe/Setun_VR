@@ -30,8 +30,6 @@ public class Teleporter : MonoBehaviour
     public void Teleport(string locationName)
     {
         TeleportEndEvent?.Invoke(locationName);
-        if (locationName == "start" && _modeController.VrMode)
-            TeleportPlayer(_menuPosition);
         if (locationName == "hall" || locationName == "machine_hall" || locationName == "dnc_hall" || locationName == "shn_hall")
         {
             if (_previousLocation == locationName)

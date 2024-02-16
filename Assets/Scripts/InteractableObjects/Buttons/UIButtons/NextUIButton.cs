@@ -1,35 +1,22 @@
 using AosSdk.Core.PlayerModule;
-using System;
-using UnityEngine;
+using System.Diagnostics;
 using UnityEngine.UI;
 
-public class NextUIButton : NextButton
+public class NextUIButton : BaseUIButton, INextButton
 {
-    [SerializeField] private DesktopCanvas _dcCanvas;
-    [SerializeField] private GameObject _lineImage;
-    private Button _button;
-    private void Awake()
+    public NextButtonState CurrentState { get; set; }
+
+    public event NextButtonPressed NextButtonPressedEvent;
+
+    protected override void Click()
     {
-        _button = GetComponent<Button>();
-        _button.onClick.AddListener(() => OnClick());
+        ClickNextButton();
     }
-    public void OnClick()
+    public void ClickNextButton()
     {
         if (CurrentState == NextButtonState.Start)
-        {
-            InstanceHandler.Instance.API.OnInvokeNavAction("next");
             NextButtonPressedEvent?.Invoke("next");
-            Player.Instance.CanMove = false;
-        }
         else if (CurrentState == NextButtonState.Fault)
-        {
-            InstanceHandler.Instance.API.OnInvokeNavAction("start");
             NextButtonPressedEvent?.Invoke("start");
-            Player.Instance.CanMove = true;
-            if(_dcCanvas != null) _dcCanvas.CanTeleport = true;
-            if(_lineImage != null) _lineImage.SetActive(true);
-
-            
-        }
     }
 }

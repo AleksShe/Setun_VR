@@ -10,16 +10,10 @@ public class MovingButton : BaseButton
     public override void OnHoverIn(InteractHand interactHand)
     {
         transform.localScale *= 1.5f;
-        if (HelperPos == null)
-            return;
-        InstanceHandler.Instance.HelpTextController.ShowHelperText(HelperPos,actionText);
     }
     public override void OnHoverOut(InteractHand interactHand)
     {
         transform.localScale /= 1.5f;
-        if (HelperPos == null)
-            return;
-        InstanceHandler.Instance.HelpTextController.HideHelperText();
     }
     public void ChangeButtonPosistion(float y)
     {

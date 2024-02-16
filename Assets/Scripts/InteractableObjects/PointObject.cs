@@ -19,7 +19,7 @@ public class PointObject : BaseObject
             _uiPointer = true;
         }
         EnableObject(false);
-        InstanceHandler.Instance.AOSColliderActivator.AddPointObject(this);
+        //InstanceHandler.Instance.AOSColliderActivator.AddPointObject(this);
     }
     public void SetPointText(string text) => _pointText.text = text;
     public override void EnableObject(bool value)

@@ -18,8 +18,6 @@ public abstract class GameCanvasBase : MonoBehaviour
 {
     [SerializeField] protected CanvasView CanvasText;
     [SerializeField] protected NextButton NextButton;
-    [SerializeField] protected TimerTextHolder TimerTextHolder;
-    [SerializeField] protected LocationTextHolder LocationText;
     [SerializeField] protected GameObject _catoImage;
     [SerializeField] protected GameObject _loadImage;
     [SerializeField] protected GameObject _exitButtonMidle;
@@ -69,14 +67,6 @@ public abstract class GameCanvasBase : MonoBehaviour
     }
     public virtual void ShowCanvas(CanvasState state)
     {
-    }
-    public void SetTimerText(string timerText)
-    {
-        TimerTextHolder.ShowTimerText(timerText);
-    }
-    public void SetLocationText(string location)
-    {
-        LocationText.SetLocationText(location);
     }
     public void SetDialogHeaderText(string text)
     {

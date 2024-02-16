@@ -5,9 +5,7 @@ using UnityEngine;
 public class DesktopCanvas : GameCanvasBase
 {
  
-    [SerializeField] private PlayerCameraDisabler _playerCameraDisabler;
     [SerializeField] private DesktopCanvasObject[] _desktopCanvases;
-    [SerializeField] private EscButton _escButton;
     [SerializeField] private DesktopCanvasObjectsHolder _textHolder;
     [SerializeField] private DesktopCanvasObjectsHolder _buttonsHolder;
     [SerializeField] private CameraFlash _cameraFlash;
@@ -23,8 +21,6 @@ public class DesktopCanvas : GameCanvasBase
     private void Start()
     {
         NextButton.NextButtonPressedEvent += OnStartGame;
-        _escButton.EscClickEvent += OnEscClick;
-        BackFromMenuUIButton.BackButtonClickEvent += OnExitFromCanvas;
         Player.Instance.CanMove = false;
         CanTeleport = false;
     }
@@ -53,11 +49,6 @@ public class DesktopCanvas : GameCanvasBase
         else ShowCanvas(CanvasState.None);
         _cameraFlash.CameraFlashStart();
         
-    }
-    private void OnExitFromCanvas()
-    {
-        ShowCanvas(CanvasState.None);
-        _cameraFlash.CameraFlashStart();
     }
 
     public override void ShowCanvas(CanvasState state)
@@ -89,10 +80,6 @@ public class DesktopCanvas : GameCanvasBase
     }
     public void SwitchCamera(CanvasState state)
     {
-        if (state == CanvasState.None)
-            _playerCameraDisabler.EnableDesktopCamera(true);
-        else
-            _playerCameraDisabler.EnableDesktopCamera(false);
         if (state == CanvasState.Arm)
             EnableInteractImages(false);
         else if(state !=CanvasState.Start)

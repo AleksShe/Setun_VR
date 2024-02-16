@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WiresWithButton : ObjectWithButton
+public class WiresWithButton : ObjectWithActions
 {
     [SerializeField] private Renderer[] _renderers;
     [SerializeField] private Color _color;

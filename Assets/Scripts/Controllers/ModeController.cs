@@ -1,27 +1,68 @@
+using AosSdk.Core.Utils;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ModeController : MonoBehaviour
 {
+    [SerializeField] private AosSDKSettings _aosSettings;
     [SerializeField] private GameObject _desktopPlayer;
     [SerializeField] private GameObject _vrPlayer;
-    [SerializeField] private GameObject _desktopPlayerEventSystem;
-    [SerializeField] private GameObject _vrEventSystem;
+    [Space]
+    [SerializeField] private BaseStartScreenView _desktopStartScreenView;
+    [SerializeField] private BaseStartScreenView _vrStartScreenView;
+    [Space]
+    [SerializeField] private BaseMenuScreen _deskMenuScreen;
+    [SerializeField] private BaseMenuScreen _vrMenuScreen;
+    [Space]
+    [SerializeField] private BaseInteractScreen _desktopInteractScreen;
+    [SerializeField] private BaseInteractScreen _vrInteractScreen;
+    [Space]
+    [SerializeField] private BaseMenuController _desktopMenuController;
+    [SerializeField] private BaseMenuController _vrMenuController;
+    [Space]
+    [SerializeField] private BaseReactionButtonsHandler _desktopReactionButtonsHandler;
+    [SerializeField] private BaseReactionButtonsHandler _vrReactionButtonsHandler;
+    public BaseStartScreenView CurrentStartScreen { get; private set; }
+    public BaseInteractScreen CurrentInteractScreen { get; private set; }
+    public BaseMenuScreen CurrentMenuScreen { get; private set; }
+    public BaseMenuController CurrentMenuController { get; private set; }
+    public BaseReactionButtonsHandler BaseReactionButtonsHandler { get; private set; }
+    private LaunchMode _currentMode;
+    public bool DesktopMode => _currentMode == LaunchMode.Desktop;
 
-    private void Awake()
+    private void Start()
     {
-        if(!_desktopPlayer.activeSelf)
-            _desktopPlayerEventSystem.SetActive(false);
-        else _vrEventSystem.SetActive(false);
+        _currentMode = _aosSettings.launchMode;
+        EnableObjectsByMode();
     }
     public Transform GetPlayerTransform()
     {
-        if (!_desktopPlayer.activeSelf)
-        {
+        if (_currentMode == LaunchMode.Vr)
             return _vrPlayer.transform;
-        }
-        else return _desktopPlayer.transform;
+        else if (_currentMode == LaunchMode.Desktop)
+            return _desktopPlayer.transform;
+        return null;
     }
-    public bool VrMode => !_desktopPlayer.activeSelf;
+
+    private void EnableObjectsByMode()
+    {
+        if (DesktopMode)
+        {
+            CurrentStartScreen = _desktopStartScreenView;
+            CurrentInteractScreen = _desktopInteractScreen;
+            CurrentMenuScreen = _deskMenuScreen;
+            CurrentMenuController = _desktopMenuController;
+            BaseReactionButtonsHandler = _desktopReactionButtonsHandler;
+        }
+        else
+        {
+            CurrentStartScreen = _vrStartScreenView;
+            CurrentInteractScreen = _vrInteractScreen;
+            CurrentMenuScreen = _vrMenuScreen;
+            CurrentMenuController = _vrMenuController;
+            BaseReactionButtonsHandler = _vrReactionButtonsHandler;
+        }
+    }
+
 }

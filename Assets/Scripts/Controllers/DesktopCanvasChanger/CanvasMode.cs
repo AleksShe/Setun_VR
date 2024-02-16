@@ -9,7 +9,6 @@ public class CanvasMode : MonoBehaviour
     private GameCanvasBase _currentCanvas;
     private void Start()
     {
-        _currentCanvas = InstanceHandler.Instance.ModeController.VrMode ? _vrCanvas : _deskCanvas;
         if(_currentCanvas==_deskCanvas)
             _vrCanvas.gameObject.SetActive(false);
         else _deskCanvas.gameObject.SetActive(false);
@@ -20,10 +19,7 @@ public class CanvasMode : MonoBehaviour
         _currentCanvas.SetStartScreenText(headerText, commentText, buttonText, state);
         _currentCanvas.ShowCanvas(CanvasState.Start);
     }
-    public void SetTimeText(string timerText)
-    {
-        _currentCanvas.SetTimerText(timerText);
-    }
+
     public void SetLastScreenText(string headertext, string commentText,string footerText,string alarmImg)
     {
      _currentCanvas.SetLastScreenText(headertext, commentText, footerText, alarmImg);
@@ -39,10 +35,6 @@ public class CanvasMode : MonoBehaviour
     public void SetMenuText(string headText, string commentText, string exitSureText)
     {
         _currentCanvas.SetMenuText(headText, commentText,exitSureText);
-    }
-    public void SetLocationtext(string location)
-    {
-        _currentCanvas.SetLocationText(location);
     }
     public void AddTextObjectUiButton(string id, string name)
     {

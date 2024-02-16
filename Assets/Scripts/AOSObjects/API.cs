@@ -43,7 +43,7 @@ public class API : AosObjectBase
     public UnityAction<string, string> AddTextObjectUiButtonEvent;
     public UnityAction<string, string> PointEvent;
     public UnityAction<string, string> EnableMovingButtonEvent;
-    public UnityAction<string, string> ActivateByNameEvent;
+    public UnityAction<string, string,string> ActivateByNameEvent;
     public UnityAction<string, string> ActivatePointByNameEvent;
     public UnityAction<string, string,string,string> SetMessageTextEvent;
     public UnityAction<string, string, string> SetResultTextEvent;
@@ -70,10 +70,8 @@ public class API : AosObjectBase
     [AosAction(name: "Задать текст приветствия")]
     public void showWelcome(JObject info, JObject nav)
     {
-        Debug.Log("Show Welcome " + info.ToString());
         JsonConverter<AosTextModel> aosWelcomeText = new JsonConverter<AosTextModel>(info);
         string buttonText = nav.SelectToken("ok").SelectToken("caption").ToString();
-        Debug.Log("TEXT" + buttonText);
         var welcomeObj = aosWelcomeText.JsonObject;
         SetStartTextEvent?.Invoke(welcomeObj.Header, welcomeObj.Text, buttonText, NextButtonState.Start);
         SetTeleportLocationEvent?.Invoke("start");
@@ -85,7 +83,6 @@ public class API : AosObjectBase
         string buttonText = nav.SelectToken("ok").SelectToken("caption").ToString();
         var welcomeObj = aosWelcomeText.JsonObject;
         SetStartTextEvent?.Invoke(welcomeObj.Header, welcomeObj.Text, buttonText, NextButtonState.Fault);
-        Debug.Log("TEXT" + info);
     }
 
     public void showDialog(JObject info, JArray points, JObject nav)
@@ -150,10 +147,6 @@ public class API : AosObjectBase
     {
         navAction.Invoke(value);
     }
-    public void ConnectionEstablished(string currentLocation)
-    {
-        EndTween?.Invoke(currentLocation);
-    }
     [AosAction(name: "Показать место")]
     public void showPlace(JObject place, JArray data, JObject nav)
     {
@@ -166,7 +159,7 @@ public class API : AosObjectBase
         ShowPlaceEvent?.Invoke();
         JsonConverter<AosObjectModel> converter = new JsonConverter<AosObjectModel>(data);
         foreach (var jItem in converter.JsonArray)
-            ActivateByNameEvent?.Invoke(jItem.Id, jItem.Name);
+            ActivateByNameEvent?.Invoke(jItem.Id, jItem.Name,"");
         foreach (JObject item in data)
         {
             if (item.SelectToken("view") != null)
@@ -178,7 +171,7 @@ public class API : AosObjectBase
                     if (aosObjectWithImage.SelectToken("apiId") != null)
                     {
                         string name = aosObjectWithImage.SelectToken("apiId").ToString();
-                        ActivateByNameEvent?.Invoke(name, "");
+                        ActivateByNameEvent?.Invoke(name, "","");
                     }
                 }
             }
@@ -215,10 +208,8 @@ public class API : AosObjectBase
                             Debug.Log(pointTempView + " View point");
                             ActivatePointByNameEvent?.Invoke(pointTempView, pointActionName);
                         }
-
                     }
                 }
-
                 var childs = item.SelectTokens("childs");
                 if (childs != null)
                 {
@@ -323,7 +314,6 @@ public class API : AosObjectBase
                 return;
             if (item.SelectToken("tool") != null && item.SelectToken("name") != null)
             {
-                Debug.Log(item.SelectToken("tool").ToString() + " API Show points");
                 if (item.SelectToken("tool").ToString() == "eye")
                 {
                     string eye = item.SelectToken("tool").ToString();
@@ -459,9 +449,6 @@ public class API : AosObjectBase
             string alarmImg = "none";
             SetMessageTextEvent?.Invoke(headText, footerText, commentText, alarmImg);
         }
-
-
-
     }
     [AosAction(name: "Показать сообщение")]
     public void showResult(JObject info, JObject nav)
@@ -504,11 +491,8 @@ public class API : AosObjectBase
                     }
                     ResultNameTextButtonEvent?.Invoke(name, penalty, resultText);
                 }
-
             }
-
         }
-
     }
     public void OnReasonInvoke(string name)
     {
@@ -521,5 +505,9 @@ public class API : AosObjectBase
     public void OnDialogInvoke(string name)
     {
         OnDialogPoint?.Invoke(name);
+    }
+    public void InvokeEndTween(string location)
+    {
+        EndTween?.Invoke(location);
     }
 }
