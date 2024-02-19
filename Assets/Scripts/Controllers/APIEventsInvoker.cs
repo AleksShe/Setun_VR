@@ -31,7 +31,6 @@ public class APIEventsInvoker : MonoBehaviour
         _api.ShowExitTextEvent += OnSetExitText;
         _api.ShowMenuTextEvent += OnSetMenuText;
         _api.SetStartTextEvent += OnSetStartText;
-        _api.ActivateBackButtonEvent += OnActivaneBackButton;
         _api.PointEvent += OnActivatePointObjectByName;
         _api.DialogHeaderEvent += OnEnableDialogHeader;
         _api.DialogEvent += OnEnableDialog;
@@ -59,7 +58,6 @@ public class APIEventsInvoker : MonoBehaviour
         _api.ShowExitTextEvent -= OnSetExitText;
         _api.ShowMenuTextEvent -= OnSetMenuText;
         _api.SetStartTextEvent -= OnSetStartText;
-        _api.ActivateBackButtonEvent -= OnActivaneBackButton;
         _api.PointEvent -= OnActivatePointObjectByName;
         _api.DialogHeaderEvent -= OnEnableDialogHeader;
         _api.DialogEvent -= OnEnableDialog;
@@ -78,7 +76,7 @@ public class APIEventsInvoker : MonoBehaviour
     }
     private void OnDeactivateUiButtons()
     {
-        //InstanceHandler.Instance.AOSColliderActivator.DeactivateAllArmUIPoints();
+        SceneObjectsHolder.Instance.DeactivateAllArmUIPoints();
     }
     private void OnDeactivateColliders()
     {
@@ -86,23 +84,18 @@ public class APIEventsInvoker : MonoBehaviour
     }
     private void OnEnableDialog(string text)
     {
-        Debug.Log("OnEnableDialog");
         _modeController.CurrentPhoneScreen.ActivatePhoneDialogScreen(true);
-        _modeController.CurrentPhoneScreen.SetPhoneHeader(text);
     }
     private void OnAddTextObjectUiButton(string id,string name)
     {
-        Debug.Log("OnAddTextObjectUiButton");
         _modeController.CurrentPhoneScreen.AddItem(id, name);
     }
     private void OnAddTextObjectUi(string text,DialogRole role)
     {
-        Debug.Log("OnAddTextObjectUi");
         _modeController.CurrentPhoneScreen.AddItem(text, role);
     }
     private void OnEnableDialogHeader(string text)
     {
-        Debug.Log("OnEnableDialogHeader");
         _modeController.CurrentPhoneScreen.SetPhoneHeader(text);
     }
     private void OnSetReaction(string text)
@@ -133,18 +126,13 @@ public class APIEventsInvoker : MonoBehaviour
     {
         _modeController.CurrentInteractScreen.SetTimerText(timerText);
     }
-    private void OnActivaneBackButton(string actionName)
-    {
-        //InstanceHandler.Instance.BackButtonsActivator.ActionToInvoke = actionName;
-        //InstanceHandler.Instance.BackButtonsActivator.EnableCurrentBackButton(true);
-    }
     private void OnActivateSceneObjectByName(string id, string name, string time)
     {
         SceneObjectsHolder.Instance.ActivateBaseObjects(id, name, time);
     }
     private void OnActivateSceneArmPointByName(string id, string name)
     {
-        //SceneObjectsHolder.Instance.ActivateArmUIpoints(id, name);
+        SceneObjectsHolder.Instance.ActivateArmUIpoints(id, name);
     }
     private void OnActivatePointObjectByName(string id, string name)
     {

@@ -28,6 +28,7 @@ public class SceneObjectsHolder : MonoBehaviour
     private List<PointObject> _aosPointObjects = new List<PointObject>();
     private List<BaseUIButton> _baseUiButtons = new List<BaseUIButton>();
     private List<ObjectWithAnimation> _objectsWithAnimations = new List<ObjectWithAnimation>();
+    private List<ArmUIButton> _armUIButtons = new List<ArmUIButton>();
     public SceneAosObject SceneAosObject { get; private set; }
     public ModeController ModeController => _modeController;
     public DoorSoundPlayer DoorSoundPlayer => _doorSoundPlayer;
@@ -66,9 +67,9 @@ public class SceneObjectsHolder : MonoBehaviour
             sceneObject.AddAnimationObjectEvent += OnAddAnimationObject;
             sceneObject.SetToolObjectEvent += OnSetToolObject;
         }
-        if(obj is SceneObjectWithEnabler)
+        if(obj is SceneObjectWithScreen)
         {
-            var enabler = (SceneObjectWithEnabler)obj;
+            var enabler = (SceneObjectWithScreen)obj;
             enabler.EnableScreenEvent += OnEnableScreen;
         }
         if(obj is PointObject)
@@ -85,7 +86,10 @@ public class SceneObjectsHolder : MonoBehaviour
       switch (screen)
         {
             case EnableScreen.Phone:
-                _modeController.CurrentPhoneScreen.ActivatePhone(true);
+                _modeController.CurrentPhoneScreen.ActivateScreen(true);
+                break;
+            case EnableScreen.ARM:
+                _modeController.CurrentArmScreen.ActivateScreen(true);
                 break;
         }
     }
@@ -121,6 +125,11 @@ public class SceneObjectsHolder : MonoBehaviour
         {
             var pressButton = (UIPhoneButton)obj;
             pressButton.PhoneBackButtonClickedEvent += OnClosePhone;
+        }
+        if (obj is ArmUIButton)
+        {
+            var armButton = (ArmUIButton)obj;
+            _armUIButtons.Add(armButton);
         }
         obj.HoverUiEvent += OnHandleHoverMouse;
         _baseUiButtons.Add(obj);
@@ -210,17 +219,17 @@ public class SceneObjectsHolder : MonoBehaviour
         SceneAosObject = sceneAosObject;
     }
     private void OnSetAnswer(string answerName) => _api.OnReasonInvoke(answerName);
-    //public void ActivateArmUIpoints(string pointName, string actiontext)
-    //{
-    //    foreach (var pointObj in _baseUiButtons)
-    //    {
-    //        if (pointObj.GetAOSName() == pointName)
-    //        {
-    //            pointObj.EnableUIButton(true);
-    //            pointObj.SetSceneAosEventText(actiontext);
-    //        }
-    //    }
-    //}
+    public void ActivateArmUIpoints(string pointName, string actiontext)
+    {
+        foreach (var pointObj in _armUIButtons)
+        {
+            if (pointObj.GetAOSName() == pointName)
+            {
+                pointObj.EnableUIButton(true);
+                pointObj.SetSceneAosEventText(actiontext);
+            }
+        }
+    }
     private void OnHideReactionWindow()
     {
         _modeController.CurrentInteractScreen.EnableReactionObject(false);
@@ -242,13 +251,8 @@ public class SceneObjectsHolder : MonoBehaviour
     }
     public void DeactivateAllArmUIPoints()
     {
-        foreach (var armButton in _baseUiButtons)
+        foreach (var armButton in _armUIButtons)
             armButton.EnableUIButton(false);
-    }
-    private void OnDeactivateAllPoints()
-    {
-        foreach (var point in _aosPointObjects)
-            point.EnableObject(false);
     }
     private void ResetAllAnimationObjects()
     {
@@ -282,8 +286,10 @@ public class SceneObjectsHolder : MonoBehaviour
         if (_modeController.CurrentPhoneScreen.ActiveSelf)
         {
             OnClosePhone();
-            _modeController.CurrentPhoneScreen.ActivatePhone(false);
+            _modeController.CurrentPhoneScreen.ActivateScreen(false);
         }
+        if (_modeController.CurrentArmScreen.ActiveSelf)
+            _modeController.CurrentArmScreen.ActivateScreen(false);
     }
     private void OnChangeHelperOnHoverEvent(VectorHolder holder)
     {

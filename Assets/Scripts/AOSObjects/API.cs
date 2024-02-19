@@ -230,10 +230,8 @@ public class API : AosObjectBase
                                         if (tempView.SelectToken("apiId") != null)
                                         {
                                             var pointTempView = tempView.SelectToken("apiId").ToString();
-                                            Debug.Log(pointTempView + " View point");
                                             ActivatePointByNameEvent?.Invoke(pointTempView, pointActionName);
                                         }
-
                                     }
                                 }
                                 if (temp.SelectTokens("hands") != null)
@@ -250,7 +248,6 @@ public class API : AosObjectBase
                                                 {
                                                     pointActionName = ptnObject.ToString();
                                                     ActivatePointByNameEvent?.Invoke(pointId, pointActionName);
-                                                    Debug.Log($"{pointId} point Id  {pointActionName} pointActionName");
                                                 }
                                             }
                                     }
@@ -306,7 +303,6 @@ public class API : AosObjectBase
     [AosAction(name: "Показать точки")]
     public void showPoints(string info, JArray data)
     {
-
         EnableMovingButtonEvent?.Invoke(null, null);
         foreach (JObject item in data)
         {

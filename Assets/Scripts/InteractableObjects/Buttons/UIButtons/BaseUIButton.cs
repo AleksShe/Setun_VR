@@ -2,7 +2,6 @@ using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-[RequireComponent(typeof(Button))]
 
 public abstract class BaseUIButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {

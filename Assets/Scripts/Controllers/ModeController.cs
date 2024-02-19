@@ -26,12 +26,16 @@ public class ModeController : MonoBehaviour
     [Space]
     [SerializeField] private BasePhoneScreen _desktopPhoneScreen;
     [SerializeField] private BasePhoneScreen _vrPhoneScreen;
+    [Space]
+    [SerializeField] private BaseScreen _desktopArmScreen;
+    [SerializeField] private BaseScreen _vrArmScreen;
     public BaseStartScreenView CurrentStartScreen { get; private set; }
     public BaseInteractScreen CurrentInteractScreen { get; private set; }
     public BaseMenuScreen CurrentMenuScreen { get; private set; }
     public BaseMenuController CurrentMenuController { get; private set; }
     public BaseReactionButtonsHandler BaseReactionButtonsHandler { get; private set; }
     public BasePhoneScreen CurrentPhoneScreen { get; private set; }
+    public BaseScreen CurrentArmScreen { get; private set; }
     private LaunchMode _currentMode;
     public bool DesktopMode => _currentMode == LaunchMode.Desktop;
 
@@ -59,6 +63,7 @@ public class ModeController : MonoBehaviour
             CurrentMenuController = _desktopMenuController;
             BaseReactionButtonsHandler = _desktopReactionButtonsHandler;
             CurrentPhoneScreen = _desktopPhoneScreen;
+            CurrentArmScreen = _desktopArmScreen;
         }
         else
         {
@@ -68,6 +73,7 @@ public class ModeController : MonoBehaviour
             CurrentMenuController = _vrMenuController;
             BaseReactionButtonsHandler = _vrReactionButtonsHandler;
             CurrentPhoneScreen = _vrPhoneScreen;
+            CurrentArmScreen = _vrArmScreen;
         }
     }
 

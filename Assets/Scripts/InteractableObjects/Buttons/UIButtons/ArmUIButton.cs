@@ -11,13 +11,14 @@ public class ArmUIButton : ArmButtonWithImage
     {
         base.Awake();
         _sceneObject = GetComponent<SceneAosObject>();
-        _closeButton = GetComponentInChildren<CloseArmUiButton>();
     }
-    private void Start()
+    protected override void Start()
     {
-        if(_closeButton!=null)
-        _closeButton.CloseUiButtonClickEvent += EnableUIButton;
-        //InstanceHandler.Instance.AOSColliderActivator.AddArmIUObject(this);
+        base.Start();
+        _closeButton = GetComponentInChildren<CloseArmUiButton>();
+        if (_closeButton != null)
+            _closeButton.CloseUiButtonClickEvent += EnableUIButton;
+         
     }
     public override void EnableUIButton(bool value)
     {
