@@ -1,14 +1,16 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public abstract class BaseStartScreenView : MonoBehaviour
 {
     [SerializeField] protected ModeController ModeController;
     [SerializeField] protected GameObject NextButtonGameObject;
+    [SerializeField] protected GameObject LineImage;
     [Space]
     [SerializeField] protected TextMeshProUGUI HeaderText;
     [SerializeField] protected TextMeshProUGUI CommentText;
-    [SerializeField] protected TextMeshProUGUI NextButtonText;
+    [SerializeField] protected Text NextButtonText;
 
     protected INextButton NextButton;
     protected virtual void Awake()
@@ -38,6 +40,7 @@ public abstract class BaseStartScreenView : MonoBehaviour
             ModeController.CurrentInteractScreen.EnableLocationObject(true);
             ModeController.CurrentInteractScreen.EnableTimerObject(true);
             ModeController.CurrentMenuController.CanTeleport = true;
+            LineImage.SetActive(true);
         }
     }
     protected abstract void DisableStartScreen();
