@@ -7,6 +7,10 @@ public class DesktopMenuController : BaseMenuController
     public override void TeleportToMenu()
     {
         base.TeleportToMenu();
+        if (!CanTeleport)
+        {
+            return;
+        }
         _cameraFlash.CameraFlashStart();
         _cursorManager.EnableCursor(true);
         if(SceneObjectsHolder.Instance.CurrentState == PlayerState.Look)
@@ -15,8 +19,11 @@ public class DesktopMenuController : BaseMenuController
     public override void TeleportToGame()
     {
         base.TeleportToGame();
-
-        if(SceneObjectsHolder.Instance.CurrentState == PlayerState.Walk && !SceneObjectsHolder.Instance.Reaction)
+        if (!CanTeleport)
+        {
+            return;
+        }
+        if (SceneObjectsHolder.Instance.CurrentState == PlayerState.Walk && !SceneObjectsHolder.Instance.Reaction)
         _cursorManager.EnableCursor(false);
         else if(SceneObjectsHolder.Instance.CurrentState == PlayerState.Look)
             SceneObjectsHolder.Instance.ModeController.CurrentInteractScreen.EnableInteractIcons(true);
