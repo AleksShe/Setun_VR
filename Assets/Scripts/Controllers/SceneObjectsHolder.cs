@@ -93,7 +93,6 @@ public class SceneObjectsHolder : MonoBehaviour
                 break;
         }
     }
-
     public void AddBaseUIButton(BaseUIButton obj)
     {
         if (obj is INextButton)
@@ -134,13 +133,11 @@ public class SceneObjectsHolder : MonoBehaviour
         obj.HoverUiEvent += OnHandleHoverMouse;
         _baseUiButtons.Add(obj);
     }
-
     private void OnClosePhone()
     {
         _modeController.CurrentPhoneScreen.ActivatePhoneMainScreen(true);
         _modeController.CurrentPhoneScreen.ClearItemsList();
     }
-
     private void OnPointClick(string reactionName)
     {
         _api.OnDialogInvoke(reactionName);

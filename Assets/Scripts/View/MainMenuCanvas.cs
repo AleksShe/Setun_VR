@@ -53,7 +53,6 @@ public class MainMenuCanvas : BaseCanvas
         _headerExitText.text = headText;
         _exitSureText.text = commentText;
         _evalText.text = evalText;
-        InstanceHandler.Instance.Teleporter.CanTeleport = false;
         _exitButton.SetActive(true);
     }
 }

@@ -14,7 +14,6 @@ public class ResultPanelList : MonoBehaviour
         {
             Instance = this;
         }
-
     }
     public void AddModel(InfoPanelModel model)
     {

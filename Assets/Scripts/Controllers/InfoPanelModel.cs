@@ -13,7 +13,6 @@ public class InfoPanelModel : MonoBehaviour
     }
     public void ShowInfo()
     {
-
         if (!_isOpen)
         {
            
@@ -24,7 +23,6 @@ public class InfoPanelModel : MonoBehaviour
         }
         else
         {
-           
             gameObject.SetActive(false);
             _isOpen = false;
         }

@@ -31,7 +31,6 @@ public abstract class GameCanvasBase : MonoBehaviour
     {
         LastScreenShowEvent += OnShowLastScreen;
         ResultScreenShowEvent += OnShowResultLastScreen;
-        CanvasEnableObject.CanvasEnableEvent += ShowCanvas;
     }
     protected virtual void OnShowLastScreen()
     {

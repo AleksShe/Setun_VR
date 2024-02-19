@@ -12,7 +12,6 @@ public class UbpObject : ToolObject
     {
         if (!_animated)
         {
-            InstanceHandler.Instance.MovingButtonsController.HideAllButtons();
             _animated = true;
             int x = 0;
             while (x < 12)
