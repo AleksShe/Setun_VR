@@ -13,8 +13,17 @@ public class DesktopMenuScreen : BaseMenuScreen
     [SerializeField] private TextMeshProUGUI _evalText;
     [SerializeField] private TextMeshProUGUI _commentText;
     [Space]
+    [SerializeField] private Text _headTextExit;
+    [SerializeField] private Text _commentTextExit;
+    [SerializeField] private Text _evalTextExit;
+    [SerializeField] private Text _taskText;
+    [Space]
+    [SerializeField] private TextMeshProUGUI _headerMessageText;
+    [SerializeField] private TextMeshProUGUI _commentMessageText;
+    [SerializeField] private TextMeshProUGUI _footerMessageText;
+    [Space]
+    [SerializeField] private AlarmImageController _armImageController;
     [SerializeField] private DesktopCanvasHolder _desktopCanvasHolder;
-    [SerializeField] private GameObject[] _allScreens;
     [SerializeField] private GameObject _menu;
     [SerializeField] private GameObject _exitButton;
     [SerializeField] private GameObject _backButton;
@@ -30,7 +39,7 @@ public class DesktopMenuScreen : BaseMenuScreen
         _exitText.text = HtmlToText.Instance.HTMLToTextReplace(exitText);
         _warnText.text = HtmlToText.Instance.HTMLToTextReplace(warnText);
     }
-    public override void ShowMessageScreen(string headText, string commentText)
+    public override void ShowMessageScreen(string headText, string commentText, string footerText, string alarmImg)
     {
         _desktopCanvasHolder.DisableAllCanvases();
         _desktopCanvasHolder.EnableCanvasByState(CanvasState.Last);
@@ -71,5 +80,11 @@ public class DesktopMenuScreen : BaseMenuScreen
             _desktopCanvasHolder.EnableCanvasByState(CanvasState.MainMenu);
             _desktopCanvasHolder.EnableCanvasByState(CanvasState.Menu);
         }
+    }
+    public override void SetExitText(string headText, string commentText, string evalText)
+    {
+        _headTextExit.text = HtmlToText.Instance.HTMLToTextReplace(headText);
+        _commentTextExit.text = HtmlToText.Instance.HTMLToTextReplace(commentText);
+        _evalTextExit.text = HtmlToText.Instance.HTMLToTextReplace(evalText);
     }
 }

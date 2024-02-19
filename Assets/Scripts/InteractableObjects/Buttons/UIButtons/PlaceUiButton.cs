@@ -36,7 +36,6 @@ public class PlaceUiButton : MonoBehaviour
                     placeButton.Click();
                 }
             }
-
         }
         else
         {

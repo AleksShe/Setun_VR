@@ -11,7 +11,6 @@ public class UIButtonWithColorChanger : BaseUIButton
         base.Start();
         _baseUiColorChanger = GetComponent<BaseUIColorChanger>();
     }
-
     public override void OnPointerEnter(PointerEventData eventData)
     {
         _baseUiColorChanger.HoveredState();

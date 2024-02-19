@@ -6,25 +6,10 @@ using UnityEngine.UI;
 public class ArmUIButton : ArmButtonWithImage
 {
     private SceneAosObject _sceneObject;
-    private CloseArmUiButton _closeButton;
     protected override void Awake()
     {
         base.Awake();
         _sceneObject = GetComponent<SceneAosObject>();
-    }
-    protected override void Start()
-    {
-        base.Start();
-        _closeButton = GetComponentInChildren<CloseArmUiButton>();
-        if (_closeButton != null)
-            _closeButton.CloseUiButtonClickEvent += EnableUIButton;
-         
-    }
-    public override void EnableUIButton(bool value)
-    {
-        base.EnableUIButton(value);
-        if (_closeButton != null)
-            _closeButton.EnableUIButton(value);
     }
     protected override void Click()
     {

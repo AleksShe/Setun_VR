@@ -11,5 +11,4 @@ public class UIButtonWithTextEvent : BaseUIButton
         if(API != null )
             API.OnInvokeNavAction(_text);
     }
-
 }

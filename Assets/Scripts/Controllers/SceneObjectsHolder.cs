@@ -20,6 +20,7 @@ public class SceneObjectsHolder : MonoBehaviour
     [SerializeField] private CursorManager _cursor;
     [SerializeField] private EscActionObject _actionObject;
     [SerializeField] private DoorSoundPlayer _doorSoundPlayer;
+    [SerializeField] private InstantiateResultButton _instResultButton;
 
     public PlayerState CurrentState { get; set; }
     public IToolObject ToolObject { get; private set; }
@@ -34,6 +35,7 @@ public class SceneObjectsHolder : MonoBehaviour
     public DoorSoundPlayer DoorSoundPlayer => _doorSoundPlayer;
     public MouseRayCastHandler MouseRayCastHandler => _mouseRayCastHandler;
     public LocationController LocationTextController => _locationController;
+    public InstantiateResultButton InstantiateResultButton => _instResultButton;
     private bool _reaction;
     public bool Reaction => _reaction;
     private void Awake()
@@ -67,12 +69,12 @@ public class SceneObjectsHolder : MonoBehaviour
             sceneObject.AddAnimationObjectEvent += OnAddAnimationObject;
             sceneObject.SetToolObjectEvent += OnSetToolObject;
         }
-        if(obj is SceneObjectWithScreen)
+        if (obj is SceneObjectWithScreen)
         {
             var enabler = (SceneObjectWithScreen)obj;
             enabler.EnableScreenEvent += OnEnableScreen;
         }
-        if(obj is PointObject)
+        if (obj is PointObject)
         {
             var pointObject = (PointObject)obj;
             _aosPointObjects.Add(pointObject);
@@ -83,7 +85,7 @@ public class SceneObjectsHolder : MonoBehaviour
 
     private void OnEnableScreen(EnableScreen screen)
     {
-      switch (screen)
+        switch (screen)
         {
             case EnableScreen.Phone:
                 _modeController.CurrentPhoneScreen.ActivateScreen(true);
@@ -120,7 +122,7 @@ public class SceneObjectsHolder : MonoBehaviour
             var pointButton = (PointUiButton)obj;
             pointButton.PointClickEvent += OnPointClick;
         }
-        if(obj is UIPhoneButton)
+        if (obj is UIPhoneButton)
         {
             var pressButton = (UIPhoneButton)obj;
             pressButton.PhoneBackButtonClickedEvent += OnClosePhone;
@@ -162,12 +164,12 @@ public class SceneObjectsHolder : MonoBehaviour
     private void OnSetToolObject(IToolObject toolObject) => ToolObject = toolObject;
     private void OnPlayActionAnimation(ButtonActionName name)
     {
-       switch (name)
+        switch (name)
         {
             case ButtonActionName.tool:
 
                 ToolObject.PlayToolAnimation();
-                    break;
+                break;
         }
     }
     public void ActivateBaseObjects(string objectId, string objectName, string timeText)

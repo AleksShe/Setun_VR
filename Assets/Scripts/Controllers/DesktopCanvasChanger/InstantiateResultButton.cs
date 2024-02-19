@@ -9,8 +9,6 @@ public class InstantiateResultButton : MonoBehaviour
     [SerializeField] private GameObject _buttonPanel;
     [SerializeField] private InfoPanelModel _infoPanelPrefab;
     [SerializeField] private GameObject _infoPanel;
-   
-
     public void InstantiateButtons(string nameText, string penalty,string resultText)
     {
         var resultButton = Instantiate(_buttonPrefab, _buttonPanel.transform);

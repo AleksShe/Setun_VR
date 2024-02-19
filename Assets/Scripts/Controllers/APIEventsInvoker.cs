@@ -68,11 +68,11 @@ public class APIEventsInvoker : MonoBehaviour
     }
     private void OnInstanseResultSingleButtons(string name, string penalty)
     {
-        //InstanceHandler.Instance.InstResultButton.InstantiateSingleButtons(name, penalty);
+        SceneObjectsHolder.Instance.InstantiateResultButton.InstantiateSingleButtons(name, penalty);
     }
     private void OnInstanseResultButtons(string name,string penalty,string resultText)
     {
-        //InstanceHandler.Instance.InstResultButton.InstantiateButtons(name, penalty,resultText);
+        SceneObjectsHolder.Instance.InstantiateResultButton.InstantiateButtons(name, penalty,resultText);
     }
     private void OnDeactivateUiButtons()
     {
@@ -140,7 +140,7 @@ public class APIEventsInvoker : MonoBehaviour
     }
     private void OnSetLastScreenText(string headerText, string commentText,string footer,string alarm)
     {
-        _modeController.CurrentMenuScreen.ShowMessageScreen(headerText, commentText);
+        _modeController.CurrentMenuScreen.ShowMessageScreen(headerText, commentText,footer,alarm);
     }
     private void OnSetResultScreenText(string headerText, string commentText, string evalText)
     {
