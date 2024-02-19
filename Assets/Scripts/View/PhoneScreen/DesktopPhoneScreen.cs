@@ -13,15 +13,13 @@ public class DesktopPhoneScreen : BasePhoneScreen
     [Space]
     [SerializeField] private TextObjectUi _buttonPrefub;
     [SerializeField] private Transform _buttonParent;
-    [SerializeField] private GameObject _phone;
     [SerializeField] private GameObject _phoneMainScreen;
     [SerializeField] private GameObject _phoneDialogScreen;
-
     private List<TextObjectUi> _textObjectUis = new List<TextObjectUi>();
 
     public override void ActivatePhone(bool active)
     {
-        _phone.SetActive(active);
+        Phone.SetActive(active);
     }
 
     public override void ActivatePhoneDialogScreen(bool active)

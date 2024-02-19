@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PointUiButton : BaseUIButton
 {
@@ -14,5 +15,13 @@ public class PointUiButton : BaseUIButton
     public void SetButtonId(string id)
     {
         _pointId = id;
+    }
+    public override void OnPointerEnter(PointerEventData eventData)
+    {
+        return;
+    }
+    public override void OnPointerExit(PointerEventData eventData)
+    {
+        return;
     }
 }

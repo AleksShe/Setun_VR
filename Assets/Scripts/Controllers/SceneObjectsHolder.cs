@@ -279,6 +279,11 @@ public class SceneObjectsHolder : MonoBehaviour
         ModeController.BaseReactionButtonsHandler.HideAllReactions();
         ResetAllAnimationObjects();
         OnHideReactionWindow();
+        if (_modeController.CurrentPhoneScreen.ActiveSelf)
+        {
+            OnClosePhone();
+            _modeController.CurrentPhoneScreen.ActivatePhone(false);
+        }
     }
     private void OnChangeHelperOnHoverEvent(VectorHolder holder)
     {

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public abstract class BasePhoneScreen : MonoBehaviour
 {
+    [SerializeField] protected GameObject Phone;
+    public bool ActiveSelf => Phone.activeSelf;
     public abstract void ActivatePhone(bool active);
     public abstract void ActivatePhoneMainScreen(bool active);
     public abstract void ActivatePhoneDialogScreen(bool active);
