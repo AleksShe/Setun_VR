@@ -20,7 +20,7 @@ public class SceneObject : BaseObject
     protected IToolObject ToolObject;
     protected string HelperName;
 
-    protected float EmissionValue = 0.5f;
+    protected float EmissionValue = 0.1f;
     protected void Start()
     {
         if (!NonAOS)
@@ -69,6 +69,7 @@ public class SceneObject : BaseObject
     {
         foreach (var visual in _highlights)
         {
+            
             foreach (var mesh in visual.GetComponentsInChildren<Renderer>())
             {
                 if (mesh == null)
@@ -77,6 +78,7 @@ public class SceneObject : BaseObject
                 {
                     mesh.material.EnableKeyword("_EMISSION");
                     mesh.material.SetColor("_EmissionColor", new Color(EmissionValue, EmissionValue, EmissionValue));
+                   
                 }
                 else
                     mesh.material.SetColor("_EmissionColor", Color.black);
