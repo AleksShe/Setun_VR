@@ -85,6 +85,7 @@ public class SceneObjectsHolder : MonoBehaviour
 
     private void OnEnableScreen(EnableScreen screen)
     {
+        _modeController.BaseReactionButtonsHandler.HideAllReactions();
         switch (screen)
         {
             case EnableScreen.Phone:

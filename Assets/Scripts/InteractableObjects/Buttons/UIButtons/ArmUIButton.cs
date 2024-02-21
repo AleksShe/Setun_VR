@@ -22,7 +22,7 @@ public class ArmUIButton : ArmButtonWithImage
         return _sceneObject == null ? null : _sceneObject.ObjectId;
     }
     public void SetSceneAosEventText(string actionText)
-    {
+    {     
         _sceneObject.SetPointActionText(actionText);
     }
 }

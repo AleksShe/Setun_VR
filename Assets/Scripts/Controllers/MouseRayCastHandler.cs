@@ -49,17 +49,17 @@ public class MouseRayCastHandler : MonoBehaviour
     {
         if (!CanHover)
             return;
-        if (hit.collider.gameObject.TryGetComponent(out SceneObject sceneObject) )
+        if (hit.collider.gameObject.TryGetComponent(out SceneObject sceneObject) ) //по клику это сценобъект , то вызывается у сценобжекта онклик(из библиотеки)
         {
             sceneObject.OnClicked(_interactHand);
             if (sceneObject.NonAOS || sceneObject is BaseButton)
                 return;
-            _mousePosHolder.Position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+            _mousePosHolder.Position = new Vector2(Input.mousePosition.x, Input.mousePosition.y); // отправляем позицию мышки для создания кнопок
             MousePosClickEvent?.Invoke(_mousePosHolder);
         }
         else 
         {
-            MousePosClickEvent?.Invoke(null);
+            MousePosClickEvent?.Invoke(null); // если кликнули в пустоту , то кидаем null что бы закрыть все окна 
             CanHover = true;
         }
     }
