@@ -33,7 +33,7 @@ public class MouseRayCastHandler : MonoBehaviour
     }
     private RaycastHit CheckRaycastCollider()
     {
-        Vector3 mousePos = Input.mousePosition;
+        Vector3 mousePos = Input.mousePosition;                      
         mousePos.z = 100f;
         mousePos = _currentCamera.ScreenToWorldPoint(mousePos);
         Debug.DrawRay(_currentCamera.transform.position, mousePos - _currentCamera.transform.position, Color.blue);
@@ -49,7 +49,7 @@ public class MouseRayCastHandler : MonoBehaviour
     {
         if (!CanHover)
             return;
-        if (hit.collider.gameObject.TryGetComponent(out SceneObject sceneObject) ) //по клику это сценобъект , то вызывается у сценобжекта онклик(из библиотеки)
+        if (hit.collider.gameObject.TryGetComponent(out SceneObject sceneObject) ) //по клику если это сценобъект , то вызывается у сценобжекта онклик(из библиотеки)
         {
             sceneObject.OnClicked(_interactHand);
             if (sceneObject.NonAOS || sceneObject is BaseButton)
