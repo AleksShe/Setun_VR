@@ -6,10 +6,11 @@ public abstract class BaseStartScreenView : MonoBehaviour
 {
     [SerializeField] protected ModeController ModeController;
     [SerializeField] protected GameObject NextButtonGameObject;
+    [SerializeField] protected GameObject GuideButtonGameObject;
     [SerializeField] protected GameObject LineImage;
     [Space]
     [SerializeField] protected TextMeshProUGUI HeaderText;
-    [SerializeField] protected TextMeshProUGUI CommentText;
+    [SerializeField] protected Text CommentText;
     [SerializeField] protected Text NextButtonText;
 
     protected INextButton NextButton;
@@ -26,6 +27,7 @@ public abstract class BaseStartScreenView : MonoBehaviour
     public virtual void SetStartScreenText(string headerText, string commentText, string buttonText, NextButtonState state)
     {
         NextButtonGameObject.SetActive(true);
+        GuideButtonGameObject.SetActive(true);
         HeaderText.text = headerText;
         CommentText.text = commentText;
         NextButtonText.text = buttonText;

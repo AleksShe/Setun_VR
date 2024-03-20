@@ -32,7 +32,7 @@ MonoBehaviour:
   desktopGrabMaxZoomDistance: 2
   hideHandOnGrab: 1
   defaultPointerColor: {r: 1, g: 1, b: 1, a: 1}
-  hoveredPointerColor: {r: 0.052029163, g: 0.60036546, b: 0.745283, a: 255}
+  hoveredPointerColor: {r: 0.3254902, g: 0.72156864, b: 0.5921569, a: 1}
   disabledPointerColor: {r: 1, g: 0, b: 0, a: 1}
   walkableTag: Walkable
   maxTeleportRadius: 10

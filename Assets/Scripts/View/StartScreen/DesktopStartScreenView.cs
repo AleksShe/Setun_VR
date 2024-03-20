@@ -23,11 +23,12 @@ public class DesktopStartScreenView : BaseStartScreenView
         base.SetStartScreenText(headerText, commentText, buttonText, state);
         _cursorManager.EnableCursor(true);
         _infoHeaderText.text = headerText;
-        _inforCommentText.text = commentText;
+       // _inforCommentText.text = commentText;
         _animation.SetActive(false);
         _exitButtonToHide.SetActive(false);
         _logo.SetActive(true);
         _exitButtonToShow.SetActive(true);
+       
     }
     protected override void OnHideStartScreen(string value)
     {

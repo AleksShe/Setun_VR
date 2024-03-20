@@ -75,6 +75,7 @@ public class API : AosObjectBase
         var welcomeObj = aosWelcomeText.JsonObject;
         SetStartTextEvent?.Invoke(welcomeObj.Header, welcomeObj.Text, buttonText, NextButtonState.Start);
         SetTeleportLocationEvent?.Invoke("start");
+        
     }
     [AosAction(name: "Показать информацию отказа")]
     public void showFaultInfo(JObject info, JObject nav)
@@ -83,6 +84,7 @@ public class API : AosObjectBase
         string buttonText = nav.SelectToken("ok").SelectToken("caption").ToString();
         var welcomeObj = aosWelcomeText.JsonObject;
         SetStartTextEvent?.Invoke(welcomeObj.Header, welcomeObj.Text, buttonText, NextButtonState.Fault);
+        
     }
 
     public void showDialog(JObject info, JArray points, JObject nav)
