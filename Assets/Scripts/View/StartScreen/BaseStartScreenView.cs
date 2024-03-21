@@ -26,12 +26,13 @@ public abstract class BaseStartScreenView : MonoBehaviour
     }
     public virtual void SetStartScreenText(string headerText, string commentText, string buttonText, NextButtonState state)
     {
-        NextButtonGameObject.SetActive(true);
-        GuideButtonGameObject.SetActive(true);
+        NextButtonGameObject.SetActive(true);       
         HeaderText.text = headerText;
         CommentText.text = commentText;
         NextButtonText.text = buttonText;
         NextButton.CurrentState = state;
+        if (buttonText == "Далее")
+            GuideButtonGameObject.SetActive(true);
     }
     protected virtual void OnHideStartScreen(string text)
     {
