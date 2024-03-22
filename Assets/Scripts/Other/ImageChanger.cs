@@ -12,18 +12,18 @@ public class ImageChanger : MonoBehaviour
     [SerializeField] private Text _counterText;
     private int _currentSlide = 0;
     private int _lenght;
-    
+
     private void Start()
     {
-       _lenght =_guideImages.Length;
-       
-            _nextSlide.onClick.AddListener(() => OnChangeSprite(true));
+        _lenght = _guideImages.Length;
+
+        _nextSlide.onClick.AddListener(() => OnChangeSprite(true));
         _backSlide.onClick.AddListener(() => OnChangeSprite(false));
         SetCounter();
     }
     private void OnChangeSprite(bool value)
     {
-        if(value)
+        if (value)
         {
             _currentSlide++;
         }
@@ -31,8 +31,9 @@ public class ImageChanger : MonoBehaviour
         {
             _currentSlide--;
         }
-        
-        if (_currentSlide <= 0) {
+
+        if (_currentSlide <= 0)
+        {
             _currentSlide = 0;
             _backSlide.enabled = false;
             _backSlide.image.color = new Color(1, 1, 1, 0.25f);
@@ -40,11 +41,11 @@ public class ImageChanger : MonoBehaviour
         else
         {
             _backSlide.enabled = true;
-            _backSlide.image.color = new Color(1, 1, 1,1);
+            _backSlide.image.color = new Color(1, 1, 1, 1);
         }
-        if(_currentSlide >= _lenght -1)
+        if (_currentSlide >= _lenght - 1)
         {
-            _currentSlide = _lenght -1;
+            _currentSlide = _lenght - 1;
             _nextSlide.enabled = false;
             _nextSlide.image.color = new Color(1, 1, 1, 0.25f);
         }
@@ -58,7 +59,7 @@ public class ImageChanger : MonoBehaviour
     }
     private void SetCounter()
     {
-        _counterText.text = $"{_currentSlide+1}/{_lenght}";
+        _counterText.text = $"{_currentSlide + 1}/{_lenght}";
     }
 
 
