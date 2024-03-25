@@ -56,6 +56,7 @@ public class DesktopMenuScreen : BaseMenuScreen
         _showBackButton.SetActive(true);
         _hideBackButton.SetActive(false);
         _resultPanel.SetActive(true);
+        _menu.SetActive(true);
         SetResultText(headText, commentText, evalText);
        
     }

@@ -16,6 +16,7 @@ public class DesktopPhoneScreen : BasePhoneScreen
     [SerializeField] private GameObject _phoneMainScreen;
     [SerializeField] private GameObject _phoneDialogScreen;
     private List<TextObjectUi> _textObjectUis = new List<TextObjectUi>();
+    private List<TextObjectUi> _textObjectUis2 = new List<TextObjectUi>();
 
     public override void ActivateScreen(bool active)
     {
@@ -35,7 +36,7 @@ public class DesktopPhoneScreen : BasePhoneScreen
     }
     public override void AddItem(string text, DialogRole role)
     {
-        var exist = _textObjectUis.FirstOrDefault(o => o.Text == text);
+        var exist = _textObjectUis2.FirstOrDefault(o => o.Text == text);
         if (exist != null)
             return;
         var prefub = Instantiate(_dialogPrefub, _dialogParent);
@@ -43,17 +44,17 @@ public class DesktopPhoneScreen : BasePhoneScreen
             prefub.SetText(text, TextAlignmentOptions.Right);
         else
             prefub.SetText(text, TextAlignmentOptions.Left);
-        _textObjectUis.Add(prefub);
+        _textObjectUis2.Add(prefub);
     }
     public override void AddItem(string id, string text)
     {
-        Debug.Log("ADD Item");
+       // Debug.Log("ADD Item");
         var exist = _textObjectUis.FirstOrDefault(o => o.Text == text);
         if (exist != null)
             return;
         var prefub = Instantiate(_buttonPrefub, _buttonParent);
         prefub.SetText(text, TextAlignmentOptions.Center);
-        Debug.Log("  EXist   "+prefub.Text);
+      //  Debug.Log("  EXist   "+prefub.Text);
         var aosId = prefub.GetComponent<PointUiButton>();
         aosId.SetButtonId(id);
         _textObjectUis.Add(prefub);
@@ -65,6 +66,11 @@ public class DesktopPhoneScreen : BasePhoneScreen
             Destroy(item.gameObject);
         }
         _textObjectUis = new List<TextObjectUi>();
+        foreach (var item in _textObjectUis2)
+        {
+            Destroy(item.gameObject);
+        }
+        _textObjectUis2 = new List<TextObjectUi>();
     }
 
     public override void SetPhoneHeader(string text) => _phoneHeader.text = text;

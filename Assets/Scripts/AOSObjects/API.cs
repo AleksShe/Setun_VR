@@ -89,21 +89,25 @@ public class API : AosObjectBase
 
     public void showDialog(JObject info, JArray points, JObject nav)
     {
+      //  Debug.Log("INFOOO   " + info.ToString());
+      //  Debug.Log("POINTS  "+ points.ToString());
         var dude = info.SelectToken("name");
         if (dude != null)
         {
             var header = dude.ToString();
-            DialogHeaderEvent?.Invoke(header);
+            DialogHeaderEvent?.Invoke(header);           
         }
         foreach (var item in points)
         {
-            var action = item.SelectToken("action").ToString();
+            var action = item.SelectToken("action").ToString();          
             if (action != null)
                 DialogEvent?.Invoke(action);
             var id = item.SelectToken("apiId").ToString();
             var name = item.SelectToken("name").ToString();
             if (id != null && name != null)
                 AddTextObjectUiButtonEvent?.Invoke(id, name);
+            Debug.Log("APIII " + name);
+            
         }
         var outMsg = info.SelectToken("out_msg");
         if (outMsg != null)
@@ -120,6 +124,8 @@ public class API : AosObjectBase
     }
     public void addDialogMessage(JArray message)
     {
+        Debug.Log("MESS  "+ message.ToString());
+        
         string msgText = "";
         foreach (var item in message)
         {
