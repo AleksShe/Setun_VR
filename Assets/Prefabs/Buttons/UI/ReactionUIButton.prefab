@@ -298,8 +298,8 @@ MonoBehaviour:
   _sprites:
   - {fileID: 21300000, guid: 7ae1d72f99059f84fb0586740dfecac0, type: 3}
   - {fileID: 21300000, guid: 2bca76c701a68454f8b4a52b0e3f1a8e, type: 3}
-  - {fileID: 21300000, guid: 4c2d4291b4cf1294786499d97713733b, type: 3}
   - {fileID: 21300000, guid: fd7a6d6879277074993b747c9832ea23, type: 3}
+  - {fileID: 21300000, guid: 4c2d4291b4cf1294786499d97713733b, type: 3}
   _currentSprite: {fileID: 7786621828814189960}
   _reactionText: {fileID: 3754753963097352134}
 --- !u!1 &6670378537493590455

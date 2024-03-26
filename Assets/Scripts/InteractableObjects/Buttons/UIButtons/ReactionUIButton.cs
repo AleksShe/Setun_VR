@@ -18,6 +18,7 @@ public class ReactionUIButton : BaseUIButton
     public ButtonActionName ButtonActionName => _currentActionName;
     public void Init(ButtonActionName buttonActionName, string text, SceneAosObject sceneAosObject)
     {
+        
         _currentActionName = buttonActionName;
         var sprite = GetSpriteByName();
         if (sprite != null)
@@ -31,7 +32,7 @@ public class ReactionUIButton : BaseUIButton
     {
         if (_sceneAosObject == null)
             return;
-        var actionText = _stringParser.GetStringFromEnum(_currentActionName);
+        var actionText = _stringParser.GetStringFromEnum(_currentActionName);     
         _sceneAosObject.ActionWithObject(actionText);
         ActionWithObjectEvent?.Invoke(_currentActionName);
     }
