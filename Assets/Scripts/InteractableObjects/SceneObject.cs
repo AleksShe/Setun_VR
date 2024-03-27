@@ -32,6 +32,7 @@ public class SceneObject : BaseObject
     public override void OnClicked(InteractHand interactHand)
     {
         base.OnClicked(interactHand);
+        DesktopReactionButtonsHandler.Instance.HideAllReactions();
         ObjectWithAnimation = GetComponent<ObjectWithAnimation>();
         if(ObjectWithAnimation!=null)
         {

@@ -311,7 +311,7 @@ public class API : AosObjectBase
     [AosAction(name: "Показать точки")]
     public void showPoints(string info, JArray data)
     {      
-        EnableMovingButtonEvent?.Invoke(null, null);
+       // EnableMovingButtonEvent?.Invoke(null, null);
         foreach (JObject item in data)
         {
             if (item == null)

@@ -8,12 +8,16 @@ public class DesktopReactionButtonsHandler : BaseReactionButtonsHandler
     [SerializeField] private GameObject _prefub;
     [SerializeField] private Transform _parent;
     private SceneAosObject _currentAosObject;
-
+    public static DesktopReactionButtonsHandler Instance;
     private List<ReactionUIButton> _reactionButtons;
     private List<GameObject> _prefabs;
     protected override void Start()
     {
         base.Start();
+        if(Instance == null)
+        {
+            Instance = this;
+        }
         _reactionButtons = new List<ReactionUIButton>();
         _prefabs = new List<GameObject>();
     }
@@ -24,12 +28,8 @@ public class DesktopReactionButtonsHandler : BaseReactionButtonsHandler
         _parent.position = ButtonsSpawnPos;
         ButtonActionName reactionName;
         Enum.TryParse<ButtonActionName>(buttonActionName, out reactionName);
-        if (ContainsObject(reactionName))
-        {
-            Debug.Log(reactionName.ToString());
-            HideAllReactions();
-        }
-           
+       // if (ContainsObject(reactionName))                
+         //   HideAllReactions();               
         _currentAosObject = SceneObjectsHolder.Instance.SceneAosObject;
         var prefub = Instantiate(_prefub, _parent);
         var reactionButton = prefub.GetComponentInChildren<ReactionUIButton>();
