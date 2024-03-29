@@ -7,6 +7,7 @@ public class AlarmImageController : MonoBehaviour
 {
     [SerializeField] private Sprite _okImage;
     [SerializeField] private Sprite _notOkImage;   
+    [SerializeField] private Sprite _infoImage;   
     [SerializeField] private Image _alarmImage;
   
 
@@ -20,6 +21,10 @@ public class AlarmImageController : MonoBehaviour
         else if (imageName == "1")
         {
             _alarmImage.sprite = _notOkImage;
+        }
+        else if (imageName == "2")
+        {
+            _alarmImage.sprite = _infoImage;
         }
         else if(imageName == "none") 
         {

@@ -80,6 +80,8 @@ public class API : AosObjectBase
     [AosAction(name: "Показать информацию отказа")]
     public void showFaultInfo(JObject info, JObject nav)
     {
+        Debug.Log("INFO " + info.ToString());
+        Debug.Log("NAV " + nav.ToString());
         JsonConverter<AosTextModel> aosWelcomeText = new JsonConverter<AosTextModel>(info);
         string buttonText = nav.SelectToken("ok").SelectToken("caption").ToString();
         var welcomeObj = aosWelcomeText.JsonObject;
@@ -89,8 +91,6 @@ public class API : AosObjectBase
 
     public void showDialog(JObject info, JArray points, JObject nav)
     {
-      //  Debug.Log("INFOOO   " + info.ToString());
-      //  Debug.Log("POINTS  "+ points.ToString());
         var dude = info.SelectToken("name");
         if (dude != null)
         {
@@ -124,7 +124,7 @@ public class API : AosObjectBase
     }
     public void addDialogMessage(JArray message)
     {
-        Debug.Log("MESS  "+ message.ToString());
+       
         
         string msgText = "";
         foreach (var item in message)
@@ -311,7 +311,7 @@ public class API : AosObjectBase
     [AosAction(name: "Показать точки")]
     public void showPoints(string info, JArray data)
     {      
-       // EnableMovingButtonEvent?.Invoke(null, null);
+       // EnableMovingButtonEvent?.Invoke(null, null);  зачем??
         foreach (JObject item in data)
         {
             if (item == null)
@@ -354,7 +354,8 @@ public class API : AosObjectBase
     }
     [AosAction(name: "Показать сообщение")]
     public void showMessage(JObject info, JObject nav)
-    {Debug.Log("MESSAGE" + info.ToString());
+    {
+        Debug.Log("MESSAGE" + info.ToString());
         string footerText = ""; 
         var header = info.SelectToken("header");
         var footer = info.SelectToken("footer");       
