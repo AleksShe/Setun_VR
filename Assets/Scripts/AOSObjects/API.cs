@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
+using System.Xml.Linq;
 using AosSdk.Core.Interaction.Interfaces;
 using AosSdk.Core.PlayerModule;
 using AosSdk.Core.Utils;
@@ -12,11 +14,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UIElements;
 
-public enum NextButtonState
-{
-    Start,
-    Fault
-}
+
 public enum DialogRole
 {
     User,
@@ -28,28 +26,28 @@ public class API : AosObjectBase
 {
     public UnityAction ShowPlaceEvent;
     public UnityAction StartUpdatePlaceEvent;
+    public UnityAction ShowMenuButtonEvent;
     public UnityAction<string> DialogEvent;
     public UnityAction<string> DialogHeaderEvent;
     public UnityAction<string> SetTeleportLocationEvent;
     public UnityAction<string> SetNewLocationTextEvent;
-    public UnityAction<string> SetLocationEvent;
-    public UnityAction<string> ActivateBackButtonEvent;
+    public UnityAction<string> SetLocationEvent;   
     public UnityAction<string> EnableDietButtonsEvent;
     public UnityAction<string> SetTimerTextEvent;
-    public UnityAction<string> ReactionEvent;  
+    public UnityAction<string> ReactionEvent;
     public UnityAction<string, DialogRole> AddTextObjectUiEvent;
-    public UnityAction<string,string,string> ResultNameTextButtonEvent;
-    public UnityAction<string,string> ResultNameTextButtonSingleEvent;
+    public UnityAction<string, string, string> ResultNameTextButtonEvent;
+    public UnityAction<string, string> ResultNameTextButtonSingleEvent;
     public UnityAction<string, string> AddTextObjectUiButtonEvent;
     public UnityAction<string, string> PointEvent;
     public UnityAction<string, string> EnableMovingButtonEvent;
-    public UnityAction<string, string,string> ActivateByNameEvent;
+    public UnityAction<string, string, string> ActivateByNameEvent;
     public UnityAction<string, string> ActivatePointByNameEvent;
-    public UnityAction<string, string,string,string> SetMessageTextEvent;
+    public UnityAction<string, string, string, string> SetMessageTextEvent;
     public UnityAction<string, string, string> SetResultTextEvent;
     public UnityAction<string, string> ShowExitTextEvent;
     public UnityAction<string, string, string> ShowMenuTextEvent;
-    public UnityAction<string, string, string, NextButtonState> SetStartTextEvent;
+    public Action<string, string, string, string> SetStartTextEvent;
 
     [AosEvent(name: "Перемещение игрока")]
     public event AosEventHandlerWithAttribute EndTween;
@@ -68,64 +66,68 @@ public class API : AosObjectBase
         EndTween?.Invoke(location);
     }
     [AosAction(name: "Задать текст приветствия")]
-    public void showWelcome(JObject info, JObject nav)
+    public void showWelcome(JObject welcome, JObject faultInfo, JObject nav)
     {
-        JsonConverter<AosTextModel> aosWelcomeText = new JsonConverter<AosTextModel>(info);
-        string buttonText = nav.SelectToken("ok").SelectToken("caption").ToString();
-        var welcomeObj = aosWelcomeText.JsonObject;
-        SetStartTextEvent?.Invoke(welcomeObj.Header, welcomeObj.Text, buttonText, NextButtonState.Start);
-        SetTeleportLocationEvent?.Invoke("start");
-        
-    }
-    [AosAction(name: "Показать информацию отказа")]
-    public void showFaultInfo(JObject info, JObject nav)
-    {
-        Debug.Log("INFO " + info.ToString());
-        Debug.Log("NAV " + nav.ToString());
-        JsonConverter<AosTextModel> aosWelcomeText = new JsonConverter<AosTextModel>(info);
-        string buttonText = nav.SelectToken("ok").SelectToken("caption").ToString();
-        var welcomeObj = aosWelcomeText.JsonObject;
-        SetStartTextEvent?.Invoke(welcomeObj.Header, welcomeObj.Text, buttonText, NextButtonState.Fault);
-        
+        string headerText = welcome.SelectToken("name").ToString();
+        string commentText = welcome.SelectToken("text").ToString();
+        string headerFaultText = faultInfo.SelectToken("name").ToString();
+        string commentFaultText = faultInfo.SelectToken("text").ToString();
+        SetStartTextEvent?.Invoke(headerText, commentText, headerFaultText, commentFaultText);
+        //OnSetTeleportLocation?.Invoke("start");
     }
 
-    public void showDialog(JObject info, JArray points, JObject nav)
+
+
+    public void showDialog(JObject data, JObject nav)
     {
-        var dude = info.SelectToken("name");
-        if (dude != null)
+
+        var temp = data.SelectToken("dialog");
+        if (temp != null)
         {
+            var dude = temp.SelectToken("name");
             var header = dude.ToString();
-            DialogHeaderEvent?.Invoke(header);           
+
+            DialogHeaderEvent?.Invoke(header);
         }
-        foreach (var item in points)
+        var points = data.SelectToken("points");
+        if (points != null)
         {
-            var action = item.SelectToken("action").ToString();          
-            if (action != null)
-                DialogEvent?.Invoke(action);
-            var id = item.SelectToken("apiId").ToString();
-            var name = item.SelectToken("name").ToString();
-            if (id != null && name != null)
-                AddTextObjectUiButtonEvent?.Invoke(id, name);
-            Debug.Log("APIII " + name);
-            
-        }
-        var outMsg = info.SelectToken("out_msg");
-        if (outMsg != null)
-        {
-            foreach (var item in outMsg)
+            foreach (var item in points)
             {
-                if (item.SelectToken("msg") != null)
+                var action = item.SelectToken("action").ToString();
+                if (action != null)
                 {
-                    var msg = item.SelectToken("msg").ToString();
-                    AddTextObjectUiEvent?.Invoke(msg, DialogRole.Dude);
+                    DialogEvent?.Invoke(action);
+                }
+                var id = item.SelectToken("apiId").ToString();
+                var name = item.SelectToken("name").ToString();
+                if (id != null && name != null)
+                    AddTextObjectUiButtonEvent?.Invoke(id, name);
+
+            }
+        }
+        var temp2 = data.SelectToken("dialog");
+        if (temp2 != null)
+        {
+            var outMsg = temp2.SelectToken("out_msg");
+            if (outMsg != null)
+            {
+                foreach (var item in outMsg)
+                {
+                    if (item.SelectToken("msg") != null)
+                    {
+                        var msg = item.SelectToken("msg").ToString();
+                        AddTextObjectUiEvent?.Invoke(msg, DialogRole.Dude);
+                    }
                 }
             }
         }
+
+
+
     }
     public void addDialogMessage(JArray message)
     {
-       
-        
         string msgText = "";
         foreach (var item in message)
         {
@@ -155,109 +157,166 @@ public class API : AosObjectBase
         navAction.Invoke(value);
     }
     [AosAction(name: "Показать место")]
-    public void showPlace(JObject place, JArray data, JObject nav)
+    public void showPlace(JArray places, JObject nav)
     {
-        string location = place.SelectToken("apiId").ToString();
-        SetLocationEvent?.Invoke(location);
-        if (place.SelectToken("name") != null)
-        {
-            SetNewLocationTextEvent?.Invoke(place.SelectToken("name").ToString());
-        }
         ShowPlaceEvent?.Invoke();
-        JsonConverter<AosObjectModel> converter = new JsonConverter<AosObjectModel>(data);
-        foreach (var jItem in converter.JsonArray)
-            ActivateByNameEvent?.Invoke(jItem.Id, jItem.Name,"");
-        foreach (JObject item in data)
-        {
-            if (item.SelectToken("view") != null)
-            {
-                var aosObjectWithImage = item.SelectToken("view");
-                if (aosObjectWithImage != null)
-                {
 
-                    if (aosObjectWithImage.SelectToken("apiId") != null)
-                    {
-                        string name = aosObjectWithImage.SelectToken("apiId").ToString();
-                        ActivateByNameEvent?.Invoke(name, "","");
-                    }
+        foreach (JObject item in places)
+        {
+
+            var pl = item.SelectToken("place");
+            if (pl != null)
+            {
+                string location = pl.SelectToken("apiId").ToString();
+                if (location != null)
+                {
+                    SetLocationEvent?.Invoke(location);
                 }
+                var loc = pl.SelectToken("name");
+                if (loc != null)
+                    SetNewLocationTextEvent?.Invoke(loc.ToString());
             }
-            updatePlace(data, "");
+            var points = item.SelectToken("points");
+            if (points != null)
+            {
+
+                foreach (JObject point in points)
+                {
+                    if (point != null)
+                    {
+                        var temp = point.SelectToken("apiId");
+                        var id = "";
+                        var name = "";
+                        var time = "";
+                        if (temp != null)
+                        {
+                            id = temp.ToString();
+                            name = point.SelectToken("name").ToString();
+                        }
+                        //var timeText = point.SelectToken("result");
+                        //if (timeText != null)
+                        //{
+                        //    var timeToShow = timeText.SelectToken("tm");
+                        //    if (timeToShow != null)
+                        //    {
+                        //        time = timeText.SelectToken("tm").ToString();
+                        //    }
+                        //}
+                        ActivateByNameEvent?.Invoke(id, name, time);
+                        if (point.SelectToken("view") != null)
+                        {
+
+                            var aosObjectWithImage = point.SelectToken("view");
+                            if (aosObjectWithImage != null)
+                            {
+                                if (aosObjectWithImage.SelectToken("apiId") != null)
+                                {
+                                    name = aosObjectWithImage.SelectToken("apiId").ToString();
+                                    ActivateByNameEvent?.Invoke(name, "", "");
+                                    Debug.Log("NAME" + name);
+                                }
+
+                            }
+
+
+                        }
+
+                    }
+
+                    updatePlace(places);
+                }
+
+            }
+
         }
-        if (nav.SelectToken("back") != null && nav.SelectToken("back").SelectToken("action") != null && nav.SelectToken("back").SelectToken("action").ToString() != String.Empty)
-            ActivateBackButtonEvent?.Invoke(nav.SelectToken("back").SelectToken("action").ToString());
+        
+
+
+
     }
+
     [AosAction(name: "Обновить место")]
-    public void updatePlace(JArray data, string snd)
+
+    public void updatePlace(JArray data)
     {
+
         StartUpdatePlaceEvent?.Invoke();
+
         foreach (JObject item in data)
         {
             string pointId = "";
             string pointActionName = "";
             if (item != null)
             {
-                var apiIdParent = item.SelectToken("apiId");
-                if (apiIdParent != null)
-                {
-                    var apiIdParentText = apiIdParent.ToString();
-                    ActivatePointByNameEvent?.Invoke(apiIdParentText, "OnClick");
-                }
+                var apiIdParent2 = item.SelectToken("points");
+                if (apiIdParent2 != null)
+                {  
+                    foreach (JObject point1 in apiIdParent2)
+                    {
+                        var apiIdParent = point1.SelectToken("apiId");
 
-                var jsonView = item.SelectTokens("view");
-                if (jsonView != null)
-                {
-                    foreach (var tempView in jsonView)
-                    {
-                        if (tempView.SelectToken("apiId") != null)
+                        if (apiIdParent != null)
                         {
-                            var pointTempView = tempView.SelectToken("apiId").ToString();
-                            Debug.Log(pointTempView + " View point");
-                            ActivatePointByNameEvent?.Invoke(pointTempView, pointActionName);
+                            var apiIdParentText = apiIdParent.ToString();
+                            ActivatePointByNameEvent?.Invoke(apiIdParentText, "OnClick");
                         }
-                    }
-                }
-                var childs = item.SelectTokens("childs");
-                if (childs != null)
-                {
-                    foreach (var apiId in childs)
-                    {
-                        if (apiId != null)
+
+                        var jsonView = point1.SelectTokens("view");
+                        if (jsonView != null)
                         {
-                            JArray tempArr = (JArray)apiId;
-                            foreach (var temp in tempArr)
+                            foreach (var tempView in jsonView)
                             {
-                                var pointOpbject = temp.SelectToken("apiId");
-                                if (pointOpbject != null)
-                                    pointId = pointOpbject.ToString();
-                                var tempViews = temp.SelectTokens("view");
-                                if (tempViews != null)
+                                if (tempView.SelectToken("apiId") != null)
                                 {
-                                    foreach (var tempView in tempViews)
-                                    {
-                                        if (tempView.SelectToken("apiId") != null)
-                                        {
-                                            var pointTempView = tempView.SelectToken("apiId").ToString();
-                                            ActivatePointByNameEvent?.Invoke(pointTempView, pointActionName);
-                                        }
-                                    }
+                                    var pointTempView = tempView.SelectToken("apiId").ToString();
+                                    Debug.Log(pointTempView + " View point");
+                                    ActivatePointByNameEvent?.Invoke(pointTempView, pointActionName);
                                 }
-                                if (temp.SelectTokens("hands") != null)
+                            }
+                        }
+                        var childs = point1.SelectTokens("childs");
+                        if (childs != null)
+                        {
+                            foreach (var apiId in childs)
+                            {
+                                if (apiId != null)
                                 {
-                                    var points = temp.SelectTokens("hands");
-                                    foreach (var point in points)
+                                    JArray tempArr = (JArray)apiId;
+                                    foreach (var temp in tempArr)
                                     {
-                                        var pointName = (JArray)point;
-                                        if (pointName != null)
-                                            foreach (var pnt in pointName)
+                                        var pointOpbject = temp.SelectToken("apiId");
+                                        if (pointOpbject != null)
+                                            pointId = pointOpbject.ToString();
+                                        var tempViews = temp.SelectTokens("view");
+                                        if (tempViews != null)
+                                        {
+                                            foreach (var tempView in tempViews)
                                             {
-                                                var ptnObject = pnt.SelectToken("action");
-                                                if (ptnObject != null)
+                                                if (tempView.SelectToken("apiId") != null)
                                                 {
-                                                    pointActionName = ptnObject.ToString();
-                                                    ActivatePointByNameEvent?.Invoke(pointId, pointActionName);
+                                                    var pointTempView = tempView.SelectToken("apiId").ToString();
+                                                    ActivatePointByNameEvent?.Invoke(pointTempView, pointActionName);
                                                 }
                                             }
+                                        }
+                                        if (temp.SelectTokens("hands") != null)
+                                        {
+                                            var points = temp.SelectTokens("hands");
+                                            foreach (var point in points)
+                                            {
+                                                var pointName = (JArray)point;
+                                                if (pointName != null)
+                                                    foreach (var pnt in pointName)
+                                                    {
+                                                        var ptnObject = pnt.SelectToken("action");
+                                                        if (ptnObject != null)
+                                                        {
+                                                            pointActionName = ptnObject.ToString();
+                                                            ActivatePointByNameEvent?.Invoke(pointId, pointActionName);
+                                                        }
+                                                    }
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -310,8 +369,8 @@ public class API : AosObjectBase
     }
     [AosAction(name: "Показать точки")]
     public void showPoints(string info, JArray data)
-    {      
-       // EnableMovingButtonEvent?.Invoke(null, null);  зачем??
+    {
+        // EnableMovingButtonEvent?.Invoke(null, null);  зачем??
         foreach (JObject item in data)
         {
             if (item == null)
@@ -339,12 +398,19 @@ public class API : AosObjectBase
     }
 
     [AosAction(name: "Показать меню")]
-    public void showMenu(JObject faultInfo, JObject exitInfo, JObject resons)
+    public void showMenu(JObject data)
     {
-        string headtext = faultInfo.SelectToken("name").ToString();
-        string commentText = faultInfo.SelectToken("text").ToString();
-        string exitSureText = exitInfo.SelectToken("quest").ToString();
-        ShowMenuTextEvent?.Invoke(headtext, commentText, exitSureText);
+        if (data.SelectToken("algs") != null && data.SelectToken("algs").ToString() != String.Empty) { ShowMenuButtonEvent?.Invoke(); }
+        string exitSureText = data.SelectToken("exitInfo").SelectToken("quest").ToString();
+
+        var fltInfo = data.SelectToken("fltInfo");
+        if (fltInfo != null)
+        {
+            string headtext = fltInfo.SelectToken("name").ToString();
+            string commentText = fltInfo.SelectToken("text").ToString();
+            ShowMenuTextEvent?.Invoke(headtext, commentText, exitSureText);
+        }
+        var exitInfo = data.SelectToken("exitInfo");
         if (exitInfo.SelectToken("text") != null && exitInfo.SelectToken("warn") != null)
         {
             string exitText = HtmlToText.Instance.HTMLToTextReplace(exitInfo.SelectToken("text").ToString());
@@ -355,14 +421,15 @@ public class API : AosObjectBase
     [AosAction(name: "Показать сообщение")]
     public void showMessage(JObject info, JObject nav)
     {
-        Debug.Log("MESSAGE" + info.ToString());
-        string footerText = ""; 
+
+        string footerText = "";
         var header = info.SelectToken("header");
-        var footer = info.SelectToken("footer");       
+        var footer = info.SelectToken("footer");
         var comment = info.SelectToken("text");
         var alarm = info.SelectToken("alarm");
         if (header != null && footer != null && comment != null && alarm != null)
         {
+            Debug.Log("1");
             footerText = HtmlToText.Instance.HTMLToTextReplace(footer.ToString());
             string commentText = HtmlToText.Instance.HTMLToTextReplace(comment.ToString());
             string headText = header.ToString();
@@ -371,17 +438,24 @@ public class API : AosObjectBase
         }
         else if (header != null && comment != null && alarm != null)
         {
-            
+            Debug.Log("2");
             string commentText = HtmlToText.Instance.HTMLToTextReplace(comment.ToString());
             string headText = header.ToString();
             string alarmImg = alarm.ToString();
             SetMessageTextEvent?.Invoke(headText, footerText, commentText, alarmImg);
         }
-        else if(comment != null)
+        else if (comment != null)
         {
-            string commentText = HtmlToText.Instance.HTMLToTextReplace(comment.ToString());
-             footerText = "";
             string headText = "";
+            Debug.Log("3");
+            string commentText = HtmlToText.Instance.HTMLToTextReplace(comment.ToString());
+            footerText = "";
+            var heade = info.SelectToken("header");
+            if (heade != null)
+            {
+                headText = heade.ToString();
+            }
+
             string alarmImg = "none";
             SetMessageTextEvent?.Invoke(headText, footerText, commentText, alarmImg);
         }
@@ -396,7 +470,7 @@ public class API : AosObjectBase
         string evalText = HtmlToText.Instance.HTMLToTextReplace(info.SelectToken("eval").ToString());
         SetResultTextEvent?.Invoke(headText, commentText, evalText);
         var result = info.SelectToken("result");
-        
+
 
         if (result != null)
         {
@@ -405,25 +479,26 @@ public class API : AosObjectBase
                 resultText = "";
                 var name = item.SelectToken("name").ToString();
                 var penalty = item.SelectToken("penalty").ToString();
-                var msg = item.SelectToken("msg");              
+                var msg = item.SelectToken("msg");
                 if (msg == null)
-                {   
+                {
                     ResultNameTextButtonSingleEvent?.Invoke(name, penalty);
                 }
-                else {                                                                
-                    
-                    foreach(var item2 in msg)
+                else
+                {
+
+                    foreach (var item2 in msg)
                     {
                         var message2 = item2.SelectToken("msg");
                         var name2 = item2.SelectToken("name");
-                        if(message2 != null && name2 != null)
+                        if (message2 != null && name2 != null)
                         {
-                            resultText += name2.ToString()+ message2.ToString() ;
+                            resultText += name2.ToString() + message2.ToString();
                         }
                         else
                         {
                             resultText += HtmlToText.Instance.HTMLToTextReplace(item2.ToString()) + "\n";
-                        }                                              
+                        }
                     }
                     ResultNameTextButtonEvent?.Invoke(name, penalty, resultText);
                 }

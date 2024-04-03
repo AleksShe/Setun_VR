@@ -6,33 +6,38 @@ public abstract class BaseStartScreenView : MonoBehaviour
 {
     [SerializeField] protected ModeController ModeController;
     [SerializeField] protected GameObject NextButtonGameObject;
-    [SerializeField] protected GameObject GuideButtonGameObject;
+    [SerializeField] protected GameObject LoadImage;
+    [SerializeField] protected GameObject CatoLogoImage;
     [SerializeField] protected GameObject LineImage;
+    [SerializeField] protected GameObject GuideButton;
+    [SerializeField] protected GameObject MidleExitButton;
+    [SerializeField] protected GameObject LeftExitButton;
+    [SerializeField] protected NextUIButton _nextUIButton;
     [Space]
-    [SerializeField] protected TextMeshProUGUI HeaderText;
+    [SerializeField] protected Text HeaderText;
     [SerializeField] protected Text CommentText;
-    [SerializeField] protected Text NextButtonText;
+    [SerializeField] protected Text HeaderFaultText;
+    [SerializeField] protected Text CommentFaultText;
 
-    protected INextButton NextButton;
-    protected virtual void Awake()
+    private void Start()
     {
-        NextButton = NextButtonGameObject.GetComponent<INextButton>();
-        if (NextButton == null)
-        {
-            Debug.Log($"You must inherit gameObject {NextButtonGameObject.name} from INextButton");
-            return;
-        }
-        NextButton.NextButtonPressedEvent += OnHideStartScreen;
+        _nextUIButton.NextButtonPressedEvent += OnHideStartScreen;
+        Cursor.visible = true;
     }
-    public virtual void SetStartScreenText(string headerText, string commentText, string buttonText, NextButtonState state)
+    public virtual void SetStartScreenText(string headerText, string commentText, string headerFaultText, string commentFaultText)
     {
-        NextButtonGameObject.SetActive(true);       
+        LoadImage.SetActive(false);
+        CatoLogoImage.SetActive(true);
+        GuideButton.SetActive(true);
+        NextButtonGameObject.SetActive(true);
+        MidleExitButton.SetActive(false);
+        LeftExitButton.SetActive(true);
+
         HeaderText.text = headerText;
         CommentText.text = commentText;
-        NextButtonText.text = buttonText;
-        NextButton.CurrentState = state;
-        if (buttonText == "Далее")
-            GuideButtonGameObject.SetActive(true);
+        HeaderFaultText.text = headerFaultText;
+        CommentFaultText.text = commentFaultText;
+
     }
     protected virtual void OnHideStartScreen(string text)
     {

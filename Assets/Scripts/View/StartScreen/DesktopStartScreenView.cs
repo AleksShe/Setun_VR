@@ -9,31 +9,22 @@ public class DesktopStartScreenView : BaseStartScreenView
     [SerializeField] private GameObject _menuObject;
     [SerializeField] private TextMeshProUGUI _infoHeaderText;
     [SerializeField] private TextMeshProUGUI _inforCommentText;
-    [SerializeField] private GameObject _animation;
-    [SerializeField] private GameObject _logo;
-    [SerializeField] private GameObject _exitButtonToHide;
-    [SerializeField] private GameObject _exitButtonToShow;
 
     protected override void DisableStartScreen()
     {
-       _menuObject.SetActive(false);
+        _menuObject.SetActive(false);
     }
-    public override void SetStartScreenText(string headerText, string commentText, string buttonText, NextButtonState state)
+    public override void SetStartScreenText(string headerText, string commentText, string headerFaultText, string commentFaultText)
     {
-        base.SetStartScreenText(headerText, commentText, buttonText, state);
+        base.SetStartScreenText(headerText, commentText, headerFaultText, commentFaultText);
         _cursorManager.EnableCursor(true);
-        _infoHeaderText.text = headerText;
-       // _inforCommentText.text = commentText;
-        _animation.SetActive(false);
-        _exitButtonToHide.SetActive(false);
-        _logo.SetActive(true);
-        _exitButtonToShow.SetActive(true);
-       
+        _infoHeaderText.text = headerFaultText;
+        _inforCommentText.text = commentFaultText;
     }
     protected override void OnHideStartScreen(string value)
     {
         base.OnHideStartScreen(value);
-        if(value =="start")
+        if (value == "start")
             _cursorManager.EnableCursor(false);
     }
 }

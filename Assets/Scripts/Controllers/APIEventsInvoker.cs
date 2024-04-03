@@ -37,6 +37,7 @@ public class APIEventsInvoker : MonoBehaviour
         _api.AddTextObjectUiEvent += OnAddTextObjectUi;
         _api.ResultNameTextButtonEvent += OnInstanseResultButtons;
         _api.ResultNameTextButtonSingleEvent += OnInstanseResultSingleButtons;
+        _api.ShowMenuButtonEvent += OnShowMenuButton;
     }
 
     private void OnDisable()
@@ -64,6 +65,7 @@ public class APIEventsInvoker : MonoBehaviour
         _api.AddTextObjectUiEvent -= OnAddTextObjectUi;
         _api.ResultNameTextButtonEvent -= OnInstanseResultButtons;
         _api.ResultNameTextButtonSingleEvent += OnInstanseResultSingleButtons;
+        _api.ShowMenuButtonEvent -= OnShowMenuButton;
     }
     private void OnInstanseResultSingleButtons(string name, string penalty)
     {
@@ -154,8 +156,12 @@ public class APIEventsInvoker : MonoBehaviour
     {
         _modeController.CurrentMenuScreen.SetMenuText(headText, commentText, exitSureText);
     }
-    private void OnSetStartText(string headerText, string commentText, string buttonText, NextButtonState state)
+    private void OnSetStartText(string headerText, string commentText, string headerFaultText, string commentFaultText)
     {
-        _modeController.CurrentStartScreen.SetStartScreenText(headerText, HtmlToText.Instance.HTMLToTextReplace(commentText), buttonText, state);
+        _modeController.CurrentStartScreen.SetStartScreenText(headerText, HtmlToText.Instance.HTMLToTextReplace(commentText), headerFaultText, HtmlToText.Instance.HTMLToTextReplace(commentFaultText));
+    }
+    private void OnShowMenuButton()
+    {
+        _modeController.CurrentMenuScreen.ShowMenuButtons();
     }
 }

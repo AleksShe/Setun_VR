@@ -25,6 +25,8 @@ public class DesktopMenuScreen : BaseMenuScreen
     [SerializeField] private GameObject _hideBackButton;
     [SerializeField] private GameObject _showBackButton;
     [SerializeField] private GameObject _resultPanel;
+    [SerializeField] private GameObject _algorithmsButton;
+    [SerializeField] private BaseMenuController _baseMenuController;
 
     public override void SetMenuText(string headText, string commentText, string exitSureText)
     {
@@ -74,6 +76,10 @@ public class DesktopMenuScreen : BaseMenuScreen
     }
     private void ShowMessageScreen()
     {
+        if (!_baseMenuController.InMenu)
+        {
+            _baseMenuController.TeleportToMenu();
+        }
         _desktopCanvasHolder.EnableCanvasByState(CanvasState.Last);
     }
 
@@ -92,5 +98,9 @@ public class DesktopMenuScreen : BaseMenuScreen
         _headTextExit.text = HtmlToText.Instance.HTMLToTextReplace(headText);
         _commentTextExit.text = HtmlToText.Instance.HTMLToTextReplace(commentText);
         _evalTextExit.text = HtmlToText.Instance.HTMLToTextReplace(evalText);
+    }
+    public override void ShowMenuButtons()
+    {
+        _algorithmsButton.SetActive(true);
     }
 }

@@ -8,4 +8,5 @@ public abstract class BaseMenuScreen : MonoBehaviour
     public abstract void SetExitText(string headText, string commentText, string evalText);
     public abstract void ShowMessageScreen(string headText, string commentText, string footerText, string alarmImg);
     public abstract void ShowLastScreen(string headText, string commentText, string evalText);
+    public abstract void ShowMenuButtons();
 }

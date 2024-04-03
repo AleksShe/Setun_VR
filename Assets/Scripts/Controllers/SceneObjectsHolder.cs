@@ -98,11 +98,11 @@ public class SceneObjectsHolder : MonoBehaviour
     }
     public void AddBaseUIButton(BaseUIButton obj)
     {
-        if (obj is INextButton)
-        {
-            var nextButton = (INextButton)obj;
-            nextButton.NextButtonPressedEvent += OnNextButtonClicked;
-        }
+        //if (obj is INextButton)
+        //{
+        //    var nextButton = (INextButton)obj;
+        //    nextButton.NextButtonPressedEvent += OnNextButtonClicked;
+        //}
         if (obj is MoveUiButton)
         {
             var moveButton = (MoveUiButton)obj;
@@ -132,6 +132,7 @@ public class SceneObjectsHolder : MonoBehaviour
         {
             var armButton = (ArmUIButton)obj;
             _armUIButtons.Add(armButton);
+            Debug.Log("!!!!!!"+_armUIButtons.Count);
         }
         obj.HoverUiEvent += OnHandleHoverMouse;
         _baseUiButtons.Add(obj);
