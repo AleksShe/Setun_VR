@@ -20,6 +20,7 @@ public class MouseRayCastHandler : MonoBehaviour
     }
     private void Update()
     {
+      
         if (_currentCamera == null || !CanInteract)
             return;
         var collisionObject = CheckRaycastCollider();
@@ -88,4 +89,5 @@ public class MouseRayCastHandler : MonoBehaviour
             _currentHoverable = null;
         }
     }
+    
 }

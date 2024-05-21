@@ -239,7 +239,7 @@ public class API : AosObjectBase
 
     public void updatePlace(JArray data)
     {
-
+      
         StartUpdatePlaceEvent?.Invoke();
 
         foreach (JObject item in data)
@@ -260,16 +260,18 @@ public class API : AosObjectBase
                             var apiIdParentText = apiIdParent.ToString();
                             ActivatePointByNameEvent?.Invoke(apiIdParentText, "OnClick");
                         }
-
+                        Debug.Log(" View point" + point1.ToString());
                         var jsonView = point1.SelectTokens("view");
                         if (jsonView != null)
                         {
+                           
                             foreach (var tempView in jsonView)
                             {
+                              
                                 if (tempView.SelectToken("apiId") != null)
                                 {
                                     var pointTempView = tempView.SelectToken("apiId").ToString();
-                                    Debug.Log(pointTempView + " View point");
+                                   
                                     ActivatePointByNameEvent?.Invoke(pointTempView, pointActionName);
                                 }
                             }
@@ -296,6 +298,7 @@ public class API : AosObjectBase
                                                 {
                                                     var pointTempView = tempView.SelectToken("apiId").ToString();
                                                     ActivatePointByNameEvent?.Invoke(pointTempView, pointActionName);
+                                                    
                                                 }
                                             }
                                         }
@@ -313,6 +316,7 @@ public class API : AosObjectBase
                                                         {
                                                             pointActionName = ptnObject.ToString();
                                                             ActivatePointByNameEvent?.Invoke(pointId, pointActionName);
+                                                           
                                                         }
                                                     }
                                             }

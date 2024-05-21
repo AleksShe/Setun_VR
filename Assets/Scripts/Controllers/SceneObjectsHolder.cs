@@ -132,7 +132,7 @@ public class SceneObjectsHolder : MonoBehaviour
         {
             var armButton = (ArmUIButton)obj;
             _armUIButtons.Add(armButton);
-            Debug.Log("!!!!!!"+_armUIButtons.Count);
+            
         }
         obj.HoverUiEvent += OnHandleHoverMouse;
         _baseUiButtons.Add(obj);
@@ -222,6 +222,7 @@ public class SceneObjectsHolder : MonoBehaviour
     private void OnSetAnswer(string answerName) => _api.OnReasonInvoke(answerName);
     public void ActivateArmUIpoints(string pointName, string actiontext)
     {
+       
         foreach (var pointObj in _armUIButtons)
         {
             if (pointObj.GetAOSName() == pointName)
