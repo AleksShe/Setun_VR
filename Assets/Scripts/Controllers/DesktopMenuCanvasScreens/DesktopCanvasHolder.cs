@@ -6,6 +6,7 @@ public class DesktopCanvasHolder : MonoBehaviour
     [SerializeField] private DesktopCanvasObject[] _desktopCanvasObjects;
     [SerializeField] private ModeController _modeController;
     [SerializeField] private GameObject _lineImage;
+    [SerializeField] private GameObject _resultPanel;
     public void DisableAllCanvases()
     {
         foreach (var canvas in _desktopCanvasObjects)
@@ -19,5 +20,10 @@ public class DesktopCanvasHolder : MonoBehaviour
         _modeController.CurrentInteractScreen.EnableLocationObject(true);
         _modeController.CurrentInteractScreen.EnableTimerObject(true);
         _lineImage.gameObject.SetActive(true);
+        if (_resultPanel.activeSelf)
+        {
+            _modeController.CurrentInteractScreen.EnableLocationObject(false);
+            _modeController.CurrentInteractScreen.EnableTimerObject(false);
+        }
     }
 }
