@@ -26,6 +26,7 @@ public abstract class BaseStartScreenView : MonoBehaviour
     }
     public virtual void SetStartScreenText(string headerText, string commentText, string headerFaultText, string commentFaultText)
     {
+        CommentText.alignment = TextAnchor.MiddleLeft;
         LoadImage.SetActive(false);
         CatoLogoImage.SetActive(true);
         GuideButton.SetActive(true);

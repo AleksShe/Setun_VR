@@ -403,7 +403,7 @@ public class API : AosObjectBase
 
     [AosAction(name: "Показать меню")]
     public void showMenu(JObject data)
-    {
+    {      
         if (data.SelectToken("algs") != null && data.SelectToken("algs").ToString() != String.Empty) { ShowMenuButtonEvent?.Invoke(); }
         string exitSureText = data.SelectToken("exitInfo").SelectToken("quest").ToString();
 
