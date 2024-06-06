@@ -15,6 +15,6 @@ public class SceneObjectWithScreen : SceneObject
     {
         base.OnClicked(interactHand);
         EnableScreenEvent?.Invoke(_currentScreen);
-        Debug.Log(_currentScreen.ToString());
+       
     }
 }

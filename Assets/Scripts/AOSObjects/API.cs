@@ -159,6 +159,7 @@ public class API : AosObjectBase
     [AosAction(name: "Показать место")]
     public void showPlace(JArray places, JObject nav)
     {
+        
         ShowPlaceEvent?.Invoke();
 
         foreach (JObject item in places)
@@ -213,7 +214,7 @@ public class API : AosObjectBase
                                 {
                                     name = aosObjectWithImage.SelectToken("apiId").ToString();
                                     ActivateByNameEvent?.Invoke(name, "", "");
-                                    Debug.Log("NAME" + name);
+                                    
                                 }
 
                             }
@@ -523,6 +524,7 @@ public class API : AosObjectBase
     }
     public void InvokeEndTween(string location)
     {
+        
         EndTween?.Invoke(location);
     }
 }
