@@ -8,7 +8,7 @@ public class DesktopPhoneScreen : BasePhoneScreen
 {
     [SerializeField] private TextMeshProUGUI _phoneHeader;
     [Space]
-    [SerializeField] private TextObjectUi _dialogPrefub;
+    [SerializeField] private TextUiPhone _dialogPrefub;
     [SerializeField] private Transform _dialogParent;
     [Space]
     [SerializeField] private TextObjectUi _buttonPrefub;
@@ -16,7 +16,7 @@ public class DesktopPhoneScreen : BasePhoneScreen
     [SerializeField] private GameObject _phoneMainScreen;
     [SerializeField] private GameObject _phoneDialogScreen;
     private List<TextObjectUi> _textObjectUis = new List<TextObjectUi>();
-    private List<TextObjectUi> _textObjectUis2 = new List<TextObjectUi>();
+    private List<TextUiPhone> _textObjectUis2 = new List<TextUiPhone>();
 
     public override void ActivateScreen(bool active)
     {
@@ -41,9 +41,9 @@ public class DesktopPhoneScreen : BasePhoneScreen
             return;
         var prefub = Instantiate(_dialogPrefub, _dialogParent);
         if (role == DialogRole.User)
-            prefub.SetText(text, TextAlignmentOptions.Right);
+            prefub.SetText(text);
         else
-            prefub.SetText(text, TextAlignmentOptions.Left);
+            prefub.SetText(text);
         _textObjectUis2.Add(prefub);
     }
     public override void AddItem(string id, string text)
@@ -70,7 +70,7 @@ public class DesktopPhoneScreen : BasePhoneScreen
         {
             Destroy(item.gameObject);
         }
-        _textObjectUis2 = new List<TextObjectUi>();
+        _textObjectUis2 = new List<TextUiPhone>();
     }
 
     public override void SetPhoneHeader(string text) => _phoneHeader.text = text;
