@@ -9,6 +9,7 @@ public class DesktopPhoneScreen : BasePhoneScreen
     [SerializeField] private TextMeshProUGUI _phoneHeader;
     [Space]
     [SerializeField] private TextUiPhone _dialogPrefub;
+    [SerializeField] private TextUiPhone _userPrefub;
     [SerializeField] private Transform _dialogParent;
     [Space]
     [SerializeField] private TextObjectUi _buttonPrefub;
@@ -39,12 +40,22 @@ public class DesktopPhoneScreen : BasePhoneScreen
         var exist = _textObjectUis2.FirstOrDefault(o => o.Text == text);
         if (exist != null)
             return;
-        var prefub = Instantiate(_dialogPrefub, _dialogParent);
+       
         if (role == DialogRole.User)
+        {
+            var prefub = Instantiate(_userPrefub, _dialogParent);
             prefub.SetText(text);
+            _textObjectUis2.Add(prefub);
+        }
+
         else
+        {
+            var prefub = Instantiate(_dialogPrefub, _dialogParent);
             prefub.SetText(text);
-        _textObjectUis2.Add(prefub);
+            _textObjectUis2.Add(prefub);
+        }
+           
+       
     }
     public override void AddItem(string id, string text)
     {
