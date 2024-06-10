@@ -274,6 +274,7 @@ public class API : AosObjectBase
                                     var pointTempView = tempView.SelectToken("apiId").ToString();
                                    
                                     ActivatePointByNameEvent?.Invoke(pointTempView, pointActionName);
+                                   
                                 }
                             }
                         }
@@ -290,7 +291,7 @@ public class API : AosObjectBase
                                         var pointOpbject = temp.SelectToken("apiId");
                                         if (pointOpbject != null)
                                             pointId = pointOpbject.ToString();
-                                        var tempViews = temp.SelectTokens("view");
+                                        var tempViews = temp.SelectTokens("view");                                       
                                         if (tempViews != null)
                                         {
                                             foreach (var tempView in tempViews)
@@ -299,7 +300,9 @@ public class API : AosObjectBase
                                                 {
                                                     var pointTempView = tempView.SelectToken("apiId").ToString();
                                                     ActivatePointByNameEvent?.Invoke(pointTempView, pointActionName);
-                                                    
+                                                    Debug.Log("›“Œ " + pointTempView.ToString());
+                                                    Debug.Log("›“Œ " + pointActionName.ToString());
+
                                                 }
                                             }
                                         }
@@ -411,6 +414,7 @@ public class API : AosObjectBase
         var fltInfo = data.SelectToken("fltInfo");
         if (fltInfo != null)
         {
+            Debug.Log("INF"+fltInfo.ToString());
             string headtext = fltInfo.SelectToken("name").ToString();
             string commentText = fltInfo.SelectToken("text").ToString();
             ShowMenuTextEvent?.Invoke(headtext, commentText, exitSureText);
