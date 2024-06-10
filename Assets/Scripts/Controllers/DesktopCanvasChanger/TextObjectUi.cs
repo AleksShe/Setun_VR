@@ -2,19 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TextObjectUi : MonoBehaviour
 {
-    private TextMeshProUGUI _text;
+    private Text _text;
     private void Awake()
     {
-        _text = GetComponentInChildren<TextMeshProUGUI>();
+        _text = GetComponentInChildren<Text>();
     }
-    public void SetText(string text, TextAlignmentOptions options)
+    public void SetText(string text)
     {
         if (_text == null)
-            return;
-        _text.alignment = options;
+            return;    
         _text.text = HtmlToText.Instance.HTMLToTextReplace(text);
     }
     public string Text => _text.text;

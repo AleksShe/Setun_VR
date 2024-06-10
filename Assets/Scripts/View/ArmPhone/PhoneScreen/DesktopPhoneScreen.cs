@@ -64,7 +64,7 @@ public class DesktopPhoneScreen : BasePhoneScreen
         if (exist != null)
             return;
         var prefub = Instantiate(_buttonPrefub, _buttonParent);
-        prefub.SetText(text, TextAlignmentOptions.Center);
+        prefub.SetText(text);
       //  Debug.Log("  EXist   "+prefub.Text);
         var aosId = prefub.GetComponent<PointUiButton>();
         aosId.SetButtonId(id);
