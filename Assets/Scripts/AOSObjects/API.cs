@@ -85,8 +85,7 @@ public class API : AosObjectBase
                 if(item != null)
                 {
                     var name = item.SelectToken("name").ToString();
-                    var id = item.SelectToken("apiId").ToString();
-                    Debug.Log("SSSSSSS" + name.ToString());
+                    var id = item.SelectToken("apiId").ToString();                  
                     AddTextObjectUiButtonEvent?.Invoke(id, name);
                 }
             }
