@@ -1,4 +1,5 @@
 using UnityEngine;
+
 public class LocationController : MonoBehaviour
 {
     [SerializeField] private API _api;

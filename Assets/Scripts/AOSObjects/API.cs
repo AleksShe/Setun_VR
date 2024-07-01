@@ -75,6 +75,25 @@ public class API : AosObjectBase
         SetStartTextEvent?.Invoke(headerText, commentText, headerFaultText, commentFaultText);
         //OnSetTeleportLocation?.Invoke("start");
     }
+    public void updateDialog(JArray points)
+    {
+       
+        if (points != null)
+        {
+            foreach (var item in points)
+            {
+                if(item != null)
+                {
+                    var name = item.SelectToken("name").ToString();
+                    var id = item.SelectToken("apiId").ToString();
+                    Debug.Log("SSSSSSS" + name.ToString());
+                    AddTextObjectUiButtonEvent?.Invoke(id, name);
+                }
+            }
+
+
+        }
+    }
 
 
 
