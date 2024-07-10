@@ -31,7 +31,7 @@ public class API : AosObjectBase
     public UnityAction<string> DialogHeaderEvent;
     public UnityAction<string> SetTeleportLocationEvent;
     public UnityAction<string> SetNewLocationTextEvent;
-    public UnityAction<string> SetLocationEvent;   
+    public UnityAction<string> SetLocationEvent;
     public UnityAction<string> EnableDietButtonsEvent;
     public UnityAction<string> SetTimerTextEvent;
     public UnityAction<string> ReactionEvent;
@@ -96,15 +96,15 @@ public class API : AosObjectBase
     }
     public void updateDialog(JArray points)
     {
-       
+
         if (points != null)
         {
             foreach (var item in points)
             {
-                if(item != null)
+                if (item != null)
                 {
                     var name = item.SelectToken("name").ToString();
-                    var id = item.SelectToken("apiId").ToString();                  
+                    var id = item.SelectToken("apiId").ToString();
                     AddTextObjectUiButtonEvent?.Invoke(id, name);
                 }
             }
@@ -196,7 +196,7 @@ public class API : AosObjectBase
     [AosAction(name: "Показать место")]
     public void showPlace(JArray places, JObject nav)
     {
-        
+
         ShowPlaceEvent?.Invoke();
 
         foreach (JObject item in places)
@@ -251,7 +251,7 @@ public class API : AosObjectBase
                                 {
                                     name = aosObjectWithImage.SelectToken("apiId").ToString();
                                     ActivateByNameEvent?.Invoke(name, "", "");
-                                    
+
                                 }
 
                             }
@@ -267,7 +267,7 @@ public class API : AosObjectBase
             }
 
         }
-        
+
 
 
 
@@ -277,7 +277,7 @@ public class API : AosObjectBase
 
     public void updatePlace(JArray data)
     {
-      
+
         StartUpdatePlaceEvent?.Invoke();
 
         foreach (JObject item in data)
@@ -288,7 +288,7 @@ public class API : AosObjectBase
             {
                 var apiIdParent2 = item.SelectToken("points");
                 if (apiIdParent2 != null)
-                {  
+                {
                     foreach (JObject point1 in apiIdParent2)
                     {
                         var apiIdParent = point1.SelectToken("apiId");
@@ -298,20 +298,19 @@ public class API : AosObjectBase
                             var apiIdParentText = apiIdParent.ToString();
                             ActivatePointByNameEvent?.Invoke(apiIdParentText, "OnClick");
                         }
-                       
+
                         var jsonView = point1.SelectTokens("view");
                         if (jsonView != null)
                         {
-                            Debug.Log(" ViewWWWWWW " + jsonView.ToString());
                             foreach (var tempView in jsonView)
                             {
-                              
+
                                 if (tempView.SelectToken("apiId") != null)
                                 {
                                     var pointTempView = tempView.SelectToken("apiId").ToString();
-                                   
+
                                     ActivatePointByNameEvent?.Invoke(pointTempView, pointActionName);
-                                   
+                                    Debug.Log("IDDDD " + pointTempView.ToString());
                                 }
                             }
                         }
@@ -328,7 +327,7 @@ public class API : AosObjectBase
                                         var pointOpbject = temp.SelectToken("apiId");
                                         if (pointOpbject != null)
                                             pointId = pointOpbject.ToString();
-                                        var tempViews = temp.SelectTokens("view");                                       
+                                        var tempViews = temp.SelectTokens("view");
                                         if (tempViews != null)
                                         {
                                             foreach (var tempView in tempViews)
@@ -337,8 +336,7 @@ public class API : AosObjectBase
                                                 {
                                                     var pointTempView = tempView.SelectToken("apiId").ToString();
                                                     ActivatePointByNameEvent?.Invoke(pointTempView, pointActionName);
-                                                    Debug.Log("ЭТО " + pointTempView.ToString());
-                                                    Debug.Log("ЭТО " + pointActionName.ToString());
+                                                    Debug.Log("IDDDD " + pointTempView.ToString());
 
                                                 }
                                             }
@@ -357,7 +355,7 @@ public class API : AosObjectBase
                                                         {
                                                             pointActionName = ptnObject.ToString();
                                                             ActivatePointByNameEvent?.Invoke(pointId, pointActionName);
-                                                           
+
                                                         }
                                                     }
                                             }
@@ -444,14 +442,14 @@ public class API : AosObjectBase
 
     [AosAction(name: "Показать меню")]
     public void showMenu(JObject data)
-    {      
+    {
         if (data.SelectToken("algs") != null && data.SelectToken("algs").ToString() != String.Empty) { ShowMenuButtonEvent?.Invoke(); }
         string exitSureText = data.SelectToken("exitInfo").SelectToken("quest").ToString();
 
         var fltInfo = data.SelectToken("fltInfo");
         if (fltInfo != null)
         {
-            Debug.Log("INF"+fltInfo.ToString());
+            Debug.Log("INF" + fltInfo.ToString());
             string headtext = fltInfo.SelectToken("name").ToString();
             string commentText = fltInfo.SelectToken("text").ToString();
             ShowMenuTextEvent?.Invoke(headtext, commentText, exitSureText);
@@ -565,7 +563,7 @@ public class API : AosObjectBase
     }
     public void InvokeEndTween(string location)
     {
-        
+
         EndTween?.Invoke(location);
     }
 }
