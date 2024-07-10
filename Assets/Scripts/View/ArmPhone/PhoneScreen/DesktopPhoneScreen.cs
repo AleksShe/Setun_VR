@@ -59,13 +59,11 @@ public class DesktopPhoneScreen : BasePhoneScreen
     }
     public override void AddItem(string id, string text)
     {
-       // Debug.Log("ADD Item");
         var exist = _textObjectUis.FirstOrDefault(o => o.Text == text);
         if (exist != null)
             return;
         var prefub = Instantiate(_buttonPrefub, _buttonParent);
-        prefub.SetText(text);
-      //  Debug.Log("  EXist   "+prefub.Text);
+        prefub.SetText(text);   
         var aosId = prefub.GetComponent<PointUiButton>();
         aosId.SetButtonId(id);
         _textObjectUis.Add(prefub);

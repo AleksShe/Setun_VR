@@ -1,4 +1,5 @@
 using AosSdk.Core.PlayerModule.Pointer;
+using AosSdk.Core.Utils;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,7 +15,7 @@ public class PointObject : BaseObject
         _button = GetComponent<Button>();
         if (_button != null)
         {
-            _button.onClick.AddListener(() => InvokeAosEvent());
+            _button.onClick.AddListener(() => SendPointObj());
             _uiPointer = true;
         }
         EnableObject(false);
@@ -29,5 +30,13 @@ public class PointObject : BaseObject
             _button.enabled = value;
         else
             GetComponent<Collider>().enabled = value;
+    }
+
+    private void SendPointObj()
+    {
+        var pointObject = new JsonAosObject();
+        pointObject.castedToStringAttribute = name;
+        pointObject.objectId = name;
+        WebSocketWrapper.Instance.DoSendMessage(pointObject);
     }
 }

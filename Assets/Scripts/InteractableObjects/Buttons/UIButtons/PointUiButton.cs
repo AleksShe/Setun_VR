@@ -10,7 +10,7 @@ public class PointUiButton : BaseUIButton
     public Action<string> PointClickEvent;
     protected override void Click()
     {
-        PointClickEvent?.Invoke(_pointId);
+        PointClickEvent?.Invoke(_pointId);     
     }
     public void SetButtonId(string id)
     {

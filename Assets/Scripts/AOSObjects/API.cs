@@ -27,6 +27,7 @@ public class API : AosObjectBase
     public UnityAction ShowPlaceEvent;
     public UnityAction StartUpdatePlaceEvent;
     public UnityAction ShowMenuButtonEvent;
+    public UnityAction ClearItemList;
     public UnityAction<string> DialogEvent;
     public UnityAction<string> DialogHeaderEvent;
     public UnityAction<string> SetTeleportLocationEvent;
@@ -105,6 +106,8 @@ public class API : AosObjectBase
                 {
                     var name = item.SelectToken("name").ToString();
                     var id = item.SelectToken("apiId").ToString();
+                    if (id == "" || name == "")
+                        return;
                     AddTextObjectUiButtonEvent?.Invoke(id, name);
                 }
             }
@@ -117,7 +120,7 @@ public class API : AosObjectBase
 
     public void showDialog(JObject data, JObject nav)
     {
-
+        ClearItemList?.Invoke();
         var temp = data.SelectToken("dialog");
         if (temp != null)
         {
@@ -137,8 +140,9 @@ public class API : AosObjectBase
                     DialogEvent?.Invoke(action);
                 }
                 var id = item.SelectToken("apiId").ToString();
-                var name = item.SelectToken("name").ToString();
-                if (id != null && name != null)
+                var name = item.SelectToken("name").ToString();                
+                    if (id != null && name != null)                 
+
                     AddTextObjectUiButtonEvent?.Invoke(id, name);
 
             }

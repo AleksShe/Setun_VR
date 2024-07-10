@@ -39,6 +39,7 @@ public class APIEventsInvoker : MonoBehaviour
         _api.ResultNameTextButtonSingleEvent += OnInstanseResultSingleButtons;
         _api.ShowMenuButtonEvent += OnShowMenuButton;
         _api.ShowSticker += OnShowSticker;
+        _api.ClearItemList += OnClearItemsList;
     }
 
     private void OnDisable()
@@ -68,6 +69,7 @@ public class APIEventsInvoker : MonoBehaviour
         _api.ResultNameTextButtonSingleEvent += OnInstanseResultSingleButtons;
         _api.ShowMenuButtonEvent -= OnShowMenuButton;
         _api.ShowSticker -= OnShowSticker;
+        _api.ClearItemList -= OnClearItemsList;
     }
     private void OnShowSticker(string header, string penalty, string text)
     {
@@ -94,9 +96,14 @@ public class APIEventsInvoker : MonoBehaviour
     {
         _modeController.CurrentPhoneScreen.ActivatePhoneDialogScreen(true);
     }
+    private void OnClearItemsList()
+    {
+        _modeController.CurrentPhoneScreen.ClearItemsList();
+    }
     private void OnAddTextObjectUiButton(string id,string name)
     {
         _modeController.CurrentPhoneScreen.AddItem(id, name);
+        
     }
     private void OnAddTextObjectUi(string text,DialogRole role)
     {
