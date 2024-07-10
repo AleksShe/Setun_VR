@@ -15,6 +15,7 @@ public abstract class BaseInteractScreen : MonoBehaviour
     public abstract void DisableAllActionObjects();
     public abstract void EnableInteractIcons(bool active);
     public abstract void SetHelperTextPosition(VectorHolder newPos);
+    public abstract void ShowSticker(string header, string penalty, string text);
     public void EnableAllHelperObjects(bool active)
     {
         EnableActivateActionObject(SceneActionState.None);

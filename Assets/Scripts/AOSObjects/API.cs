@@ -42,6 +42,7 @@ public class API : AosObjectBase
     public UnityAction<string, string> PointEvent;
     public UnityAction<string, string> EnableMovingButtonEvent;
     public UnityAction<string, string, string> ActivateByNameEvent;
+    public Action<string, string, string> ShowSticker;
     public UnityAction<string, string> ActivatePointByNameEvent;
     public UnityAction<string, string, string, string> SetMessageTextEvent;
     public UnityAction<string, string, string> SetResultTextEvent;
@@ -74,6 +75,24 @@ public class API : AosObjectBase
         string commentFaultText = faultInfo.SelectToken("text").ToString();
         SetStartTextEvent?.Invoke(headerText, commentText, headerFaultText, commentFaultText);
         //OnSetTeleportLocation?.Invoke("start");
+    }
+    public void showLearningSticker(JObject sticker)
+    {
+        Debug.Log(sticker.ToString());
+        string header = "";
+        string penalty = "";
+        string text = "";
+        header = sticker.SelectToken("header").ToString();
+        penalty = sticker.SelectToken("penalty").ToString();
+        var textmin = sticker.SelectToken("text");
+        if (textmin != null)
+        {
+            text = sticker.SelectToken("text").ToString();
+        }
+        ShowSticker?.Invoke(header, penalty, text);
+
+
+
     }
     public void updateDialog(JArray points)
     {
@@ -279,11 +298,11 @@ public class API : AosObjectBase
                             var apiIdParentText = apiIdParent.ToString();
                             ActivatePointByNameEvent?.Invoke(apiIdParentText, "OnClick");
                         }
-                        Debug.Log(" View point" + point1.ToString());
+                       
                         var jsonView = point1.SelectTokens("view");
                         if (jsonView != null)
                         {
-                           
+                            Debug.Log(" ViewWWWWWW " + jsonView.ToString());
                             foreach (var tempView in jsonView)
                             {
                               

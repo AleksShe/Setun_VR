@@ -62,4 +62,9 @@ public class VrInteractScreen : BaseInteractScreen
     {
         throw new System.NotImplementedException();
     }
+
+    public override void ShowSticker(string header, string penalty, string text)
+    {
+        throw new System.NotImplementedException();
+    }
 }

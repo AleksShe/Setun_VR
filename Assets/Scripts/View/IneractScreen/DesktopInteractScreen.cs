@@ -3,6 +3,7 @@ using System.Collections;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DesktopInteractScreen : BaseInteractScreen
 {
@@ -11,8 +12,14 @@ public class DesktopInteractScreen : BaseInteractScreen
     [SerializeField] private GameObject _timer;
     [SerializeField] private GameObject _location;
     [SerializeField] private GameObject _interactIcons;
+    [SerializeField] private CanvasGroupFader _canvasGroup;
 
     [SerializeField] private TextMeshProUGUI _helperText;
+    [SerializeField] private Text _headerStickerText;
+    [SerializeField] private Text _stickerText;
+    [SerializeField] private Image _stickerImage;
+    [SerializeField] private Sprite _stickerSpriteOK;
+    [SerializeField] private Sprite _stickerSpriteNotOK;
     [SerializeField] private TextMeshProUGUI _reactionText;
     [SerializeField] private TextMeshProUGUI _locationText;
     [SerializeField] private TextMeshProUGUI _timerText;
@@ -77,6 +84,41 @@ public class DesktopInteractScreen : BaseInteractScreen
         {
             if (baseActionObject != null)
                 baseActionObject.Disable();
+        }
+    }
+    public override void ShowSticker(string header, string penalty, string text)
+    {
+        SetSprite(penalty);
+        _headerStickerText.text = header;
+        if (text != "")
+        {
+            _stickerText.text = text;
+            _stickerText.gameObject.SetActive(true);
+        }
+        else
+        {
+            _stickerText.gameObject.SetActive(false);
+        }
+        _canvasGroup.FadeIn();
+        StartCoroutine(HideSticker());
+    }
+
+    public IEnumerator HideSticker()
+    {
+        yield return new WaitForSeconds(1);
+        _canvasGroup.FadeOut();
+    }
+    private void SetSprite(string name)
+    {
+        if (name == "0")
+        {
+            _stickerImage.sprite = _stickerSpriteOK;
+
+        }
+        else if (name == "1")
+        {
+            _stickerImage.sprite = _stickerSpriteNotOK;
+
         }
     }
 }
