@@ -103,6 +103,20 @@ namespace AosSdk.Core.Utils
             _currentClientSocket.BeginSend(encodeMessageToSend, 0, encodeMessageToSend.Length, 0, MessageSendCallback,
                 _currentClientSocket);
         }
+        public void DoSendMessage(JsonAosObject message)
+        {
+            var convertedObj = JsonConvert.SerializeObject(message);
+            var encodeMessageToSend = EncodeMessage(convertedObj);
+
+            if (_currentClientSocket == null)
+            {
+                Debug.LogError("AosSdk: Cant send message to client: no client connected");
+                return;
+            }
+
+            _currentClientSocket.BeginSend(encodeMessageToSend, 0, encodeMessageToSend.Length, 0, MessageSendCallback,
+                _currentClientSocket);
+        }
 
         private void MessageSendCallback(IAsyncResult ar)
         {

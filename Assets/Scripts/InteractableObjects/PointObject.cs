@@ -13,7 +13,7 @@ public class PointObject : BaseObject
         SceneObjectsHolder.Instance.AddSceneObject(this);
         _button = GetComponent<Button>();
         if (_button != null)
-        {         
+        {
             _button.onClick.AddListener(() => InvokeAosEvent());
             _uiPointer = true;
         }
