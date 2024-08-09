@@ -12,10 +12,14 @@ public class ImageChanger : MonoBehaviour
     [SerializeField] private Text _counterText;
     private int _currentSlide = 0;
     private int _lenght;
+    private Image _image;
+    private Vector2 _minSize = new Vector2(1000, 850);
+    public bool GuideImage = false;
 
     private void Start()
     {
         _lenght = _guideImages.Length;
+        _image = GetComponent<Image>();
 
         _nextSlide.onClick.AddListener(() => OnChangeSprite(true));
         _backSlide.onClick.AddListener(() => OnChangeSprite(false));
@@ -23,6 +27,7 @@ public class ImageChanger : MonoBehaviour
     }
     private void OnChangeSprite(bool value)
     {
+        if (!GuideImage) { _image.rectTransform.sizeDelta = _minSize; }
         if (value)
         {
             _currentSlide++;

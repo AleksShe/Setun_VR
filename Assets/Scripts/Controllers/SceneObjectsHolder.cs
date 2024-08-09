@@ -25,6 +25,8 @@ public class SceneObjectsHolder : MonoBehaviour
     public PlayerState CurrentState { get; set; }
     public IToolObject ToolObject { get; private set; }
 
+    private Timer _time = new Timer();
+
     private List<BaseObject> _baseObjects = new List<BaseObject>();
     private List<PointObject> _aosPointObjects = new List<PointObject>();
     private List<BaseUIButton> _baseUiButtons = new List<BaseUIButton>();
@@ -178,7 +180,14 @@ public class SceneObjectsHolder : MonoBehaviour
         if (timeText == "" || timeText == "0")
             timeText = objectName;
         else
-            timeText = $"{objectName} \nВремя перехода:{timeText}";
+        {
+            double.TryParse(timeText, out double time);
+            _time.TimeChanger(time);
+            var temp = _time.GetFormattedTime();
+
+            timeText = $"{objectName} (+{temp})";
+        }
+            
         foreach (var item in _baseObjects)
         {
             if (item.GetAOSName() == objectId)

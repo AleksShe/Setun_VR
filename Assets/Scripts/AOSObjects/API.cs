@@ -226,7 +226,7 @@ public class API : AosObjectBase
                 {
                     if (point != null)
                     {
-                        var temp = point.SelectToken("apiId");
+                        var temp = point.SelectToken("apiId");                     
                         var id = "";
                         var name = "";
                         var time = "";
@@ -235,15 +235,15 @@ public class API : AosObjectBase
                             id = temp.ToString();
                             name = point.SelectToken("name").ToString();
                         }
-                        //var timeText = point.SelectToken("result");
-                        //if (timeText != null)
-                        //{
-                        //    var timeToShow = timeText.SelectToken("tm");
-                        //    if (timeToShow != null)
-                        //    {
-                        //        time = timeText.SelectToken("tm").ToString();
-                        //    }
-                        //}
+                        var timeText = point.SelectToken("result");
+                        if (timeText != null)
+                        {
+                            var timeToShow = timeText.SelectToken("tm");
+                            if (timeToShow != null)
+                            {
+                                time = timeText.SelectToken("tm").ToString();
+                            }
+                        }
                         ActivateByNameEvent?.Invoke(id, name, time);
                         if (point.SelectToken("view") != null)
                         {
