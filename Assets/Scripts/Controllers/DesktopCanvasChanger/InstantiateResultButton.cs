@@ -16,7 +16,7 @@ public class InstantiateResultButton : MonoBehaviour
         resultButton.setNameText(nameText);
         resultButton.setPenaltyImage(penalty);
         resultButton.ButtonClickEvent += infoPanel.ShowInfo;
-        string text = resultText.Replace("&emsp;", " ").Replace("[", "").Replace("]", "").Replace("\"","");        
+        string text = resultText.Replace("&emsp;", " ").Replace("[", "").Replace("]", "").Replace("\"","").Replace(",","");        
         infoPanel.setNameText(text);
         ResultPanelList.Instance.AddResultButton(resultButton);
         ResultPanelList.Instance.AddModel(infoPanel);
