@@ -63,7 +63,7 @@ public class MouseRayCastHandler : MonoBehaviour
             MousePosClickEvent?.Invoke(null); // если кликнули в пустоту , то кидаем null что бы закрыть все окна 
             CanHover = true;
         }
-        Debug.Log("1111111111");
+     
     }
     private void CheckCollisionHover(RaycastHit hit)
     {
@@ -81,7 +81,7 @@ public class MouseRayCastHandler : MonoBehaviour
             MousePosHoverEvent?.Invoke(null);
             return;
         }
-        Debug.Log("222222222222");
+        
     }
     private void ResetHoverableObject()
     {

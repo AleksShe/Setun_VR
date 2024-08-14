@@ -28,6 +28,7 @@ public abstract class BaseReactionButtonsHandler : MonoBehaviour
     public void SetButtonSpawnPos(Vector3 newPos)
     {
         ButtonsSpawnPos = newPos;
+        Debug.Log(newPos.y);
     }
     public abstract void HideAllReactions();
 

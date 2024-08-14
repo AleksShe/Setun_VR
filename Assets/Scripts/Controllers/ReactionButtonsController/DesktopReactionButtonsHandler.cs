@@ -25,7 +25,17 @@ public class DesktopReactionButtonsHandler : BaseReactionButtonsHandler
     {
         if (string.IsNullOrWhiteSpace(buttonActionName) || ButtonsSpawnPos == null)
             return;
+      
         _parent.position = ButtonsSpawnPos;
+        if(_parent.position.x < 200)
+        {
+            _parent.position = new Vector3(220,_parent.position.y,_parent.position.y);
+        }
+        if(_parent.position.y < 33)
+        {
+            _parent.position = new Vector3(_parent.position.x, 50, _parent.position.y);
+        }
+        
         ButtonActionName reactionName;
         Enum.TryParse<ButtonActionName>(buttonActionName, out reactionName);
        // if (ContainsObject(reactionName))                
