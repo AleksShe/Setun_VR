@@ -15,6 +15,7 @@ public class PointUiButton : BaseUIButton
     public void SetButtonId(string id)
     {
         _pointId = id;
+        Debug.Log(id);
     }
     public override void OnPointerEnter(PointerEventData eventData)
     {

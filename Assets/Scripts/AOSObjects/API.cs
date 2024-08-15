@@ -97,7 +97,7 @@ public class API : AosObjectBase
     }
     public void updateDialog(JArray points)
     {
-
+        
         if (points != null)
         {
             foreach (var item in points)
@@ -108,7 +108,7 @@ public class API : AosObjectBase
                     var id = item.SelectToken("apiId").ToString();
                     if (id == "" || name == "")
                         return;
-                    AddTextObjectUiButtonEvent?.Invoke(id, name);
+                    AddTextObjectUiButtonEvent?.Invoke(id, name);                  
                 }
             }
 
