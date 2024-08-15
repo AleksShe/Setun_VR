@@ -19,6 +19,7 @@ public class UIPhoneButton : UIMenuButton
         }
         else
             PhoneBackButtonClickedEvent?.Invoke(false);
+        API.OnInvokeNavAction("dlgClose");
 
     }
     public override void OnPointerEnter(PointerEventData eventData)
