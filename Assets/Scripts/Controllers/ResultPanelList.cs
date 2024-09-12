@@ -23,4 +23,5 @@ public class ResultPanelList : MonoBehaviour
     {
         ResultButtonsList.Add(button);
     }
+    
 }

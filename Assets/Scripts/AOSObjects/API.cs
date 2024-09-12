@@ -28,6 +28,7 @@ public class API : AosObjectBase
     public UnityAction StartUpdatePlaceEvent;
     public UnityAction ShowMenuButtonEvent;
     public UnityAction ClearItemList;
+    public UnityAction ClearResultList;
     public UnityAction<string> DialogEvent;
     public UnityAction<string> DialogHeaderEvent;
     public UnityAction<string> SetTeleportLocationEvent;
@@ -511,6 +512,7 @@ public class API : AosObjectBase
     [AosAction(name: "Показать сообщение")]
     public void showResult(JObject info, JObject nav)
     {
+        ClearResultList?.Invoke();
         string resultText = "";
         Debug.Log("RESULT " + info.ToString());
         string headText = info.SelectToken("name").ToString();

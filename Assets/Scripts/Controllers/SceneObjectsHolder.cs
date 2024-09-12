@@ -145,7 +145,7 @@ public class SceneObjectsHolder : MonoBehaviour
     }
     private void OnPointClick(string reactionName)
     {
-        _api.OnDialogInvoke(reactionName);
+        _api.OnDialogInvoke(reactionName);      
     }
 
     private void OnNextButtonClicked(string actionName)

@@ -40,6 +40,7 @@ public class APIEventsInvoker : MonoBehaviour
         _api.ShowMenuButtonEvent += OnShowMenuButton;
         _api.ShowSticker += OnShowSticker;
         _api.ClearItemList += OnClearItemsList;
+        _api.ClearResultList += OnClearResultList;
     }
 
     private void OnDisable()
@@ -70,6 +71,11 @@ public class APIEventsInvoker : MonoBehaviour
         _api.ShowMenuButtonEvent -= OnShowMenuButton;
         _api.ShowSticker -= OnShowSticker;
         _api.ClearItemList -= OnClearItemsList;
+        _api.ClearResultList -= OnClearResultList;
+    }
+    private void OnClearResultList()
+    {
+        SceneObjectsHolder.Instance.InstantiateResultButton.ClearResultButtons();
     }
     private void OnShowSticker(string header, string penalty, string text)
     {
