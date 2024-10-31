@@ -54,6 +54,7 @@ public class SceneObjectsHolder : MonoBehaviour
         _actionObject.EscActionEvent += OnEscButtonAction;
         ReactionUIButton.ActionWithObjectEvent += OnPlayActionAnimation;
     }
+   
 
     public void AddSceneObject(BaseObject obj)
     {
@@ -136,7 +137,7 @@ public class SceneObjectsHolder : MonoBehaviour
         _baseUiButtons.Add(obj);
     }
     private void OnClosePhone(bool value)
-    {
+    {       
         _modeController.CurrentPhoneScreen.ActivatePhoneMainScreen(true);
         _modeController.CurrentPhoneScreen.ClearItemsList();
         if(value )
@@ -236,7 +237,8 @@ public class SceneObjectsHolder : MonoBehaviour
             if (pointObj.GetAOSName() == pointName)
             {
                 pointObj.EnableUIButton(true);
-                pointObj.SetSceneAosEventText(actiontext);
+                pointObj.SetSceneAosEventText(actiontext, pointName);
+               
             }
         }
     }
@@ -293,9 +295,11 @@ public class SceneObjectsHolder : MonoBehaviour
         ModeController.BaseReactionButtonsHandler.HideAllReactions();
         ResetAllAnimationObjects();
         OnHideReactionWindow();
+        _modeController.CurrentInteractScreen.SetHelperTextPosition(null);
         if (_modeController.CurrentPhoneScreen.ActiveSelf)
         {
             OnClosePhone(true);
+            _api.OnInvokeNavAction("dlgClose");
             _modeController.CurrentPhoneScreen.ActivateScreen(false);
         }
         if (_modeController.CurrentArmScreen.ActiveSelf)

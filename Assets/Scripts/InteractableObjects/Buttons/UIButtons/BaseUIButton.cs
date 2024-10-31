@@ -18,7 +18,7 @@ public abstract class BaseUIButton : MonoBehaviour, IPointerEnterHandler, IPoint
     protected virtual void Start()
     {
         API = FindObjectOfType<API>();
-        SceneObjectsHolder.Instance.AddBaseUIButton(this);
+        SceneObjectsHolder.Instance.AddBaseUIButton(this);        
     }
 
     protected virtual void Click() => ClickButtonEvent?.Invoke();

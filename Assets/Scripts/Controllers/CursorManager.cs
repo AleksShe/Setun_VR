@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 
+
 public class CursorManager : MonoBehaviour
 {
     [SerializeField] private Image _knob;
@@ -13,6 +14,7 @@ public class CursorManager : MonoBehaviour
     {
         _pointer = _knob.GetComponent<DesktopPointer>();
     }
+   
     public void EnableCursor(bool value)
     {
         if (!value)

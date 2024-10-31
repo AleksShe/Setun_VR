@@ -201,7 +201,7 @@ public class API : AosObjectBase
     [AosAction(name: "Показать место")]
     public void showPlace(JArray places, JObject nav)
     {
-
+       
         ShowPlaceEvent?.Invoke();
 
         foreach (JObject item in places)
@@ -282,7 +282,7 @@ public class API : AosObjectBase
 
     public void updatePlace(JArray data)
     {
-
+        
         StartUpdatePlaceEvent?.Invoke();
 
         foreach (JObject item in data)
@@ -315,7 +315,7 @@ public class API : AosObjectBase
                                     var pointTempView = tempView.SelectToken("apiId").ToString();
 
                                     ActivatePointByNameEvent?.Invoke(pointTempView, pointActionName);
-                                    Debug.Log("IDDDD " + pointTempView.ToString());
+                                    //Debug.Log("IDDDD " + pointTempView.ToString());
                                 }
                             }
                         }

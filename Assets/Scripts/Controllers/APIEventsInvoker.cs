@@ -67,7 +67,7 @@ public class APIEventsInvoker : MonoBehaviour
         _api.AddTextObjectUiButtonEvent -= OnAddTextObjectUiButton;
         _api.AddTextObjectUiEvent -= OnAddTextObjectUi;
         _api.ResultNameTextButtonEvent -= OnInstanseResultButtons;
-        _api.ResultNameTextButtonSingleEvent += OnInstanseResultSingleButtons;
+        _api.ResultNameTextButtonSingleEvent -= OnInstanseResultSingleButtons;
         _api.ShowMenuButtonEvent -= OnShowMenuButton;
         _api.ShowSticker -= OnShowSticker;
         _api.ClearItemList -= OnClearItemsList;
