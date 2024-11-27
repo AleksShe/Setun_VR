@@ -39,6 +39,7 @@ public class API : AosObjectBase
     public UnityAction<string> ReactionEvent;
     public UnityAction<string, DialogRole> AddTextObjectUiEvent;
     public UnityAction<string, string, string> ResultNameTextButtonEvent;
+    public Action<string, string, List<AnswerButtonObject>> MenuanswerOptionsEvent;
     public UnityAction<string, string> ResultNameTextButtonSingleEvent;
     public UnityAction<string, string> AddTextObjectUiButtonEvent;
     public UnityAction<string, string> PointEvent;
@@ -465,6 +466,49 @@ public class API : AosObjectBase
             string exitText = HtmlToText.Instance.HTMLToTextReplace(exitInfo.SelectToken("text").ToString());
             string warntext = HtmlToText.Instance.HTMLToTextReplace(exitInfo.SelectToken("warn").ToString());
             ShowExitTextEvent?.Invoke(exitText, warntext);
+        }
+        if (data.SelectToken("reasons") != null)
+        {
+            var reasons = data.SelectToken("reasons");
+            if (reasons != null)
+            {
+                var reasons2 = reasons.SelectToken("reasons");
+                if (reasons2 != null)
+                {
+                    var attempt = "";
+                    foreach (var reason in reasons2)
+                        if (reason != null)
+
+                        {               // начинается  блок с местом и ответами 
+                            List<AnswerButtonObject> listButtons = new List<AnswerButtonObject>();
+                            var placeName = reason.SelectToken("name").ToString(); // отправляем название места                           
+                            var answerOptions = reason.SelectToken("reasons");
+
+                            if (reason.SelectToken("attempt") != null)  // отправляем количество попыток
+                            {
+                                attempt = reason.SelectToken("attempt").ToString();
+                            }
+                            if (answerOptions != null)
+                            {
+
+                                Debug.Log("OBJ3 " + answerOptions);
+                                foreach (var answerOption in answerOptions)
+                                {
+                                    var apiId = answerOption.SelectToken("apiId").ToString(); // отправляем id ответа 
+                                    var name = answerOption.SelectToken("name").ToString();  // отправляем текст ответа                                    
+                                    listButtons.Add(new AnswerButtonObject(apiId, name));
+                                }
+
+                            }
+                            MenuanswerOptionsEvent?.Invoke(placeName, attempt, listButtons);
+
+
+                        }
+                }
+
+
+            }
+
         }
     }
     [AosAction(name: "Показать сообщение")]

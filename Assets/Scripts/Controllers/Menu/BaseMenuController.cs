@@ -13,7 +13,7 @@ public abstract class BaseMenuController : MonoBehaviour
         if (InMenu || !CanTeleport)
             return;
         InMenu = true;
-        Api.OnMenuInvoke();
+       // Api.OnMenuInvoke();
         ModeController.CurrentInteractScreen.EnableAllHelperObjects(false);
         ModeController.CurrentMenuScreen.ShowMenuScreen(true);
         _mouseRayCast.CanHover = false;

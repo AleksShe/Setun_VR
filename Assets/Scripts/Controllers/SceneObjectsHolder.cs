@@ -112,11 +112,6 @@ public class SceneObjectsHolder : MonoBehaviour
             var okButton = (OkUiButton)obj;
             okButton.OkClickEvent += OnHideReactionWindow;
         }
-        if (obj is AnswerUIButton)
-        {
-            var answerButton = (AnswerUIButton)obj;
-            answerButton.AnswerClickedEvent += OnSetAnswer;
-        }
         if (obj is PointUiButton)
         {
             var pointButton = (PointUiButton)obj;
