@@ -1,3 +1,4 @@
+using AosSdk.Core.PlayerModule;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -12,7 +13,7 @@ public class DesktopStartScreenView : BaseStartScreenView
 
     protected override void DisableStartScreen()
     {
-        _menuObject.SetActive(false);
+        _menuObject.SetActive(false);       
     }
     public override void SetStartScreenText(string headerText, string commentText, string headerFaultText, string commentFaultText)
     {

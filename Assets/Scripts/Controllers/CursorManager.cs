@@ -14,7 +14,13 @@ public class CursorManager : MonoBehaviour
     {
         _pointer = _knob.GetComponent<DesktopPointer>();
     }
-   
+
+    private void Start()
+    {
+       // Player.Instance.CanMove = false;
+      //  Player.Instance.CursorLockMode = CursorLockMode.Locked;
+    }
+
     public void EnableCursor(bool value)
     {
         if (!value)

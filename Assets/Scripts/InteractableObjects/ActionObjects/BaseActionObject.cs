@@ -13,6 +13,8 @@ public class BaseActionObject : MonoBehaviour
     [SerializeField] protected SceneActionState CurrentState;
     [SerializeField] protected BaseActionButton BaseActionButton;
     [SerializeField] protected UIButtonWithColorChanger BaseUIButton;
+
+    public UIButtonWithColorChanger ColorButton => BaseUIButton;
     protected virtual void Start()
     {
         BaseActionButton.ActionButtonEvent += Activate;

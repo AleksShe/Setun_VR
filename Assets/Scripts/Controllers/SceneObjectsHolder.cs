@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -21,6 +22,8 @@ public class SceneObjectsHolder : MonoBehaviour
     [SerializeField] private EscActionObject _actionObject;
     [SerializeField] private DoorSoundPlayer _doorSoundPlayer;
     [SerializeField] private InstantiateResultButton _instResultButton;
+    [SerializeField] private ARMScreen _armScreens;
+    [SerializeField] private BaseActionObject _backActionObject;
 
     public PlayerState CurrentState { get; set; }
     public IToolObject ToolObject { get; private set; }
@@ -56,6 +59,7 @@ public class SceneObjectsHolder : MonoBehaviour
     }
    
 
+
     public void AddSceneObject(BaseObject obj)
     {
         if (obj is PlaceObject)
@@ -76,6 +80,7 @@ public class SceneObjectsHolder : MonoBehaviour
         {
             var enabler = (SceneObjectWithScreen)obj;
             enabler.EnableScreenEvent += OnEnableScreen;
+            enabler.SetBackLocationNameEventSc += OnSetBackLocation;
         }
         if (obj is PointObject)
         {
@@ -101,7 +106,7 @@ public class SceneObjectsHolder : MonoBehaviour
     }
     public void AddBaseUIButton(BaseUIButton obj)
     {
-       
+
         if (obj is MoveUiButton)
         {
             var moveButton = (MoveUiButton)obj;
@@ -126,22 +131,22 @@ public class SceneObjectsHolder : MonoBehaviour
         {
             var armButton = (ArmUIButton)obj;
             _armUIButtons.Add(armButton);
-            
+
         }
         obj.HoverUiEvent += OnHandleHoverMouse;
         _baseUiButtons.Add(obj);
     }
     private void OnClosePhone(bool value)
-    {       
+    {
         _modeController.CurrentPhoneScreen.ActivatePhoneMainScreen(true);
         _modeController.CurrentPhoneScreen.ClearItemsList();
-        if(value )
-        _mouseRayCastHandler.CanHover = true;
-        
+        if (value)
+            _mouseRayCastHandler.CanHover = true;
+
     }
     private void OnPointClick(string reactionName)
     {
-        _api.OnDialogInvoke(reactionName);      
+        _api.OnDialogInvoke(reactionName);
     }
 
     private void OnNextButtonClicked(string actionName)
@@ -183,7 +188,7 @@ public class SceneObjectsHolder : MonoBehaviour
 
             timeText = $"{objectName} (+{temp})";
         }
-            
+
         foreach (var item in _baseObjects)
         {
             if (item.GetAOSName() == objectId)
@@ -226,14 +231,14 @@ public class SceneObjectsHolder : MonoBehaviour
     private void OnSetAnswer(string answerName) => _api.OnReasonInvoke(answerName);
     public void ActivateArmUIpoints(string pointName, string actiontext)
     {
-       
+
         foreach (var pointObj in _armUIButtons)
         {
             if (pointObj.GetAOSName() == pointName)
             {
                 pointObj.EnableUIButton(true);
                 pointObj.SetSceneAosEventText(actiontext, pointName);
-               
+
             }
         }
     }
@@ -283,22 +288,53 @@ public class SceneObjectsHolder : MonoBehaviour
     }
     private void OnBackUiButtonClick()
     {
-        _canvasParentChanger.RevertCamera();
-        _locationController.SetPreviousLocation();
-        _moveUiButtonsHolder.SetSideMovingObject(null);
-        _modeController.CurrentInteractScreen.DisableAllActionObjects();
-        ModeController.BaseReactionButtonsHandler.HideAllReactions();
-        ResetAllAnimationObjects();
-        OnHideReactionWindow();
-        _modeController.CurrentInteractScreen.SetHelperTextPosition(null);
-        if (_modeController.CurrentPhoneScreen.ActiveSelf)
-        {
-            OnClosePhone(true);
-            _api.OnInvokeNavAction("dlgClose");
-            _modeController.CurrentPhoneScreen.ActivateScreen(false);
-        }
+       
         if (_modeController.CurrentArmScreen.ActiveSelf)
+        {                                
+            string armName = "";
+            armName = _armScreens.CheckArmState();         
+            _backActionObject.Enable();
+            StartCoroutine(Delay());                                                  
+            _api.InvokeEndTween(_locationController.BackLocation);
+            if (_locationController.BackLocation == "shn_place")
+                _locationController.BackLocation = "shn_hall";
+            if (_locationController.BackLocation == "arm_cherepanovski_front")
+                _locationController.BackLocation = "dnc_hall";
+            if (_locationController.BackLocation == "arm_kamenski_front")
+                _locationController.BackLocation = "dnc_hall";
+            _mouseRayCastHandler.CanHover = true;
+            _mouseRayCastHandler.CanInteract = true;
             _modeController.CurrentArmScreen.ActivateScreen(false);
+
+        }
+        else
+        {
+            if (_modeController.CurrentPhoneScreen.ActiveSelf)
+            {
+                OnClosePhone(true);
+                _api.OnInvokeNavAction("dlgClose");
+                _modeController.CurrentPhoneScreen.ActivateScreen(false);
+                _locationController.BackLocation = "shn_hall";
+            }
+
+            _canvasParentChanger.RevertCamera();
+            _locationController.SetPreviousLocation();
+            _moveUiButtonsHolder.SetSideMovingObject(null);
+            _modeController.CurrentInteractScreen.DisableAllActionObjects();
+            ModeController.BaseReactionButtonsHandler.HideAllReactions();
+            ResetAllAnimationObjects();
+            OnHideReactionWindow();
+            _modeController.CurrentInteractScreen.SetHelperTextPosition(null);
+           
+
+        }
+
+
+    }
+    private IEnumerator Delay()
+    {
+        yield return new WaitForSeconds(0.1f);
+        _backActionObject.ColorButton.BaseUIColorChanger.ActivateState();
     }
     private void OnChangeHelperOnHoverEvent(VectorHolder holder)
     {

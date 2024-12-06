@@ -1,3 +1,4 @@
+using AosSdk.Core.PlayerModule;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -41,7 +42,7 @@ public abstract class BaseStartScreenView : MonoBehaviour
 
     }
     protected virtual void OnHideStartScreen(string text)
-    {
+    {      
         if (text == "start")
         {
             DisableStartScreen();
@@ -49,7 +50,7 @@ public abstract class BaseStartScreenView : MonoBehaviour
             ModeController.CurrentInteractScreen.EnableLocationObject(true);
             ModeController.CurrentInteractScreen.EnableTimerObject(true);
             ModeController.CurrentMenuController.CanTeleport = true;
-            LineImage.SetActive(true);
+            LineImage.SetActive(true);           
         }
     }
     protected abstract void DisableStartScreen();
