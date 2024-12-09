@@ -24,7 +24,7 @@ public abstract class BaseStartScreenView : MonoBehaviour
     {
         _nextUIButton.NextButtonPressedEvent += OnHideStartScreen;
         Cursor.visible = true;
-    }
+    }  
     public virtual void SetStartScreenText(string headerText, string commentText, string headerFaultText, string commentFaultText)
     {
         CommentText.alignment = TextAnchor.MiddleLeft;
@@ -50,7 +50,7 @@ public abstract class BaseStartScreenView : MonoBehaviour
             ModeController.CurrentInteractScreen.EnableLocationObject(true);
             ModeController.CurrentInteractScreen.EnableTimerObject(true);
             ModeController.CurrentMenuController.CanTeleport = true;
-            LineImage.SetActive(true);           
+            LineImage.SetActive(true);
         }
     }
     protected abstract void DisableStartScreen();

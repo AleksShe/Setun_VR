@@ -26,6 +26,6 @@ public class DesktopStartScreenView : BaseStartScreenView
     {
         base.OnHideStartScreen(value);
         if (value == "start")
-            _cursorManager.EnableCursor(false);
+            _cursorManager.EnableCursor(false);     
     }
 }
