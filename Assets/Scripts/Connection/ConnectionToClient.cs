@@ -2,7 +2,6 @@ using AosSdk.Core.Utils;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static AosSdk.Core.Utils.AosObjectBase;
 using UnityEngine.Events;
 using System.Threading;
 using Cysharp.Threading.Tasks;

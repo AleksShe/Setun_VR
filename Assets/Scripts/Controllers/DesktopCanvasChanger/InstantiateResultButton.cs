@@ -9,6 +9,7 @@ public class InstantiateResultButton : MonoBehaviour
     [SerializeField] private GameObject _buttonPanel;
     [SerializeField] private InfoPanelModel _infoPanelPrefab;
     [SerializeField] private GameObject _infoPanel;
+    [SerializeField] private Collider _armShnCollider;
     private List<GameObject> _buttonsList = new List<GameObject>();
     private List<ResultTextButton> _resultTextButtonList = new List<ResultTextButton>();
     public void InstantiateButtons(string nameText, string penalty,string resultText)
@@ -18,12 +19,13 @@ public class InstantiateResultButton : MonoBehaviour
         resultButton.setNameText(nameText);
         resultButton.setPenaltyImage(penalty);
         resultButton.ButtonClickEvent += infoPanel.ShowInfo;
-        string text = resultText.Replace("&emsp;", " ").Replace("[", "").Replace("]", "").Replace("\"","").Replace(",","");        
+        string text = resultText.Replace("&emsp;", " ").Replace("[", "").Replace("]", "").Replace("\"","").Replace(",","").Replace("\\", "");        
         infoPanel.setNameText(text);
         ResultPanelList.Instance.AddResultButton(resultButton);
         ResultPanelList.Instance.AddModel(infoPanel);
         _buttonsList.Add(resultButton.gameObject);
         _resultTextButtonList.Add(resultButton);
+        _armShnCollider.enabled = false; // фикс бага с перезапуском тренажера , луч кликает по коллайдеру после получения результата 
     }
     public void InstantiateSingleButtons(string nameText, string penalty)
     {
